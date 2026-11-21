@@ -6,6 +6,8 @@ Live at https://gylleann-nl.github.io/ella-word-den/
 
 ## What's inside
 
+- **Home screen made for kids:** big picture buttons with short labels in her chosen language, a row of bubbles that fill up as she earns today's heart, one big Play button, and four round language buttons. Grown-ups is the small gear at the top (press and hold).
+
 - **Language switch:** on the home screen and in Words. Pick 中文, Svenska or English to practise one language, or Mix to get all three (Mix in games is about half Chinese).
 - **Words:** 15 decks, about 180 words and phrases, grouped into categories:
   - Talking at school: school phrases
@@ -18,7 +20,7 @@ Live at https://gylleann-nl.github.io/ella-word-den/
   - Chinese characters: picture characters like 日 月 山 水
 - **School phrases:** 16 everyday sentences for K2 in all three languages, like 老师好 (Hello, teacher), 我可以去厕所吗？ (Can I go to the toilet?) and 我不明白 (I don't understand). They work in Words, Listen & find, Say it and voice recording.
 - **Write:** trace 17 simple Chinese characters (一 二 三 十 人 大 小 口 日 月 山 上 下 中 木 火 水) stroke by stroke, starting at the green dot and following the arrow. Show me animates the stroke order.
-- **Stories:** three picture stories (Ella flies to Singapore, Midsummer with Grandma, Bo the bear in the forest). Tap any word to hear it, or the speaker for the whole line. The language switch picks Swedish, English, Chinese or all three.
+- **Stories:** eight picture stories set in Swedish everyday life and Singapore (Ella flyger till Singapore, Midsommar hos mormor, Björnen Bo i skogen, Vinter i Sverige, Ellas födelsedag, Var är Sigges boll?, Grodan Greta och regnet, I skogen med farfar). Tap any word to hear it, or the speaker for the whole line. The language switch picks Swedish, English, Chinese or all three.
 - **Listen & find:** hear a word, tap the right picture. Play one deck, a whole category, or everything. After two wrong taps the word is said in Swedish as a hint, then in Chinese again.
 - **Say it:** hear the word, record yourself saying it, then hear yourself and the model.
 - **Colouring:** pick a picture, hear its name, then colour it in. Every page is a little scene (sun, cloud, grass and flowers), and favourites like the unicorn, dog, cat, rabbit, pig, panda, lion, butterfly, fish, frog, cake and ice cream have bigger full-body pictures. The language switch is on the colouring page too. Tapping a colour says the colour's name, so she learns colours too. Magic fills in the real colours, and pictures are remembered.

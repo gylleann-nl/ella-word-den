@@ -23,7 +23,8 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0;background:var(--bg)}
-html{min-height:100%;background:linear-gradient(180deg,#FFF0FA 0%,#F4ECFF 55%,#EAF6FF 100%) fixed}
+html{min-height:100%;background:#FFF0FA linear-gradient(180deg,#FFF0FA 0%,#F4ECFF 55%,#EAF6FF 100%) no-repeat;background-size:100% 100%}
+body{min-height:100vh}
 body{background:transparent}
 body{color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.4;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
   padding:max(10px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(30px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
@@ -215,6 +216,38 @@ select{font:inherit;padding:8px 12px;border-radius:12px;border:2px solid var(--l
 .hold.holding .fill{transform:scaleX(1);transition:transform 1.5s linear}
 .note{font-size:.9rem;color:var(--muted);text-align:center}
 .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9}
+/* ---------- Home ---------- */
+.home{display:flex;flex-direction:column;gap:16px}
+.hero .buddy .pal .art{width:5.2rem;height:5.2rem}
+.hero .bubble{font-size:1.3rem}
+.todaycard{background:#fff;border-radius:30px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 0 rgba(176,79,224,.15)}
+.tchead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.tct{font-family:var(--display);font-weight:700;font-size:1.3rem;color:#E0489A}
+.streakchip{background:var(--p2);border-radius:999px;padding:6px 12px;font-family:var(--display);font-weight:700;font-size:1.05rem}
+.pips{display:grid;grid-template-columns:repeat(10,minmax(0,46px));justify-content:center;gap:6px}
+.pips i{aspect-ratio:1;border-radius:50%;background:#F6EEFF;border:2px dashed #DCC8F5;display:grid;place-items:center}
+.pips i.on{background:#FFE3F1;border:2px solid #FF9EC4;animation:pop .4s}
+.pips i .art{width:72%;height:72%}
+.todaycard .week i{width:30px;height:30px}
+.todaycard .week i .art{width:20px;height:20px}
+.langrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.lbtn{background:#fff;border-radius:24px;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 5px 0 #E8DDF3;border:3px solid transparent}
+.lbtn .lb{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.3rem;color:#fff}
+.lbtn.mix .lb{background:linear-gradient(135deg,#FF7EB6,#B99CFF)} .lbtn.zh .lb{background:var(--zh);font-family:var(--hanzi);font-size:1.6rem}
+.lbtn.sv .lb{background:var(--sv)} .lbtn.en .lb{background:var(--en)}
+.lbtn .lb .art.ico{width:30px;height:30px}
+.lbtn .ls{font-weight:800;font-size:.85rem;color:var(--muted)}
+.lbtn[aria-pressed="true"]{border-color:#3A2456;transform:translateY(2px);box-shadow:0 3px 0 #E8DDF3}
+.lbtn[aria-pressed="true"] .ls{color:var(--ink)}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.home{max-width:720px;margin:0 auto;width:100%}
+.act{background:var(--bg);border-radius:28px;padding:12px 6px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;box-shadow:0 6px 0 var(--sh);transition:transform .1s,box-shadow .1s}
+.act:active{transform:translateY(5px);box-shadow:0 1px 0 var(--sh)}
+.act .ai .art{width:4.4rem;height:4.4rem}
+.act b{font-family:var(--display);font-weight:700;font-size:1.2rem;line-height:1.1}
+.act small{font-weight:800;font-size:.72rem;color:var(--muted);line-height:1.2}
+.act small .sv{color:var(--sv)} .act small .zh{color:var(--zh)}
+@media (max-width:380px){.act .ai .art{width:3.6rem;height:3.6rem}.act b{font-size:1.05rem}}
 /* Drawings */
 .art{display:block;stroke:#3A2456;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;overflow:visible}
 .art.ico{display:inline-block;width:1.25em;height:1.25em;vertical-align:-.25em}
@@ -508,7 +541,9 @@ function renderTop(){
   const home=view.name==="home";
   $("#top").innerHTML=`${home?"":`<button class="iconbtn" id="back" aria-label="Back">${view.back?art("back"):art("home")}</button>`}
     <h1>Ella's Word Den <span class="sp">${ico("sparkle")}</span></h1>
-    <button class="starpill" id="starbtn" aria-label="Stars and stickers">${ico("star")} <span>${stars}</span></button>`;
+    <button class="starpill" id="starbtn" aria-label="Stars and stickers">${ico("star")} <span>${stars}</span></button>
+    ${home?`<button class="iconbtn hold" id="grown" aria-label="Grown-ups: press and hold"><span class="fill"></span>${art("gear")}</button>`:""}`;
+  if(home)holdToOpen($("#grown"),()=>go("parents"));
   const b=$("#back");if(b)b.onclick=()=>view.back?view.back():go("home");
   $("#starbtn").onclick=()=>go("stickers");
 }
@@ -517,43 +552,47 @@ function render(){renderTop();const app=$("#app");app.innerHTML="";(VIEWS[view.n
 const VIEWS={};
 
 /* ---------- Home ---------- */
+/* Activities on the home screen. Labels follow the language switch. */
+const ACTS=[
+ {go:"words",icon:"apple",en:"Words",sv:"Ord",zh:"词语",bg:"#FFE3F1",sh:"#F7B6D6"},
+ {go:"phrases",icon:"teacher",en:"Phrases",sv:"Fraser",zh:"说话",bg:"#EEE4FF",sh:"#CDB8FA"},
+ {go:"find",icon:"ear",en:"Listen",sv:"Lyssna",zh:"听一听",bg:"#E2F7EE",sh:"#A8E2C6"},
+ {go:"sayit",icon:"mouth",en:"Say it",sv:"Säg det",zh:"说一说",bg:"#E3F1FF",sh:"#AED4F7"},
+ {go:"stories",icon:"storybook",en:"Stories",sv:"Sagor",zh:"故事",bg:"#FFEBDD",sh:"#F7C4A0"},
+ {go:"colour",icon:"palette",en:"Colour",sv:"Måla",zh:"涂色",bg:"#FFF6CC",sh:"#EED97A"},
+ {go:"write",icon:"pencil",en:"Write",sv:"Skriva",zh:"写字",bg:"#FFE3F1",sh:"#F7B6D6"},
+ {go:"phonics",icon:"abc",en:"Phonics",sv:"ABC",zh:"拼读",bg:"#EEE4FF",sh:"#CDB8FA"},
+ {go:"stickers",icon:"unicorn",en:"Stickers",sv:"Klistermärken",zh:"贴纸",bg:"#E2F7EE",sh:"#A8E2C6"}];
+function actLabel(a){const g=settings.gameLang;
+  if(g!=="mix")return `<b lang="${g}">${esc(a[g])}</b>`;
+  return `<b>${esc(a.en)}</b><small><span class="sv">${esc(a.sv)}</span> · <span class="zh">${esc(a.zh)}</span></small>`}
 VIEWS.home=app=>{
-  app.innerHTML=`<div class="wrap" style="gap:18px">
-    ${buddy("Hej Ella! Hi Ella! 你好 Ella！")}
-    ${langPills()}
-    ${streakBox()}
-    <div class="tiles">
-      <button class="tile" data-go="words"><span class="ic">${art("apple")}</span><b>Words</b><small>Ord · 词语</small></button>
-      <button class="tile" id="phrasesTile"><span class="ic">${art("teacher")}</span><b>School phrases</b><small>Fraser · 学校用语</small></button>
-      <button class="tile" data-go="find"><span class="ic">${art("ear")}</span><b>Listen &amp; find</b><small>Lyssna · 听一听</small></button>
-      <button class="tile" data-go="sayit"><span class="ic">${art("mouth")}</span><b>Say it</b><small>Säg det · 说一说</small></button>
-      <button class="tile" data-go="write"><span class="ic">${art("pencil")}</span><b>Write</b><small>Skriva · 写字</small></button>
-      <button class="tile" data-go="stories"><span class="ic">${art("storybook")}</span><b>Stories</b><small>Sagor · 故事</small></button>
-      <button class="tile" data-go="phonics"><span class="ic">${art("abc")}</span><b>Phonics</b><small>a b c</small></button>
-      <button class="tile" data-go="colour"><span class="ic">${art("palette")}</span><b>Colouring</b><small>Måla · 涂色</small></button>
-      <button class="tile" data-go="stickers"><span class="ic">${art("star")}</span><b>Stickers</b><small>Klistermärken · 贴纸</small></button>
-      <button class="tile hold" id="grown"><span class="fill"></span><span class="ic">${art("gear")}</span><b>Grown-ups</b><small>Press and hold</small></button>
-    </div></div>`;
-  $$("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
-  $("#phrasesTile").onclick=()=>go("words",{deck:"phrases",i:0,back:()=>go("home")});
-  bindLangPills();
+  const greet={mix:"Hej Ella! Hi Ella! 你好 Ella！",sv:"Hej Ella! Vad vill du göra?",en:"Hi Ella! What shall we do?",zh:"你好 Ella！我们玩什么？"}[settings.gameLang];
+  app.innerHTML=`<div class="home">
+    <div class="hero">${buddy(greet)}</div>
+    ${todayCard()}
+    <section class="langrow" aria-label="Language">
+      ${[["mix",ico("dice"),"Mix"],["zh","中","中文"],["sv","SV","Svenska"],["en","EN","English"]].map(([k,big,small])=>`<button class="lbtn ${k}" data-gl="${k}" aria-pressed="${settings.gameLang===k}" aria-label="${small}"><span class="lb">${big}</span><span class="ls">${small}</span></button>`).join("")}
+    </section>
+    <section class="acts">${ACTS.map(a=>`<button class="act" data-act="${a.go}" style="--bg:${a.bg};--sh:${a.sh}"><span class="ai">${art(a.icon)}</span>${actLabel(a)}</button>`).join("")}</section>
+  </div>`;
+  $$("[data-act]").forEach(b=>b.onclick=()=>{const k=b.dataset.act;if(k==="phrases")go("words",{deck:"phrases",i:0,back:()=>go("home")});else go(k)});
+  bindLangPills(()=>render());
   if($("#daily"))$("#daily").onclick=()=>startFind("all",settings.perHeart,true);
-  $("#pal").onclick=()=>{hop();play([{lang:"sv",text:"Hej Ella!"},{lang:"en",text:"Hi Ella!"},{lang:"zh",text:"你好 Ella！"}])};
-  holdToOpen($("#grown"),()=>go("parents"));
+  $("#pal").onclick=()=>{hop();const g=settings.gameLang;play(g==="mix"?[{lang:"sv",text:"Hej Ella!"},{lang:"en",text:"Hi Ella!"},{lang:"zh",text:"你好 Ella！"}]:[{lang:g,text:greet}])};
 };
-function streakBox(){
+/* Today's heart: one bubble per word, so she can see it fill up. */
+function todayCard(){
   const t=today(),per=settings.perHeart,cap=settings.heartCap,n=streakDays();
   const done=t.hearts>=cap;const into=done?per:t.words-t.hearts*per;
-  const msg=done?"Today's hearts are done! Bra jobbat!":`${per-into} more words for a ${ico("heart")}`;
+  const pips=Array.from({length:per},(_,i)=>`<i class="${i<into?"on":""}">${i<into?art("heart"):""}</i>`).join("");
   const days=[6,5,4,3,2,1,0].map(i=>{const d=dayAgo(i),x=daily[dayKey(d)];
     return `<div class="${i===0?"today":""}"><i>${x&&x.hearts?art("heart"):""}</i>${"SMTWTFS"[d.getDay()]}</div>`}).join("");
-  return `<section class="streak" aria-label="Streak">
-    <div class="nums"><div class="sb a"><b>${ico("rainbow")} ${n}</b><small>${n===1?"day":"days"} in a row</small></div>
-      <div class="sb b"><b>${ico("heart")} ${t.hearts}</b><small>${t.hearts===1?"heart":"hearts"} today</small></div></div>
-    <div class="todaybar"><span style="width:${into/per*100}%"></span></div>
-    <div class="todaytxt">${msg}</div>
+  return `<section class="todaycard" aria-label="Today's heart">
+    <div class="tchead"><span class="tct">${ico("heart")} Today's heart</span><span class="streakchip">${ico("rainbow")} ${n} ${n===1?"day":"days"}</span></div>
+    <div class="pips">${pips}</div>
+    ${done?`<div class="todaytxt">${art("heart","ico")} Heart earned today! Bra jobbat!</div>`:`<button class="bigbtn daily" id="daily">${ico("star")} Play ${per} words</button>`}
     <div class="week">${days}</div>
-    ${done?"":`<button class="bigbtn daily" id="daily">${ico("star")} Daily ${per} words</button>`}
   </section>`}
 function holdToOpen(el,fn){let t=null;
   const start=e=>{e.preventDefault();el.classList.add("holding");t=setTimeout(()=>{el.classList.remove("holding");fn()},1500)};
@@ -958,7 +997,42 @@ const STORIES=[
   {pic:"rain",sv:"Oj, det regnar! Bo hittar en svamp.",en:"Oh, it's raining! Bo finds a mushroom.",zh:"哎呀 ， 下雨 了 ！ Bo 找到 一个 蘑菇 。",py:"Āiyā, xiàyǔ le! Bo zhǎodào yí gè mógu."},
   {pic:"rabbit",sv:"Under svampen sitter en liten kanin.",en:"Under the mushroom sits a little rabbit.",zh:"蘑菇 下面 坐着 一只 小 兔子 。",py:"Mógu xiàmiàn zuòzhe yì zhī xiǎo tùzi."},
   {pic:"friend",sv:"Bo delar sina blåbär. Nu är de vänner!",en:"Bo shares his blueberries. Now they are friends!",zh:"Bo 和 小 兔子 分享 蓝莓 。 现在 他们 是 朋友 了 ！",py:"Bo hé xiǎo tùzi fēnxiǎng lánméi. Xiànzài tāmen shì péngyou le!"},
-  {pic:"rainbow",sv:"Regnet slutar. Titta, en regnbåge!",en:"The rain stops. Look, a rainbow!",zh:"雨 停 了 。 看 ， 彩虹 ！",py:"Yǔ tíng le. Kàn, cǎihóng!"}]}
+  {pic:"rainbow",sv:"Regnet slutar. Titta, en regnbåge!",en:"The rain stops. Look, a rainbow!",zh:"雨 停 了 。 看 ， 彩虹 ！",py:"Yǔ tíng le. Kàn, cǎihóng!"}]},
+ {id:"winter",pic:"snowman",title:{sv:"Vinter i Sverige",en:"Winter in Sweden",zh:"瑞典 的 冬天"},pages:[
+  {pic:"snow",sv:"Det snöar! Allt är vitt.",en:"It's snowing! Everything is white.",zh:"下雪 了 ！ 到处 都 是 白色 的 。",py:"Xiàxuě le! Dàochù dōu shì báisè de."},
+  {pic:"mittens",sv:"Ella tar på sig vantar och halsduk.",en:"Ella puts on mittens and a scarf.",zh:"Ella 戴上 手套 和 围巾 。",py:"Ella dàishàng shǒutào hé wéijīn."},
+  {pic:"snowman",sv:"Hon bygger en stor snögubbe.",en:"She builds a big snowman.",zh:"她 堆 了 一个 大 雪人 。",py:"Tā duī le yí gè dà xuěrén."},
+  {pic:"sledge",sv:"Sedan åker hon pulka. Wiii!",en:"Then she goes sledging. Wheee!",zh:"然后 她 坐 雪橇 。 哇 ！",py:"Ránhòu tā zuò xuěqiāo. Wa!"},
+  {pic:"candle",sv:"Inne tänder mamma ett ljus.",en:"Inside, Mummy lights a candle.",zh:"在 家里 ， 妈妈 点 了 一支 蜡烛 。",py:"Zài jiālǐ, māma diǎn le yì zhī làzhú."},
+  {pic:"gingerbread",sv:"De äter pepparkakor. Så mysigt!",en:"They eat gingerbread biscuits. So cosy!",zh:"她们 吃 姜饼 。 真 温馨 ！",py:"Tāmen chī jiāngbǐng. Zhēn wēnxīn!"}]},
+ {id:"bday",pic:"cake",title:{sv:"Ellas födelsedag",en:"Ella's birthday",zh:"Ella 的 生日"},pages:[
+  {pic:"cake",sv:"Idag fyller Ella sex år!",en:"Today Ella turns six!",zh:"今天 Ella 六 岁 了 ！",py:"Jīntiān Ella liù suì le!"},
+  {pic:"present",sv:"Hon får ett paket med en rosett.",en:"She gets a present with a bow.",zh:"她 收到 一个 有 蝴蝶结 的 礼物 。",py:"Tā shōudào yí gè yǒu húdiéjié de lǐwù."},
+  {pic:"teddy",sv:"I paketet finns en mjuk nalle.",en:"In the present there is a soft teddy.",zh:"礼物 里 有 一只 软软 的 小熊 。",py:"Lǐwù lǐ yǒu yì zhī ruǎnruǎn de xiǎoxióng."},
+  {pic:"friend",sv:"Hennes kompisar kommer och sjunger.",en:"Her friends come and sing.",zh:"她 的 朋友们 来 唱歌 。",py:"Tā de péngyoumen lái chànggē."},
+  {pic:"icecream",sv:"Alla äter tårta och glass.",en:"Everyone eats cake and ice cream.",zh:"大家 吃 蛋糕 和 冰淇淋 。",py:"Dàjiā chī dàngāo hé bīngqílín."},
+  {pic:"star",sv:"Grattis på födelsedagen, Ella!",en:"Happy birthday, Ella!",zh:"生日 快乐 ， Ella ！",py:"Shēngrì kuàilè, Ella!"}]},
+ {id:"sigge",pic:"cat",title:{sv:"Var är Sigges boll?",en:"Where is Sigge's ball?",zh:"Sigge 的 球 在 哪里 ？"},pages:[
+  {pic:"cat",sv:"Katten Sigge har tappat sin boll.",en:"Sigge the cat has lost his ball.",zh:"小猫 Sigge 的 球 不见 了 。",py:"Xiǎomāo Sigge de qiú bújiàn le."},
+  {pic:"box",sv:"Är den i lådan? Nej!",en:"Is it in the box? No!",zh:"在 盒子 里 吗 ？ 不 在 ！",py:"Zài hézi lǐ ma? Bú zài!"},
+  {pic:"bed",sv:"Är den under sängen? Nej!",en:"Is it under the bed? No!",zh:"在 床 下面 吗 ？ 不 在 ！",py:"Zài chuáng xiàmiàn ma? Bú zài!"},
+  {pic:"shoes",sv:"Är den i skon? Nej!",en:"Is it in the shoe? No!",zh:"在 鞋子 里 吗 ？ 不 在 ！",py:"Zài xiézi lǐ ma? Bú zài!"},
+  {pic:"dog",sv:"Där är den! Hunden leker med bollen.",en:"There it is! The dog is playing with the ball.",zh:"在 这里 ！ 小狗 在 玩 球 。",py:"Zài zhèlǐ! Xiǎogǒu zài wán qiú."},
+  {pic:"ball",sv:"Nu leker Sigge och hunden tillsammans.",en:"Now Sigge and the dog play together.",zh:"现在 Sigge 和 小狗 一起 玩 。",py:"Xiànzài Sigge hé xiǎogǒu yìqǐ wán."}]},
+ {id:"greta",pic:"frog",title:{sv:"Grodan Greta och regnet",en:"Greta the frog and the rain",zh:"青蛙 Greta 和 雨"},pages:[
+  {pic:"frog",sv:"Grodan Greta bor vid en liten sjö.",en:"Greta the frog lives by a little lake.",zh:"青蛙 Greta 住 在 小 湖 边 。",py:"Qīngwā Greta zhù zài xiǎo hú biān."},
+  {pic:"sun",sv:"Solen skiner. Det är så varmt.",en:"The sun is shining. It is so hot.",zh:"太阳 照 着 。 天气 好 热 。",py:"Tàiyáng zhàozhe. Tiānqì hǎo rè."},
+  {pic:"cloud",sv:"Greta tittar upp. Ett moln kommer!",en:"Greta looks up. A cloud is coming!",zh:"Greta 往 上 看 。 一朵 云 来 了 ！",py:"Greta wǎng shàng kàn. Yì duǒ yún lái le!"},
+  {pic:"rain",sv:"Plask, plask! Nu regnar det.",en:"Splish, splash! Now it is raining.",zh:"哗啦 哗啦 ！ 下雨 了 。",py:"Huālā huālā! Xiàyǔ le."},
+  {pic:"duck",sv:"Greta och ankan hoppar i vattenpölarna.",en:"Greta and the duck jump in the puddles.",zh:"Greta 和 鸭子 在 水坑 里 跳 。",py:"Greta hé yāzi zài shuǐkēng lǐ tiào."},
+  {pic:"happyface",sv:"Greta är glad. Hon älskar regn!",en:"Greta is happy. She loves rain!",zh:"Greta 很 开心 。 她 喜欢 下雨 ！",py:"Greta hěn kāixīn. Tā xǐhuan xiàyǔ!"}]},
+ {id:"skog",pic:"mushroom",title:{sv:"I skogen med farfar",en:"In the forest with Grandpa",zh:"和 爷爷 去 森林"},pages:[
+  {pic:"forest",sv:"Ella och farfar går till skogen.",en:"Ella and Grandpa go to the forest.",zh:"Ella 和 爷爷 去 森林 。",py:"Ella hé yéye qù sēnlín."},
+  {pic:"boots",sv:"Ella har sina gröna stövlar på sig.",en:"Ella is wearing her green boots.",zh:"Ella 穿着 绿色 的 靴子 。",py:"Ella chuānzhe lǜsè de xuēzi."},
+  {pic:"mushroom",sv:"De letar efter svamp i mossan.",en:"They look for mushrooms in the moss.",zh:"他们 在 苔藓 里 找 蘑菇 。",py:"Tāmen zài táixiǎn lǐ zhǎo mógu."},
+  {pic:"reindeer",sv:"Titta! Där står en ren.",en:"Look! There is a reindeer.",zh:"看 ！ 那里 有 一只 驯鹿 。",py:"Kàn! Nàlǐ yǒu yì zhī xùnlù."},
+  {pic:"blueberries",sv:"De hittar blåbär också. Mums!",en:"They find blueberries too. Yum!",zh:"他们 也 找到 了 蓝莓 。 真 好吃 ！",py:"Tāmen yě zhǎodào le lánméi. Zhēn hǎochī!"},
+  {pic:"fika",sv:"Hemma blir det fika med farmor.",en:"At home they have fika with Grandma.",zh:"回 到 家 ， 和 奶奶 一起 喝 下午茶 。",py:"Huí dào jiā, hé nǎinai yìqǐ hē xiàwǔchá."}]}
 ];
 const zhJoin=t=>t.replace(/ /g,"");
 const storyLangs=()=>settings.gameLang==="mix"?["sv","en","zh"]:[settings.gameLang];
