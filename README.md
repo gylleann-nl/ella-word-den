@@ -24,7 +24,7 @@ Words she finds harder come up more often in the games.
 
 ## Run it
 
-Open `index.html` in any browser, or visit https://gylleann-nl.github.io/se-cn-en-app/
+Open `index.html` in any browser, or visit https://gylleann-nl.github.io/ella-word-den/
 
 ## Tips
 
