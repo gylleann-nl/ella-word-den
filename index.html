@@ -189,6 +189,52 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
 .tok.on{background:#FFF1C2}
 .sline .spk{flex:none}
 @media (max-width:480px){.stext{font-size:1.3rem}.sline.zh .stext{font-size:1.5rem}.sline{padding:10px 12px;gap:8px}}
+.photo{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block}
+.pic .photo{width:calc(var(--ps,7rem)*1.3);height:calc(var(--ps,7rem)*1.3);border:3px solid #fff;box-shadow:0 2px 0 var(--line)}
+.mineform{display:flex;flex-direction:column;gap:8px}
+.mineform input:not([type=file]){font:inherit;padding:10px 12px;border-radius:12px;border:2px solid var(--line)}
+.mineform #mPrev{width:120px;height:120px}
+.timechip{align-self:center;background:var(--p2);border-radius:999px;padding:6px 16px;font-family:var(--display);font-weight:700;font-size:1.4rem}
+.wotd{background:#fff;border-radius:26px;padding:12px 14px;display:flex;align-items:center;gap:12px;text-align:left;box-shadow:0 6px 0 rgba(176,79,224,.15);width:100%}
+.wotd .wp{flex:none;width:84px;display:grid;place-items:center}
+.wotd .wt{flex:1;display:flex;flex-direction:column;gap:4px;min-width:0}
+.wotd .wt small{font-weight:800;color:#E0489A;font-size:.8rem}
+.wotd .wl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.wotd .wl b{font-family:var(--display);font-size:1.3rem}
+.wotd .wl i{font-style:normal;color:var(--muted);font-weight:800;font-size:.85rem}
+.wotd .spk .art{width:2rem;height:2rem;color:var(--muted)}
+.ltile.slot{border-style:dashed;color:var(--ink)}
+.ltile.pick{background:#FFF1C2;border-color:var(--gold)}
+.ltile.wrong{animation:wiggle .4s}
+.opt .ow{display:block;font-family:var(--display);font-weight:600;font-size:1.3rem;margin-top:4px}
+.opt.word .pic+span{display:block;font-family:var(--display);font-size:1.8rem}
+.countbox{background:#fff;border:3px solid var(--line);border-radius:28px;padding:14px;width:100%;max-width:560px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.cgroup{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:300px}
+.cgroup .art{width:54px;height:54px;cursor:pointer;transition:transform .15s}
+.cgroup .art.counted{transform:scale(1.15);filter:drop-shadow(0 0 4px #FFD43B)}
+.plus{font-family:var(--display);font-size:3rem;font-weight:700;color:var(--accent)}
+.pattern{background:#fff;border:3px solid var(--line);border-radius:28px;padding:14px;width:100%;max-width:640px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.tok3{width:48px;height:48px;stroke:#3A2456;stroke-width:5;stroke-linejoin:round}
+.opt .tok3{width:72px;height:72px}
+.qbox{width:52px;height:52px;border-radius:14px;border:3px dashed var(--accent);display:grid;place-items:center;font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent)}
+.dayline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:560px}
+.dslot{background:#fff;border:3px dashed var(--line);border-radius:20px;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;--ps:2.2rem}
+.dslot.done{border-style:solid;border-color:var(--en);background:var(--enBg)}
+.dslot .dn{font-family:var(--display);font-size:1.6rem;font-weight:700;color:var(--muted)}
+.dslot b{font-family:var(--display);font-size:1rem}
+.dcard{min-height:130px}
+.dcard .ow{font-size:1.05rem!important}
+.memgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:520px}
+@media (min-width:640px){.memgrid{grid-template-columns:repeat(4,1fr)}}
+.mcard{aspect-ratio:3/4;border-radius:20px;position:relative;--ps:2.6rem}
+.mcard>span{position:absolute;inset:0;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:6px}
+.mcard .back{background:linear-gradient(135deg,#FF9EC4,#B197FC);border:3px solid #fff;box-shadow:0 4px 0 #E8DDF3}
+.mcard .back .art{width:46%;height:46%}
+.mcard .front{background:#fff;border:3px solid var(--line);display:none}
+.mcard .front b{font-family:var(--display);font-size:1.25rem;text-align:center;overflow-wrap:anywhere}
+.mcard.up .back{display:none} .mcard.up .front{display:flex;animation:flipin .25s ease}
+@keyframes flipin{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.mcard.matched .front{border-color:var(--en);background:var(--enBg)}
 .stickers{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px}
 .stk{aspect-ratio:1;border-radius:22px;background:var(--surface);border:3px solid var(--line);display:grid;place-items:center;font-size:2.8rem}
 .stk.locked{font-size:1.6rem;color:var(--muted);background:#F6EEFF;border-style:dashed;font-family:var(--display)}
@@ -378,6 +424,21 @@ const DECKS=[
  {id:"numbers",icon:"numbers",name:{en:"Numbers",sv:"Siffror",zh:"数字"},words:[
   ["n:1","one","ett","一","yī"],["n:2","two","två","二","èr"],["n:3","three","tre","三","sān"],["n:4","four","fyra","四","sì"],["n:5","five","fem","五","wǔ"],
   ["n:6","six","sex","六","liù"],["n:7","seven","sju","七","qī"],["n:8","eight","åtta","八","bā"],["n:9","nine","nio","九","jiǔ"],["n:10","ten","tio","十","shí"]]},
+ {id:"feelings",icon:"happyface",name:{en:"Feelings",sv:"Känslor",zh:"心情"},words:[
+  ["happyface","happy","glad","开心","kāixīn"],["sadface","sad","ledsen","难过","nánguò"],["angryface","angry","arg","生气","shēngqì"],
+  ["scaredface","scared","rädd","害怕","hàipà"],["tiredface","tired","trött","累","lèi"],["surprisedface","surprised","förvånad","惊讶","jīngyà"]]},
+ {id:"shapes",icon:"triangle",name:{en:"Shapes",sv:"Former",zh:"形状"},words:[
+  ["circle","circle","cirkel","圆形","yuánxíng"],["square","square","kvadrat","正方形","zhèngfāngxíng"],["triangle","triangle","triangel","三角形","sānjiǎoxíng"],
+  ["rectangle","rectangle","rektangel","长方形","chángfāngxíng"],["starshape","star","stjärna","星形","xīngxíng"],["heart","heart","hjärta","心形","xīnxíng"]]},
+ {id:"days",icon:"cal1",name:{en:"Days of the week",sv:"Veckodagar",zh:"星期"},words:[
+  ["cal1","Monday","måndag","星期一","xīngqīyī"],["cal2","Tuesday","tisdag","星期二","xīngqī'èr"],["cal3","Wednesday","onsdag","星期三","xīngqīsān"],
+  ["cal4","Thursday","torsdag","星期四","xīngqīsì"],["cal5","Friday","fredag","星期五","xīngqīwǔ"],["cal6","Saturday","lördag","星期六","xīngqīliù"],["cal7","Sunday","söndag","星期天","xīngqītiān"]]},
+ {id:"myday",icon:"clock",name:{en:"My day",sv:"Min dag",zh:"我的一天"},words:[
+  ["sunrise","wake up","vakna","起床","qǐchuáng","07:00"],["toothbrush","brush teeth","borsta tänderna","刷牙","shuāyá","07:15"],
+  ["bread","eat breakfast","äta frukost","吃早饭","chī zǎofàn","07:30"],["schoolbag","go to school","gå till skolan","去上学","qù shàngxué","08:15"],
+  ["rice","eat lunch","äta lunch","吃午饭","chī wǔfàn","12:00"],["ball","play","leka","玩","wán","15:00"],
+  ["soup","eat dinner","äta middag","吃晚饭","chī wǎnfàn","18:00"],["box","tidy the toys","städa leksakerna","收拾玩具","shōushi wánjù","19:00"],
+  ["bath","take a bath","bada","洗澡","xǐzǎo","19:30"],["bed","go to sleep","sova","睡觉","shuìjiào","20:00"]]},
  {id:"hanzi",icon:"字",chars:true,name:{en:"Picture characters",sv:"Bildtecken",zh:"象形字"},words:[
   ["sun","sun","sol","日","rì"],["moon","moon","måne","月","yuè"],["mountain","mountain","berg","山","shān"],["water","water","vatten","水","shuǐ"],
   ["fire","fire","eld","火","huǒ"],["tree","wood","trä","木","mù"],["person","person","människa","人","rén"],["mouth","mouth","mun","口","kǒu"],
@@ -388,14 +449,27 @@ const GROUPS=[
  {icon:"teacher",name:{en:"Talking at school",sv:"Prata i skolan",zh:"在学校说话"},decks:["phrases"]},
  {icon:"strawberry",name:{en:"Yummy food",sv:"Mat",zh:"好吃的"},decks:["fruit","food","sgfood"]},
  {icon:"butterfly",name:{en:"Animals and nature",sv:"Djur och natur",zh:"动物和大自然"},decks:["animals","nature"]},
- {icon:"heart",name:{en:"Me and my family",sv:"Jag och min familj",zh:"我和家人"},decks:["body","people"]},
+ {icon:"heart",name:{en:"Me and my family",sv:"Jag och min familj",zh:"我和家人"},decks:["mine","body","people","feelings"]},
+ {icon:"clock",name:{en:"Days and time",sv:"Dagar och tid",zh:"日子和时间"},decks:["myday","days"]},
  {icon:"schoolbag",name:{en:"School and Singapore",sv:"Skolan och Singapore",zh:"学校和新加坡"},decks:["school","sg"]},
  {icon:"swedenflag",name:{en:"Sweden",sv:"Sverige",zh:"瑞典"},decks:["sweden","winter"]},
- {icon:"rainbow",name:{en:"Colours and numbers",sv:"Färger och siffror",zh:"颜色和数字"},decks:["colours","numbers"]},
+ {icon:"rainbow",name:{en:"Colours, shapes and numbers",sv:"Färger, former och siffror",zh:"颜色、形状和数字"},decks:["colours","shapes","numbers"]},
  {icon:"字",name:{en:"Chinese characters",sv:"Kinesiska tecken",zh:"汉字"},decks:["hanzi"]}];
 const WORDS=[];
-DECKS.forEach(d=>{d.list=d.words.map((a,i)=>{const w={id:d.id+":"+i,deck:d,pic:a[0],en:a[1],sv:a[2],zh:a[3],py:a[4]};WORDS.push(w);return w})});
+DECKS.forEach(d=>{d.list=d.words.map((a,i)=>{const w={id:d.id+":"+i,deck:d,pic:a[0],en:a[1],sv:a[2],zh:a[3],py:a[4],time:a[5]};WORDS.push(w);return w})});
 const byId=Object.fromEntries(WORDS.map(w=>[w.id,w]));
+/* Ella's own words: photos and words added by a grown-up, kept on this device. */
+let MINE=[];try{MINE=JSON.parse(localStorage.getItem("ow.mine")||"[]");if(!Array.isArray(MINE))MINE=[]}catch(e){MINE=[]}
+const MINEIMG={};
+function buildMine(){
+  const old=DECKS.findIndex(d=>d.id==="mine");
+  if(old>=0){DECKS[old].list.forEach(w=>{delete byId[w.id];const k=WORDS.indexOf(w);if(k>=0)WORDS.splice(k,1)});DECKS.splice(old,1)}
+  if(!MINE.length)return;
+  const d={id:"mine",icon:"girl",name:{en:"Ella's things",sv:"Ellas saker",zh:"Ella 的东西"},words:[]};
+  d.list=MINE.map(m=>{MINEIMG[m.k]=m.img;const w={id:"mine:"+m.k,deck:d,pic:"photo:"+m.k,en:m.en,sv:m.sv,zh:m.zh,py:m.py||""};WORDS.push(w);byId[w.id]=w;return w});
+  DECKS.unshift(d)}
+function saveMine(){try{localStorage.setItem("ow.mine",JSON.stringify(MINE));return true}catch(e){alert("There is no more room on this device for photos. Delete one first.");return false}}
+buildMine();
 
 const LANG={
   sv:{name:"Svenska",chip:"SV",praise:["Bra jobbat!","Toppen!","Jättebra!","Snyggt!"]},
@@ -519,6 +593,7 @@ function picHTML(w,ps){
   if(w.deck&&w.deck.chars)return `<div class="pic han"${st}><b lang="zh">${w.zh}</b>${art(w.pic,"sm")}</div>`;
   const p=w.pic||w;
   if(p[0]==="#")return `<div class="pic"${st}><div class="swatch" style="background:${p}"></div></div>`;
+  if(p.startsWith("photo:"))return `<div class="pic"${st}><img class="photo" src="${MINEIMG[p.slice(6)]||""}" alt=""></div>`;
   if(p.startsWith("n:")){const n=+p.slice(2);return `<div class="pic num"${st}><b>${n}</b><div class="dots">${"<i></i>".repeat(n)}</div></div>`}
   return `<div class="pic"${st}>${art(p)}</div>`}
 const iconHTML=k=>ART[k]?art(k):`<span class="hz">${k}</span>`;
@@ -562,6 +637,9 @@ const ACTS=[
  {go:"colour",icon:"palette",en:"Colour",sv:"Måla",zh:"涂色",bg:"#FFF6CC",sh:"#EED97A"},
  {go:"write",icon:"pencil",en:"Write",sv:"Skriva",zh:"写字",bg:"#FFE3F1",sh:"#F7B6D6"},
  {go:"phonics",icon:"abc",en:"Phonics",sv:"ABC",zh:"拼读",bg:"#EEE4FF",sh:"#CDB8FA"},
+ {go:"count",icon:"numbers",en:"Count",sv:"Räkna",zh:"数数",bg:"#E3F1FF",sh:"#AED4F7"},
+ {go:"memory",icon:"cards",en:"Memory",sv:"Memory",zh:"记忆",bg:"#FFEBDD",sh:"#F7C4A0"},
+ {go:"games",icon:"dice",en:"Games",sv:"Lekar",zh:"游戏",bg:"#FFF6CC",sh:"#EED97A"},
  {go:"stickers",icon:"unicorn",en:"Stickers",sv:"Klistermärken",zh:"贴纸",bg:"#E2F7EE",sh:"#A8E2C6"}];
 function actLabel(a){const g=settings.gameLang;
   if(g!=="mix")return `<b lang="${g}">${esc(a[g])}</b>`;
@@ -571,6 +649,7 @@ VIEWS.home=app=>{
   app.innerHTML=`<div class="home">
     <div class="hero">${buddy(greet)}</div>
     ${todayCard()}
+    ${wordOfDay()}
     <section class="langrow" aria-label="Language">
       ${[["mix",ico("dice"),"Mix"],["zh","中","中文"],["sv","SV","Svenska"],["en","EN","English"]].map(([k,big,small])=>`<button class="lbtn ${k}" data-gl="${k}" aria-pressed="${settings.gameLang===k}" aria-label="${small}"><span class="lb">${big}</span><span class="ls">${small}</span></button>`).join("")}
     </section>
@@ -579,9 +658,16 @@ VIEWS.home=app=>{
   $$("[data-act]").forEach(b=>b.onclick=()=>{const k=b.dataset.act;if(k==="phrases")go("words",{deck:"phrases",i:0,back:()=>go("home")});else go(k)});
   bindLangPills(()=>render());
   if($("#daily"))$("#daily").onclick=()=>startFind("all",settings.perHeart,true);
+  const wd=todaysWord();if($("#wotd"))$("#wotd").onclick=()=>play(cardLangs().map(l=>sayWord(wd,l)));
   $("#pal").onclick=()=>{hop();const g=settings.gameLang;play(g==="mix"?[{lang:"sv",text:"Hej Ella!"},{lang:"en",text:"Hi Ella!"},{lang:"zh",text:"你好 Ella！"}]:[{lang:g,text:greet}])};
 };
 /* Today's heart: one bubble per word, so she can see it fill up. */
+/* Word of the day: the same word all day, a new one tomorrow. */
+function todaysWord(){const pool=WORDS.filter(w=>!w.deck.chars&&!w.deck.phrase&&w.deck.id!=="mine"&&w.deck.id!=="days");
+  const d=new Date();const n=Math.floor(new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime()/864e5);return pool[(n*37)%pool.length]}
+function wordOfDay(){const w=todaysWord();
+  return `<button class="wotd" id="wotd" aria-label="Word of the day"><span class="wp">${picHTML(w,"3.6rem")}</span><span class="wt"><small>Word of the day · Dagens ord · 今日词语</small>
+    ${cardLangs().map(l=>`<span class="wl">${chip(l)} <b lang="${l}">${esc(w[l])}</b>${l==="zh"&&settings.pinyin?` <i>${esc(w.py)}</i>`:""}</span>`).join("")}</span><span class="spk">${art("speaker")}</span></button>`}
 function todayCard(){
   const t=today(),per=settings.perHeart,cap=settings.heartCap,n=streakDays();
   const done=t.hearts>=cap;const into=done?per:t.words-t.hearts*per;
@@ -620,7 +706,8 @@ function bindLangPills(onChange){$$("[data-gl]").forEach(b=>b.onclick=()=>{setti
   const g=settings.gameLang;if(g!=="mix")play([{lang:g,text:{zh:"中文",sv:"Svenska",en:"English"}[g]}]);if(onChange)onChange()})}
 /* Languages shown on a card: all three in Mix, otherwise just the chosen one. */
 const cardLangs=()=>settings.gameLang==="mix"?settings.order:[settings.gameLang];
-const poolFor=id=>id==="all"?WORDS.filter(w=>!w.deck.chars):id.startsWith("g:")?GROUPS[+id.slice(2)].decks.flatMap(x=>DECKS.find(d=>d.id===x).list):DECKS.find(d=>d.id===id).list;
+const deckList=id=>{const d=DECKS.find(x=>x.id===id);return d?d.list:[]};
+const poolFor=id=>id==="all"?WORDS.filter(w=>!w.deck.chars&&!w.deck.phrase):id.startsWith("g:")?GROUPS[+id.slice(2)].decks.flatMap(deckList):deckList(id);
 
 /* ---------- Words (picture cards) ---------- */
 VIEWS.words=app=>{
@@ -628,6 +715,7 @@ VIEWS.words=app=>{
   const d=DECKS.find(x=>x.id===view.deck),list=d.list,i=Math.max(0,Math.min(view.i||0,list.length-1)),w=list[i];
   app.innerHTML=`${langPills()}<div style="height:14px"></div><div class="card" id="card">
     <button class="pic bigpic" id="bigpic" aria-label="Hear it">${picHTML(w,"8rem")}</button>
+    ${w.time?`<div class="timechip">${ico("clock")} ${w.time}</div>`:""}
     ${cardLangs().map(l=>wordRow(w,l)).join("")}
     <div class="navrow">
       <button class="bigbtn ghost" id="prev" ${i===0?"disabled":""} aria-label="Previous">${ico("prev")}</button>
@@ -755,6 +843,9 @@ VIEWS.phonics=app=>{
       <button class="tile" data-p="letters"><span class="ic">${art("abc")}</span><b>Letter sounds</b><small>s a t p i n</small></button>
       <button class="tile" data-p="blend"><span class="ic">${art("blocks")}</span><b>Blend it</b><small>c · a · t → cat</small></button>
       <button class="tile" data-p="read"><span class="ic">${art("book")}</span><b>Read it</b><small>Picture → word</small></button>
+      <button class="tile" data-p="spell"><span class="ic">${art("pencil")}</span><b>Spell it</b><small>c a t → cat</small></button>
+      <button class="tile" data-p="sentences"><span class="ic">${art("book")}</span><b>Sentences</b><small>The cat is on the bed.</small></button>
+      <button class="tile" data-p="rhymes"><span class="ic">${art("hat")}</span><b>Rhymes</b><small>cat · hat</small></button>
       <button class="tile" data-p="sight"><span class="ic">${art("eyes")}</span><b>Tricky words</b><small>the · is · said</small></button>
     </div></div>`;
   $$("[data-p]").forEach(b=>b.onclick=()=>go(b.dataset.p,{back:()=>go("phonics")}))};
@@ -846,7 +937,7 @@ VIEWS.sight=app=>{
 const PALETTE=()=>DECKS.find(d=>d.id==="colours").list;
 let brush=0;
 VIEWS.colour=app=>{
-  if(!view.deck)return deckPicker(app,"What shall we colour?",id=>go("colour",{deck:id,back:()=>go("colour")}),{skip:["colours","numbers","hanzi","phrases"],langs:true});
+  if(!view.deck)return deckPicker(app,"What shall we colour?",id=>go("colour",{deck:id,back:()=>go("colour")}),{skip:["colours","numbers","hanzi","phrases","mine","days","shapes"],langs:true});
   const d=DECKS.find(x=>x.id===view.deck);
   if(!view.wid){
     const l=settings.gameLang==="mix"?settings.order[0]:settings.gameLang;
@@ -1076,6 +1167,217 @@ VIEWS.stories=app=>{
   setTimeout(readAll,300);
 };
 
+/* ---------- English: Spell it ---------- */
+VIEWS.spell=app=>{
+  if(view.level==null){
+    app.innerHTML=`<div class="wrap">${buddy("Look at the picture and spell the word!")}
+      <div class="tiles">${BLEND_LEVELS.map((L,k)=>`<button class="tile sm" data-lv="${k}"><span class="ic">${art(L.icon)}</span><b>${L.name}</b><small>${phon["spell"+k]?ico("star").repeat(Math.min(3,phon["spell"+k])):"&nbsp;"}</small></button>`).join("")}</div></div>`;
+    return $$("[data-lv]").forEach(b=>b.onclick=()=>startPh("spell",+b.dataset.lv))}
+  const g=view.game;if(g.r>=g.max){phon["spell"+view.level]=(phon["spell"+view.level]||0)+1;saveAll();return endScreen(app,g,()=>startPh("spell",view.level))}
+  const it=g.items[g.r];
+  const extra=shuffle(["s","a","t","i","p","n","m","d","o","e","u","b","g"].filter(x=>!it.tiles.includes(x))).slice(0,2);
+  const pool=shuffle([...it.tiles,...extra]);let k=0,misses=0;
+  app.innerHTML=`<div class="stage">
+    <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
+    <div class="card" style="width:100%;max-width:560px;align-items:center"><button class="pic bigpic" id="sp" style="width:100%">${picHTML(it.pic,"6rem")}</button></div>
+    <div class="tilesrow" id="slots">${it.tiles.map(()=>`<div class="ltile slot"></div>`).join("")}</div>
+    <div class="tilesrow">${pool.map((t,i)=>`<button class="ltile pick" data-i="${i}">${t}</button>`).join("")}</div></div>`;
+  const sayIt=()=>play([{lang:"en",text:it.word,key:"pw:"+it.word}]);$("#sp").onclick=sayIt;
+  $$(".pick").forEach(b=>b.onclick=()=>{
+    if(k>=it.tiles.length||b.disabled)return;const t=pool[+b.dataset.i];
+    if(t===it.tiles[k]){const sl=$$(".slot")[k];sl.textContent=t;sl.classList.add("done");b.disabled=true;b.style.visibility="hidden";k++;play([saySound(t)]);
+      if(k===it.tiles.length){chime();gotWord();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
+        setTimeout(()=>play([{lang:"en",text:it.word,key:"pw:"+it.word},praise("en")]),500);setTimeout(()=>{g.r++;go("spell",view)},2300)}}
+    else{misses++;b.classList.add("wrong");boop();setTimeout(()=>b.classList.remove("wrong"),450)}});
+  setTimeout(sayIt,300)};
+
+/* ---------- English: Sentences ---------- */
+const SENTENCES=[["The cat is on the bed.","cat"],["The dog can run.","dog"],["A fish is in the water.","fish"],["The sun is hot.","sun"],
+ ["I have a red hat.","hat"],["The duck is yellow.","duck"],["Mum has a cup of tea.","tea"],["The bus is big.","bus"],["I can see the moon.","moon"],
+ ["The frog can jump.","frog"],["A bee is on a flower.","bee"],["I like my teddy.","teddy"],["The pig is pink.","pig"],["Look at the rainbow!","rainbow"],
+ ["The cake is for me.","cake"],["I sit on a chair.","chair"],["The bird can fly.","bird"],["I like to eat an apple.","apple"]];
+VIEWS.sentences=app=>{
+  if(!view.game){const items=shuffle(SENTENCES).slice(0,8).map(([t,pic])=>({t,pic,opts:shuffle([pic,...shuffle(SENTENCES.filter(x=>x[1]!==pic)).slice(0,2).map(x=>x[1])])}));
+    view.game={r:0,stars:0,max:items.length,items}}
+  const g=view.game;if(g.r>=g.max)return endScreen(app,g,()=>go("sentences",{back:view.back}));
+  const it=g.items[g.r];let misses=0,fin=false;
+  app.innerHTML=`<div class="stage">
+    <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
+    ${buddy("Read it, then tap the picture!")}
+    <div class="sline en" style="width:100%;max-width:560px"><div class="stext">${it.t.split(" ").map(w=>`<span class="tok" data-t="${esc(w.replace(/[.,!?]/g,""))}">${esc(w)}</span>`).join(" ")}</div><button class="spk" id="readS" hidden aria-label="Read">${art("speaker")}</button></div>
+    <div class="opts c3">${it.opts.map((o,k)=>`<button class="opt" data-k="${k}">${picHTML(o,"3.6rem")}</button>`).join("")}</div></div>`;
+  $$(".tok").forEach(t=>t.onclick=()=>play([{lang:"en",text:t.dataset.t}]));
+  $("#readS").onclick=()=>play([{lang:"en",text:it.t}]);
+  $$(".opt").forEach(b=>b.onclick=()=>{
+    if(fin||b.classList.contains("wrong"))return;
+    if(it.opts[+b.dataset.k]===it.pic){fin=true;b.classList.add("right");chime();gotWord();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
+      play([{lang:"en",text:it.t},praise("en")]);setTimeout(()=>{g.r++;go("sentences",view)},2600)}
+    else{misses++;b.classList.add("wrong");boop();$("#readS").hidden=false;hop("Tap the speaker for help!")}})};
+
+/* ---------- English: Rhymes ---------- */
+const RHYMES=[["cat","hat","bat","rat"],["hen","pen","ten"],["box","fox"],["sock","rock","clock"],["bee","tree"],["moon","spoon"],["king","ring"],["van","pan"],["frog","dog"],["goat","boat"],["mouse","house"],["bear","chair"]];
+const RPIC={boat:"sailboat",house:"summerhouse",bear:"teddy"};const rpic=w=>RPIC[w]||w;
+VIEWS.rhymes=app=>{
+  if(!view.game){const items=shuffle(RHYMES).slice(0,8).map(set=>{const [a,b]=shuffle(set);
+      const others=shuffle(RHYMES.filter(x=>x!==set).flat()).slice(0,2);return {a,b,opts:shuffle([b,...others])}});
+    view.game={r:0,stars:0,max:items.length,items}}
+  const g=view.game;if(g.r>=g.max)return endScreen(app,g,()=>go("rhymes",{back:view.back}));
+  const it=g.items[g.r];let misses=0,fin=false;
+  app.innerHTML=`<div class="stage">
+    <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
+    ${buddy("What rhymes with <b>"+it.a+"</b>?")}
+    <button class="opt word" id="tgt" style="max-width:260px;width:100%">${picHTML(rpic(it.a),"3.6rem")}<span>${it.a}</span></button>
+    <div class="opts c3">${it.opts.map((o,k)=>`<button class="opt" data-k="${k}">${picHTML(rpic(o),"3.2rem")}<span class="ow">${o}</span></button>`).join("")}</div></div>`;
+  const intro=()=>play([{lang:"en",text:it.a},{pause:300},{lang:"en",text:"What rhymes with "+it.a+"?"},{pause:200},...it.opts.map(o=>({lang:"en",text:o}))]);
+  $("#tgt").onclick=intro;$("#pal").onclick=intro;
+  $$(".opt[data-k]").forEach(b=>b.onclick=()=>{
+    if(fin||b.classList.contains("wrong"))return;const o=it.opts[+b.dataset.k];
+    if(o===it.b){fin=true;b.classList.add("right");chime();gotWord();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
+      play([{lang:"en",text:it.a+", "+it.b},praise("en")]);setTimeout(()=>{g.r++;go("rhymes",view)},2200)}
+    else{misses++;b.classList.add("wrong");boop();play([{lang:"en",text:o+"? No."}])}});
+  setTimeout(intro,300)};
+
+/* ---------- Games hub ---------- */
+VIEWS.games=app=>{
+  const T=[["opposites","up","Opposites","Motsatser · 反义词"],["patterns","starshape","What comes next?","Mönster · 规律"],["myday","clock","My day","Min dag · 我的一天"],
+    ["shapes","triangle","Shapes","Former · 形状"],["feelings","happyface","Feelings","Känslor · 心情"],["days","cal1","Days of the week","Veckodagar · 星期"]];
+  app.innerHTML=`<div class="wrap">${buddy("Let's play and think!")}${langPills()}
+    <div class="tiles">${T.map(([k,ic,en,sub])=>`<button class="tile" data-g="${k}"><span class="ic">${art(ic)}</span><b>${en}</b><small>${sub}</small></button>`).join("")}</div></div>`;
+  bindLangPills();
+  $$("[data-g]").forEach(b=>b.onclick=()=>{const k=b.dataset.g;const back=()=>go("games");
+    if(k==="shapes"||k==="feelings")return startFind(k,Math.min(ROUNDS,6));
+    if(k==="days")return go("words",{deck:"days",i:new Date().getDay()===0?6:new Date().getDay()-1,back});
+    go(k,{back})})};
+const sayIn=(l,o)=>({lang:l,text:o[l]});
+
+/* ---------- Opposites ---------- */
+const OPPOSITES=[
+ ["elephant",{en:"big",sv:"stor",zh:"大"},"mouse",{en:"small",sv:"liten",zh:"小"}],
+ ["up",{en:"up",sv:"upp",zh:"上"},"down",{en:"down",sv:"ner",zh:"下"}],
+ ["fire",{en:"hot",sv:"varm",zh:"热"},"snow",{en:"cold",sv:"kall",zh:"冷"}],
+ ["sun",{en:"day",sv:"dag",zh:"白天"},"moon",{en:"night",sv:"natt",zh:"晚上"}],
+ ["happyface",{en:"happy",sv:"glad",zh:"开心"},"sadface",{en:"sad",sv:"ledsen",zh:"难过"}],
+ ["sunrise",{en:"morning",sv:"morgon",zh:"早上"},"sunset",{en:"evening",sv:"kväll",zh:"晚上"}]];
+const OPPQ={en:w=>`What is the opposite of ${w}?`,sv:w=>`Vad är motsatsen till ${w}?`,zh:w=>`${w}的反义词是什么？`};
+VIEWS.opposites=app=>{
+  if(!view.game){const items=shuffle(OPPOSITES.flatMap((o,i)=>[{i,side:0},{i,side:1}])).slice(0,6).map(x=>({...x,lang:pickLang()}));view.game={r:0,stars:0,max:items.length,items}}
+  const g=view.game;if(g.r>=g.max)return endScreen(app,g,()=>go("opposites",{back:view.back}));
+  const it=g.items[g.r],o=OPPOSITES[it.i],l=it.lang;
+  const [pa,wa,pb,wb]=it.side?[o[2],o[3],o[0],o[1]]:o;
+  const opts=it.opts=it.opts||shuffle([pb,...shuffle(OPPOSITES.filter((_,j)=>j!==it.i).map(x=>x[rnd([0,2])])).slice(0,2)]);
+  let misses=0,fin=false;
+  app.innerHTML=`<div class="stage">
+    <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
+    ${buddy(esc(OPPQ[l](wa[l])))}
+    <button class="opt word" id="tgt" style="max-width:260px;width:100%">${picHTML(pa,"4rem")}<span lang="${l}">${esc(wa[l])}</span></button>
+    <div class="opts c3">${opts.map((x,k)=>`<button class="opt" data-k="${k}">${picHTML(x,"3.4rem")}</button>`).join("")}</div></div>`;
+  const ask=()=>play([sayIn(l,wa),{pause:250},{lang:l,text:OPPQ[l](wa[l])}]);$("#tgt").onclick=ask;
+  $$(".opt[data-k]").forEach(b=>b.onclick=()=>{
+    if(fin||b.classList.contains("wrong"))return;
+    if(opts[+b.dataset.k]===pb){fin=true;b.classList.add("right");chime();gotWord();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
+      b.insertAdjacentHTML("beforeend",`<span lang="${l}" class="ow">${esc(wb[l])}</span>`);
+      play([sayIn(l,wa),{pause:200},sayIn(l,wb),praise(l)]);setTimeout(()=>{g.r++;go("opposites",view)},2400)}
+    else{misses++;b.classList.add("wrong");boop()}});
+  setTimeout(ask,300)};
+
+/* ---------- Count ---------- */
+const COUNTQ={en:"How many?",sv:"Hur många?",zh:"有几个？"};
+const ADDQ={en:"How many altogether?",sv:"Hur många blir det?",zh:"一共有几个？"};
+const numWord=(n,l)=>deckList("numbers")[n-1][l];
+VIEWS.count=app=>{
+  if(!view.mode){
+    app.innerHTML=`<div class="wrap">${buddy("Let's count! Vi räknar! 我们数一数！")}${langPills()}
+      <div class="tiles"><button class="tile" data-m="count"><span class="ic">${art("apple")}</span><b>Count</b><small>Räkna · 数数</small></button>
+      <button class="tile" data-m="add"><span class="ic">${art("numbers")}</span><b>Add up</b><small>Plus · 加法</small></button></div></div>`;
+    bindLangPills();return $$("[data-m]").forEach(b=>b.onclick=()=>go("count",{mode:b.dataset.m,back:()=>go("count")}))}
+  if(!view.game){const items=Array.from({length:8},()=>{const l=pickLang(),pic=rnd(["apple","banana","strawberry","orange","cherry","pear","duck","star","fish","flower"]);
+      if(view.mode==="add"){const a=1+Math.floor(Math.random()*5),b=1+Math.floor(Math.random()*4);return {l,pic,a,b,n:a+b}}
+      const n=1+Math.floor(Math.random()*10);return {l,pic,n}});
+    view.game={r:0,stars:0,max:items.length,items}}
+  const g=view.game;if(g.r>=g.max)return endScreen(app,g,()=>go("count",{mode:view.mode,back:view.back}));
+  const it=g.items[g.r],l=it.l;
+  const opts=it.opts=it.opts||shuffle([it.n,...shuffle([it.n-2,it.n-1,it.n+1,it.n+2].filter(x=>x>=1&&x<=10&&x!==it.n)).slice(0,2)]);
+  const group=c=>`<div class="cgroup">${Array.from({length:c},()=>art(it.pic)).join("")}</div>`;
+  let misses=0,fin=false;
+  app.innerHTML=`<div class="stage">
+    <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
+    ${buddy(esc((it.a?ADDQ:COUNTQ)[l]))}
+    <div class="countbox">${it.a?group(it.a)+`<div class="plus">+</div>`+group(it.b):group(it.n)}</div>
+    <div class="opts c3">${opts.map((x,k)=>`<button class="opt word" data-k="${k}">${x}</button>`).join("")}</div></div>`;
+  $$(".countbox .art").forEach((el,i)=>el.addEventListener("click",()=>{el.classList.add("counted");play([{lang:l,text:numWord(Math.min(10,$$(".countbox .counted").length),l)}])}));
+  const ask=()=>play([{lang:l,text:(it.a?ADDQ:COUNTQ)[l]}]);$("#pal").onclick=ask;
+  $$(".opt").forEach(b=>b.onclick=()=>{
+    if(fin||b.classList.contains("wrong"))return;
+    if(opts[+b.dataset.k]===it.n){fin=true;b.classList.add("right");chime();gotWord();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
+      play([{lang:l,text:numWord(it.n,l)},praise(l)]);setTimeout(()=>{g.r++;go("count",view)},2000)}
+    else{misses++;b.classList.add("wrong");boop()}});
+  setTimeout(ask,300)};
+
+/* ---------- Patterns: what comes next? ---------- */
+const PSHAPES=["circle","square","triangle","starshape","heart"];
+const PCOLS=["#E53935","#1E88E5","#FDD835","#43A047","#8E24AA","#FB8C00"];
+function shapeTok(t){const pth={circle:'<circle cx="50" cy="50" r="38"/>',square:'<rect x="14" y="14" width="72" height="72" rx="8"/>',triangle:'<path d="M50 10 L92 88 L8 88Z"/>',
+  starshape:'<path d="M50 6 L61 38 L95 38 L68 58 L78 92 L50 72 L22 92 L32 58 L5 38 L39 38Z"/>',heart:'<path d="M50 88 C10 60 6 30 26 20 C38 14 48 22 50 32 C52 22 62 14 74 20 C94 30 90 60 50 88Z"/>'}[t.s];
+  return `<svg class="art tok3" viewBox="0 0 100 100" style="fill:${t.c}">${pth}</svg>`}
+const sameTok=(a,b)=>a.s===b.s&&a.c===b.c;
+VIEWS.patterns=app=>{
+  if(!view.game){const items=Array.from({length:6},(_,r)=>{
+      const unit=rnd(r<2?["AB"]:["AB","AAB","ABB","ABC"]);const toks=[];
+      while(toks.length<3){const t={s:rnd(PSHAPES),c:rnd(PCOLS)};if(!toks.some(x=>sameTok(x,t)||x.s===t.s&&r<2))toks.push(t)}
+      const map={A:toks[0],B:toks[1],C:toks[2]};const seq=[];while(seq.length<7)for(const ch of unit)seq.push(map[ch]);
+      const show=seq.slice(0,6),ans=seq[6];const wrong=[toks[0],toks[1],toks[2],{s:rnd(PSHAPES),c:rnd(PCOLS)}].filter(x=>!sameTok(x,ans));
+      const uniq=wrong.filter((x,i)=>wrong.findIndex(y=>sameTok(x,y))===i);return {show,ans,opts:shuffle([ans,...shuffle(uniq).slice(0,2)])}});
+    view.game={r:0,stars:0,max:items.length,items}}
+  const g=view.game;if(g.r>=g.max)return endScreen(app,g,()=>go("patterns",{back:view.back}));
+  const it=g.items[g.r];let misses=0,fin=false;
+  app.innerHTML=`<div class="stage">
+    <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
+    ${buddy("What comes next? Vad kommer sen? 下一个是什么？")}
+    <div class="pattern">${it.show.map(shapeTok).join("")}<span class="qbox">?</span></div>
+    <div class="opts c3">${it.opts.map((t,k)=>`<button class="opt" data-k="${k}">${shapeTok(t)}</button>`).join("")}</div></div>`;
+  $$(".opt").forEach(b=>b.onclick=()=>{
+    if(fin||b.classList.contains("wrong"))return;
+    if(sameTok(it.opts[+b.dataset.k],it.ans)){fin=true;b.classList.add("right");chime();gotWord();$(".qbox").outerHTML=shapeTok(it.ans);
+      if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}const l=pickLang();play([praise(l)]);setTimeout(()=>{g.r++;go("patterns",view)},1800)}
+    else{misses++;b.classList.add("wrong");boop()}})};
+
+/* ---------- My day: put the day in order ---------- */
+VIEWS.myday=app=>{
+  if(!view.game){const items=Array.from({length:5},()=>{const pick=shuffle(deckList("myday")).slice(0,4);return {pick,order:pick.slice().sort((a,b)=>a.time.localeCompare(b.time)),lang:pickLang()}});
+    view.game={r:0,stars:0,max:items.length,items}}
+  const g=view.game;if(g.r>=g.max)return endScreen(app,g,()=>go("myday",{back:view.back}));
+  const it=g.items[g.r],l=it.lang;let k=0,misses=0;
+  app.innerHTML=`<div class="stage">
+    <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
+    ${buddy({en:"What do we do first?",sv:"Vad gör vi först?",zh:"我们先做什么？"}[l])}
+    <div class="dayline">${it.order.map((_,i)=>`<div class="dslot" data-s="${i}"><span class="dn">${i+1}</span></div>`).join("")}</div>
+    <div class="opts">${it.pick.map((w,i)=>`<button class="opt dcard" data-i="${i}">${picHTML(w,"3rem")}<span class="ow" lang="${l}">${esc(w[l])}</span></button>`).join("")}</div></div>`;
+  $$(".dcard").forEach(b=>b.onclick=()=>{
+    const w=it.pick[+b.dataset.i];if(b.disabled)return;
+    if(w===it.order[k]){b.disabled=true;b.classList.add("right");const sl=$$(".dslot")[k];sl.innerHTML=`${picHTML(w,"2.2rem")}<b>${w.time}</b>`;sl.classList.add("done");k++;
+      play([{lang:l,text:w[l],key:wkey(w,l)}]);gotWord();
+      if(k===it.order.length){chime();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}setTimeout(()=>play([praise(l)]),900);setTimeout(()=>{g.r++;go("myday",view)},2400)}}
+    else{misses++;b.classList.add("wrong");boop();setTimeout(()=>b.classList.remove("wrong"),450)}})};
+
+/* ---------- Memory pairs ---------- */
+VIEWS.memory=app=>{
+  if(!view.deck)return deckPicker(app,"Find the pairs!",id=>go("memory",{deck:id,back:()=>go("memory")}),{all:true,langs:true,noChars:true});
+  if(!view.game){const pool=shuffle(poolFor(view.deck).filter((w,i,a)=>a.findIndex(x=>x.pic===w.pic)===i)).slice(0,6);
+    const g0=settings.gameLang;const mode=g0==="mix"?"svzh":"picword";const l=g0==="mix"?"sv":g0;
+    const cards=shuffle(pool.flatMap(w=>mode==="svzh"?[{w,face:"sv"},{w,face:"zh"}]:[{w,face:"pic"},{w,face:l}]));
+    view.game={r:0,stars:0,max:pool.length,cards,found:0,flips:0}}
+  const g=view.game;
+  app.innerHTML=`<div class="stage">${buddy(settings.gameLang==="mix"?"Match Swedish and Chinese! Svenska + 中文":"Match the picture and the word!")}
+    <div class="memgrid">${g.cards.map((c,i)=>`<button class="mcard" data-i="${i}" aria-label="Card"><span class="back">${art("sparkle")}</span><span class="front">${c.face==="pic"?picHTML(c.w,"3rem"):`${chip(c.face)}<b lang="${c.face}">${esc(c.w[c.face])}</b>`}</span></button>`).join("")}</div></div>`;
+  let open=[],lock=false;
+  $$(".mcard").forEach(b=>b.onclick=()=>{
+    if(lock||b.classList.contains("up"))return;const c=g.cards[+b.dataset.i];b.classList.add("up");open.push([b,c]);
+    play([c.face==="pic"?{lang:"en",text:""}:{lang:c.face,text:c.w[c.face]}].filter(x=>x.text));
+    if(open.length<2)return;g.flips++;const [[b1,c1],[b2,c2]]=open;open=[];
+    if(c1.w===c2.w){b1.classList.add("matched");b2.classList.add("matched");g.found++;chime();gotWord();
+      if(g.found===g.max){g.stars=Math.max(1,g.max-Math.max(0,g.flips-g.max-2));g.stars=Math.min(g.stars,g.max);const s=addStar(g.stars);if(s)g.newSticker=s;setTimeout(()=>{g.r=g.max;endScreen(app,g,()=>go("memory",{deck:view.deck,back:view.back}))},1200)}}
+    else{lock=true;setTimeout(()=>{b1.classList.remove("up");b2.classList.remove("up");lock=false},1100)}})};
+
 /* ---------- Stickers ---------- */
 VIEWS.stickers=app=>{
   const have=Math.min(STICKERS.length,Math.floor(stars/STARS_PER_STICKER));const left=STARS_PER_STICKER-stars%STARS_PER_STICKER;
@@ -1084,7 +1386,7 @@ VIEWS.stickers=app=>{
 
 /* ---------- Grown-ups ---------- */
 VIEWS.parents=app=>{
-  const decks=DECKS;const rd=view.recDeck||"fruit";
+  const decks=DECKS;const rd=DECKS.some(d=>d.id===view.recDeck)||view.recDeck==="_sounds"||view.recDeck==="_pw"?view.recDeck:"fruit";
   const stat=l=>{const n=WORDS.filter(w=>known(l,w.id)).length;return `<div class="stat">${chip(l)}<div class="bar"><span style="width:${n/WORDS.length*100}%;background:var(--${l})"></span></div><span>${n} / ${WORDS.length}</span></div>`};
   const zhSeen=WORDS.filter(w=>progress.zh[w.id]);
   const order=[["sv","en","zh"],["zh","sv","en"],["en","sv","zh"],["zh","en","sv"]];
@@ -1114,10 +1416,19 @@ VIEWS.parents=app=>{
     <div><div class="label">Pinyin under Chinese words</div><div class="pills">${[[true,"Show"],[false,"Hide"]].map(([v,t])=>`<button class="pill" data-set="pinyin" data-v="${v}" aria-pressed="${settings.pinyin===v}">${t}</button>`).join("")}</div></div>
   </div>
 
+  <div class="panel"><h2>Ella's own words</h2>
+    <p>Take a photo of something from Ella's life (her toy, your MRT station, mormor) and add its name in all three languages. It shows up as "Ella's things" in Words and the games. Photos stay on this device.</p>
+    <div class="mineform">
+      <label class="bigbtn ghost" style="cursor:pointer">${ico("heart")} Choose photo<input type="file" id="mPhoto" accept="image/*" hidden></label>
+      <img id="mPrev" class="photo" alt="" hidden>
+      <input id="mSv" placeholder="Svenska, e.g. min nalle"><input id="mEn" placeholder="English, e.g. my teddy"><input id="mZh" placeholder="中文, e.g. 我的小熊"><input id="mPy" placeholder="Pinyin (optional), e.g. wǒ de xiǎoxióng">
+      <button class="bigbtn go" id="mAdd">Add word</button></div>
+    <div class="minelist">${MINE.map(m=>`<div class="recrow"><div class="p"><img class="photo" src="${m.img}" alt=""></div><div class="nm">${esc(m.sv)} · ${esc(m.en)} · ${esc(m.zh)}</div><button class="recbtn" data-mdel="${m.k}">Delete</button></div>`).join("")}</div></div>
+
   <div class="panel"><h2>Record your voice</h2>
     <p>Your voice is better than the device voice, especially for Swedish and Chinese. Tap the microphone to start, tap again to stop. Recordings stay on this device.</p>
     ${canRecord?"":"<p><b>This browser can't record sound.</b></p>"}
-    <select id="recDeck">${GROUPS.map(g=>`<optgroup label="${esc(g.name.en)}">${g.decks.map(id=>decks.find(d=>d.id===id)).map(d=>`<option value="${d.id}" ${d.id===rd?"selected":""}>${esc(d.name.en)}</option>`).join("")}</optgroup>`).join("")}<option value="_sounds" ${rd==="_sounds"?"selected":""}>Phonics: letter sounds</option><option value="_pw" ${rd==="_pw"?"selected":""}>Phonics: words</option></select>
+    <select id="recDeck">${GROUPS.map(g=>`<optgroup label="${esc(g.name.en)}">${g.decks.map(id=>decks.find(d=>d.id===id)).filter(Boolean).map(d=>`<option value="${d.id}" ${d.id===rd?"selected":""}>${esc(d.name.en)}</option>`).join("")}</optgroup>`).join("")}<option value="_sounds" ${rd==="_sounds"?"selected":""}>Phonics: letter sounds</option><option value="_pw" ${rd==="_pw"?"selected":""}>Phonics: words</option></select>
     <div id="recList">${recRows(rd)}</div></div>
 
   <div class="panel"><h2>Start over</h2><p>Clears stars, stickers and word progress on this device. Hearts, the streak and recordings are kept.</p>
@@ -1126,10 +1437,21 @@ VIEWS.parents=app=>{
   $$("[data-set]").forEach(b=>b.onclick=()=>{const k=b.dataset.set,v=b.dataset.v;
     settings[k]=["choices","perHeart","heartCap"].includes(k)?+v:k==="pinyin"?v==="true":k==="order"?v.split(","):v;saveAll();go("parents",{recDeck:rd})});
   if($("#handed"))$("#handed").onclick=()=>{if(confirm(`Mark ${hearts.pending} heart(s) as added to the Reward Jar?`)){hearts.pending=0;saveAll();go("parents",{recDeck:rd})}};
+  let mImg=null;
+  $("#mPhoto").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{mImg=await squarePhoto(f);$("#mPrev").src=mImg;$("#mPrev").hidden=false}catch(_){alert("Couldn't read that photo.")}};
+  $("#mAdd").onclick=()=>{const v=id=>$(id).value.trim();
+    if(!mImg||!v("#mSv")||!v("#mEn")||!v("#mZh")){alert("Please add a photo and the word in Swedish, English and Chinese.");return}
+    MINE.push({k:Date.now().toString(36),img:mImg,sv:v("#mSv"),en:v("#mEn"),zh:v("#mZh"),py:v("#mPy")});
+    if(!saveMine()){MINE.pop();return}buildMine();go("parents",{recDeck:"mine"})};
+  $$("[data-mdel]").forEach(b=>b.onclick=()=>{if(!confirm("Delete this word?"))return;MINE=MINE.filter(m=>m.k!==b.dataset.mdel);saveMine();buildMine();go("parents",{recDeck:rd==="mine"&&!MINE.length?"fruit":rd})});
   $("#recDeck").onchange=e=>go("parents",{recDeck:e.target.value});
   bindRec();
   holdToOpen($("#reset"),()=>{progress={sv:{},en:{},zh:{}};stars=0;phon={};saveAll();go("parents",{recDeck:rd})});
 };
+function squarePhoto(file,size=320){return new Promise((res,rej)=>{const img=new Image(),url=URL.createObjectURL(file);
+  img.onload=()=>{const m=Math.min(img.width,img.height),cv=document.createElement("canvas");cv.width=cv.height=size;
+    cv.getContext("2d").drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,size,size);URL.revokeObjectURL(url);res(cv.toDataURL("image/jpeg",.75))};
+  img.onerror=()=>{URL.revokeObjectURL(url);rej()};img.src=url})}
 function recItems(rd){
   if(rd==="_sounds")return Object.keys(SOUNDS).map(s=>({pic:SOUNDS[s][2],name:`${s}  (as in ${SOUNDS[s][1]})`,keys:[["en","p:"+s,SOUNDS[s][0]]]}));
   if(rd==="_pw"){const ws=new Set();BLEND_LEVELS.forEach(L=>L.words.forEach(([t])=>ws.add(t.replace(/-/g,""))));SIGHT.flat().forEach(w=>ws.add(w));Object.values(SOUNDS).forEach(s=>ws.add(s[1]));

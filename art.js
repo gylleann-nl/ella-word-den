@@ -299,6 +299,22 @@ down:()=>P("M50 90 L84 52 L64 52 L64 10 L36 10 L36 52 L16 52Z",c.orange),
 middle:()=>R(10,40,80,20,6,c.lgrey)+C(50,50,16,c.red),
 storybook:()=>P("M50 30 Q30 20 8 26 L8 84 Q30 78 50 88 Q70 78 92 84 L92 26 Q70 20 50 30Z",c.pink)+P("M50 26 Q30 16 12 22 L12 78 Q30 72 50 82 Q70 72 88 78 L88 22 Q70 16 50 26Z",c.white)+P("M50 26 L50 82")+P(starPts(30,48,12,5),c.yellow)+P(heartPath(70,48,10),c.pink)
 });
+Object.assign(ART,{
+angryface:()=>C(50,50,38,"#FF8787")+P("M30 34 L44 40 M70 34 L56 40","none",'stroke-width="4"')+dot(38,46,3.4)+dot(62,46,3.4)+P("M36 70 Q50 60 64 70"),
+scaredface:()=>C(50,50,38,"#D0EBFF")+C(38,44,6,c.white)+C(62,44,6,c.white)+dot(38,45,2.6)+dot(62,45,2.6)+E(50,68,7,9,K)+P("M30 30 Q36 26 42 30 M58 30 Q64 26 70 30"),
+tiredface:()=>C(50,50,38,c.lpurple)+P("M32 46 Q38 50 44 46 M56 46 Q62 50 68 46")+E(50,66,5,4,K)+T(80,30,14,"z")+T(88,18,10,"z"),
+surprisedface:()=>C(50,50,38,c.lyellow)+C(38,42,6,c.white)+C(62,42,6,c.white)+dot(38,42,2.6)+dot(62,42,2.6)+C(50,66,8,K)+P("M30 28 Q38 22 44 28 M56 28 Q62 22 70 28"),
+circle:()=>C(50,50,36,c.pink),
+square:()=>R(16,16,68,68,6,c.blue),
+triangle:()=>P("M50 12 L90 84 L10 84Z",c.green),
+rectangle:()=>R(8,28,84,46,6,c.orange),
+starshape:()=>P(starPts(50,54,42,18),c.yellow),
+sunrise:()=>P("M8 70 L92 70","none",'stroke-width="4"')+P([-150,-120,-90,-60,-30].map(a=>{const r=Math.PI*a/180;return `M${(50+28*Math.cos(r)).toFixed(1)} ${(70+28*Math.sin(r)).toFixed(1)} L${(50+40*Math.cos(r)).toFixed(1)} ${(70+40*Math.sin(r)).toFixed(1)}`}).join(" "),"none",`stroke="${c.orange}" stroke-width="5"`)+P("M28 70 A22 22 0 0 1 72 70Z",c.yellow)+R(8,72,84,18,4,c.green),
+sunset:()=>R(6,14,88,58,8,"#FFD8A8")+P("M26 72 A24 24 0 0 1 74 72Z",c.orange)+R(6,70,88,20,4,"#91A7FF")+P("M18 80 L34 80 M50 84 L70 84","none",`stroke="${c.white}" stroke-width="3"`),
+toothbrush:()=>G("rotate(-35 50 50)",R(14,44,64,12,6,c.blue)+R(70,36,20,14,3,c.white)+P("M72 36 L72 28 M77 36 L77 28 M82 36 L82 28 M87 36 L87 28","none",`stroke="${c.lpurple}" stroke-width="3"`))+C(24,74,6,"#D0EBFF")+C(36,82,4,"#D0EBFF"),
+cards:()=>G("rotate(-12 38 52)",R(14,20,44,60,8,c.lpurple)+P(heartPath(36,50,12),c.pink))+G("rotate(10 62 50)",R(42,18,44,60,8,c.lpink)+P(starPts(64,48,13,6),c.yellow))
+});
+for(let i=1;i<=7;i++)ART["cal"+i]=()=>R(14,18,72,68,8,c.white)+R(14,18,72,18,8,["#FF8787","#FFA94D","#FFD43B","#69DB7C","#74C0FC","#B197FC","#FF9EC4"][i-1])+P("M32 12 L32 24 M68 12 L68 24","none",'stroke-width="5"')+Array.from({length:i},(_,k)=>C(28+(k%4)*15,50+Math.floor(k/4)*18,5,K,NS)).join("");
 ART._colour=COLOUR;
 window.colourArt=function(name){
   const f=COLOUR[name]||ART[name];
