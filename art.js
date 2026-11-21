@@ -287,6 +287,18 @@ const SCENE_BACK=P([0,60,120,180,240,300].map(a=>{const r=Math.PI*a/180;return `
   +P("M-10 98 Q20 88 50 96 Q80 104 110 94 L110 112 L-10 112Z",c.green);
 const flowerAt=(x,y,pc)=>P(`M${x} ${y} L${x} ${y+10}`,"none",`stroke="${c.dgreen}" stroke-width="3"`)+[[0,-6],[6,0],[0,6],[-6,0]].map(([dx,dy])=>C(x+dx,y+dy,5,pc)).join("")+C(x,y,3.5,c.yellow);
 const SCENE_FRONT=flowerAt(-2,94,c.pink)+flowerAt(102,96,c.purple)+flowerAt(88,104,c.red);
+Object.assign(ART,{
+toilet:()=>R(56,10,30,28,5,c.white)+R(64,6,14,6,2,c.lgrey)+P("M18 46 L86 46 Q86 70 62 76 L64 92 L34 92 L36 74 Q18 68 18 46Z",c.white)+E(50,46,32,8,c.blue),
+question:()=>C(50,50,38,c.lpurple)+T(50,70,58,"?",K),
+wave:()=>S("M8 30 Q2 42 8 54 M18 24 Q10 42 18 60",K,3)+G("rotate(18 56 52)",ART.hand()),
+sadface:()=>C(50,50,38,c.lyellow)+dot(38,44,3.4)+dot(62,44,3.4)+P("M36 70 Q50 58 64 70")+P("M66 50 C66 50 60 60 60 64 C60 68 63 70 66 70 C69 70 72 68 72 64 C72 60 66 50 66 50Z",c.blue),
+happyface:()=>C(50,50,38,c.lyellow)+happyEyes(50,42,12)+P("M32 58 Q50 80 68 58Z",c.white)+blush(28,58)+blush(72,58),
+washhands:()=>G("translate(8 14) scale(.8)",ART.hand())+[[20,22],[34,10],[82,30],[74,14]].map(([x,y])=>P(`M${x} ${y} C${x} ${y} ${x-6} ${y+9} ${x-6} ${y+12} C${x-6} ${y+16} ${x-3} ${y+18} ${x} ${y+18} C${x+3} ${y+18} ${x+6} ${y+16} ${x+6} ${y+12} C${x+6} ${y+9} ${x} ${y} ${x} ${y}Z`,c.blue)).join("")+C(26,80,6,"#D0EBFF")+C(78,76,8,"#D0EBFF"),
+up:()=>P("M50 10 L84 48 L64 48 L64 90 L36 90 L36 48 L16 48Z",c.green),
+down:()=>P("M50 90 L84 52 L64 52 L64 10 L36 10 L36 52 L16 52Z",c.orange),
+middle:()=>R(10,40,80,20,6,c.lgrey)+C(50,50,16,c.red),
+storybook:()=>P("M50 30 Q30 20 8 26 L8 84 Q30 78 50 88 Q70 78 92 84 L92 26 Q70 20 50 30Z",c.pink)+P("M50 26 Q30 16 12 22 L12 78 Q30 72 50 82 Q70 72 88 78 L88 22 Q70 16 50 26Z",c.white)+P("M50 26 L50 82")+P(starPts(30,48,12,5),c.yellow)+P(heartPath(70,48,10),c.pink)
+});
 ART._colour=COLOUR;
 window.colourArt=function(name){
   const f=COLOUR[name]||ART[name];
