@@ -265,6 +265,32 @@ recdot:()=>C(50,50,30,c.dred,NS),
 lock:()=>P("M32 46 L32 32 Q32 14 50 14 Q68 14 68 32 L68 46","none",'stroke-width="7"')+R(22,44,56,44,8,c.lpurple)+C(50,64,6,K)
 };
 
+/* ---------- Colouring pages ----------
+   Bigger full-body drawings with more spaces to colour. Used by the colouring tab when they exist. */
+const legs4=(col,hoof)=>[26,38,58,70].map(x=>R(x,66,10,26,5,col)+(hoof?R(x,86,10,7,3,hoof):"")).join("");
+const COLOUR={
+dog:()=>P("M78 58 Q98 46 94 30 Q86 44 76 50Z",c.tan)+legs4(c.tan,c.dbrown)+E(50,62,32,17,c.tan)+E(52,70,16,7,c.cream)+P("M58 52 Q66 46 74 56 Q66 62 60 60Z",c.dbrown)+G("translate(-6 10) scale(.6)",ART.dog())+R(12,55,24,7,3,c.red)+C(24,66,4,c.yellow),
+cat:()=>P("M80 64 Q100 60 96 34 Q92 28 88 34 Q92 54 76 58Z",c.orange)+legs4(c.orange,c.cream)+E(52,64,30,17,c.orange)+E(52,72,15,7,c.cream)+P("M46 50 L50 62 M56 49 L58 61 M66 51 L66 62","none",'stroke-width="3"')+G("translate(-6 8) scale(.6)",ART.cat())+R(12,55,24,7,3,c.blue)+C(24,66,4,c.yellow),
+rabbit:()=>E(52,90,14,5,c.white)+E(70,90,14,5,c.white)+C(84,64,8,c.white)+E(58,68,26,22,c.white)+E(58,72,14,12,c.lpink)+G("translate(12 4) scale(.62)",ART.rabbit())+P("M86 46 L96 26 L100 30 L92 50Z",c.orange)+P("M96 26 Q92 16 98 14 Q104 18 100 30",c.green),
+pig:()=>S("M82 60 q10 -4 6 -10 q-6 -2 -4 6 q4 6 10 0",K,3)+legs4(c.lpink,c.brown)+E(52,64,32,18,c.lpink)+E(60,58,6,4,c.pink)+E(42,70,6,4,c.pink)+G("translate(-7 12) scale(.62)",ART.pig()),
+panda:()=>legs4(K)+E(52,64,32,18,c.white)+E(52,70,16,8,c.cream)+P("M66 50 Q78 44 84 56 Q80 66 70 62Z",K)+G("translate(-7 12) scale(.62)",ART.panda())+P("M80 38 L84 18 M76 38 L72 20","none",`stroke="${c.green}" stroke-width="4"`)+P("M84 18 Q96 14 98 24 Q88 26 84 18Z M72 20 Q60 12 58 22 Q66 26 72 20Z",c.green),
+lion:()=>S("M80 62 Q98 70 96 46",K,3)+C(96,42,7,c.orange)+legs4(c.yellow,c.orange)+E(52,64,32,17,c.yellow)+E(52,72,16,7,c.cream)+G("translate(-11 8) scale(.66)",ART.lion()),
+unicorn:()=>P("M14 58 Q0 70 6 92 Q12 78 18 74 Q14 88 22 94 Q24 78 26 68Z",c.purple)+P("M18 54 Q6 54 8 72 Q14 64 22 62Z",c.pink)+legs4(c.white,c.pink)+E(46,62,32,18,c.white)+E(36,58,6,4,c.lpink)+E(54,70,6,4,c.lpurple)+G("translate(37 -5) scale(.66)",ART.unicorn())+P(starPts(14,18,8,3.5),c.yellow)+P(starPts(30,8,5,2.2),c.yellow),
+butterfly:()=>P("M50 46 Q28 8 10 18 Q2 34 18 46 Q30 52 50 50Z",c.purple)+P("M50 46 Q72 8 90 18 Q98 34 82 46 Q70 52 50 50Z",c.purple)+P("M50 54 Q24 54 16 70 Q16 86 32 84 Q46 80 50 58Z",c.pink)+P("M50 54 Q76 54 84 70 Q84 86 68 84 Q54 80 50 58Z",c.pink)+E(28,30,8,7,c.lpurple)+E(72,30,8,7,c.lpurple)+C(34,70,6,c.yellow)+C(66,70,6,c.yellow)+C(18,26,3.5,c.white)+C(82,26,3.5,c.white)+C(26,78,3,c.blue)+C(74,78,3,c.blue)+E(50,50,6,26,c.dbrown)+P("M45 40 L55 40 M44 50 L56 50 M45 60 L55 60","none",'stroke-width="2"')+P("M47 26 Q40 10 34 10 M53 26 Q60 10 66 10")+C(34,10,3,c.pink)+C(66,10,3,c.pink),
+fish:()=>P("M70 50 L94 28 L90 50 L94 72Z",c.dblue)+P("M40 26 Q50 10 62 28",c.purple)+P("M44 74 Q52 88 60 72",c.purple)+P("M8 50 Q34 14 72 50 Q34 86 8 50Z",c.blue)+P("M30 30 Q38 50 30 70 L40 74 Q48 50 40 26Z",c.yellow)+P("M50 32 Q58 50 50 68 L58 64 Q64 50 58 36Z",c.orange)+dot(22,46)+smile(18,54,3)+C(84,14,5,c.white)+C(92,4,3,c.white)+C(10,84,6,c.blue,`opacity=".6"`)+P("M2 96 Q20 88 34 96 M52 96 Q70 88 84 96","none",`stroke="${c.green}" stroke-width="4"`),
+cake:()=>E(50,90,44,6,c.lpurple)+R(14,62,72,26,6,c.lpink)+R(22,40,56,22,6,c.lyellow)+R(30,22,40,18,6,c.blue)+P("M14 66 Q20 74 26 66 Q32 74 38 66 Q44 74 50 66 Q56 74 62 66 Q68 74 74 66 Q80 74 86 66 L86 66 L14 66Z",c.white)+P("M22 44 Q28 52 34 44 Q40 52 46 44 Q52 52 58 44 Q64 52 70 44 Q76 52 78 44 L78 44 L22 44Z",c.white)+[36,50,64].map((x,i)=>R(x-3,8,6,14,2,[c.red,c.green,c.purple][i])+P(`M${x} -2 Q${x+5} 4 ${x} 8 Q${x-5} 4 ${x} -2Z`,c.yellow)).join("")+C(24,76,4,c.red)+C(50,78,4,c.red)+C(76,76,4,c.red)+face(50,30,7),
+icecream:()=>P("M30 54 L50 96 L70 54Z",c.tan)+P("M36 62 L62 66 M40 74 L58 76 M44 84 L54 86","none",'stroke-width="2"')+C(36,48,15,c.green)+C(64,48,15,c.lpink)+C(50,30,17,c.lyellow)+P("M24 54 Q28 62 32 56 Q36 62 40 56",c.green)+P("M60 56 Q64 62 68 56 Q72 62 76 54",c.lpink)+C(50,10,6,c.dred)+P("M50 4 Q54 -4 60 -2","none")+face(50,32,6),
+frog:()=>E(50,88,46,10,c.green)+P("M50 78 L74 88","none",'stroke-width="2"')+P("M16 70 Q4 84 20 88 L34 84Z",c.green)+P("M84 70 Q96 84 80 88 L66 84Z",c.green)+E(50,64,30,22,c.lime)+E(50,70,16,12,c.lyellow)+G("translate(14 -6) scale(.72)",ART.frog())+C(88,30,7,c.pink)+C(88,30,3,c.yellow)
+};
+const SCENE_BACK=P([0,60,120,180,240,300].map(a=>{const r=Math.PI*a/180;return `M${(98+13*Math.cos(r)).toFixed(1)} ${(-2+13*Math.sin(r)).toFixed(1)} L${(98+18*Math.cos(r)).toFixed(1)} ${(-2+18*Math.sin(r)).toFixed(1)}`}).join(" "),"none",`stroke="${c.orange}" stroke-width="3"`)+C(98,-2,9,c.yellow)
+  +P("M-2 8 Q-10 8 -9 1 Q-8 -6 0 -5 Q1 -13 10 -13 Q19 -13 20 -5 Q29 -6 29 2 Q29 8 22 8Z",c.white)
+  +P("M-10 98 Q20 88 50 96 Q80 104 110 94 L110 112 L-10 112Z",c.green);
+const flowerAt=(x,y,pc)=>P(`M${x} ${y} L${x} ${y+10}`,"none",`stroke="${c.dgreen}" stroke-width="3"`)+[[0,-6],[6,0],[0,6],[-6,0]].map(([dx,dy])=>C(x+dx,y+dy,5,pc)).join("")+C(x,y,3.5,c.yellow);
+const SCENE_FRONT=flowerAt(-2,94,c.pink)+flowerAt(102,96,c.purple)+flowerAt(88,104,c.red);
+ART._colour=COLOUR;
+window.colourArt=function(name){
+  const f=COLOUR[name]||ART[name];
+  return `<svg class="art colourme" viewBox="-12 -16 124 128" aria-hidden="true">${SCENE_BACK}${G("translate(6 2) scale(.86)",f?f():"")}${SCENE_FRONT}</svg>`};
 window.ART=ART;
 window.art=function(name,cls=""){
   const f=ART[name];const inner=f?f():T(50,62,40,"?");
