@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ella's Word Den</title>
 <meta name="theme-color" content="#FFF0FA">
+<script src="art.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;800&display=swap">
 <style>
@@ -74,6 +75,9 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
 .pill.en[aria-pressed="true"]{background:var(--en);border-color:var(--en)}
 .pill.zh[aria-pressed="true"]{background:var(--zh);border-color:var(--zh)}
 .label{font-weight:800;color:var(--muted);font-size:.95rem;margin-bottom:6px}
+.langbar{background:var(--surface);border:3px solid #fff;border-radius:24px;padding:12px 14px;box-shadow:0 4px 0 rgba(176,79,224,.12)}
+.pill.big{font-size:1.15rem;padding:10px 18px}
+.pill.mix[aria-pressed="true"]{background:linear-gradient(90deg,#E0489A,#B04FE0);border-color:#B04FE0}
 
 /* Pictures */
 .pic{display:grid;place-items:center;line-height:1}
@@ -82,7 +86,7 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
 .num{display:flex;flex-direction:column;align-items:center;gap:6px}
 .num b{font-family:var(--display);font-size:calc(var(--ps,7rem)*.8);line-height:1}
 .dots{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;max-width:150px}
-.dots i{width:16px;height:16px;border-radius:50%;background:var(--gold)}
+.dots i{width:16px;height:16px;border-radius:50%;background:var(--gold);border:2px solid #3A2456}
 .han{display:flex;flex-direction:column;align-items:center;gap:4px}
 .han b{font-family:var(--hanzi);font-size:calc(var(--ps,7rem)*1.05);font-weight:400;color:var(--zh);line-height:1}
 .han span{font-size:calc(var(--ps,7rem)*.35)}
@@ -153,6 +157,12 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
 .starsrow{font-size:2.4rem;letter-spacing:4px}
 
 /* Stickers */
+.canvas{background:#fff;border:3px solid var(--line);border-radius:32px;padding:14px;width:100%;max-width:420px;display:grid;place-items:center}
+.canvas .art{width:min(78vw,340px);height:min(78vw,340px)}
+.canvas .part{cursor:pointer;transition:fill .15s}
+.palette{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:460px}
+.sw{width:52px;height:52px;border-radius:50%;border:4px solid #fff;box-shadow:0 0 0 2px var(--line)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 4px #3A2456;transform:scale(1.12)}
 .stickers{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px}
 .stk{aspect-ratio:1;border-radius:22px;background:var(--surface);border:3px solid var(--line);display:grid;place-items:center;font-size:2.8rem}
 .stk.locked{font-size:1.6rem;color:var(--muted);background:#F6EEFF;border-style:dashed;font-family:var(--display)}
@@ -169,7 +179,7 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
 .wordlist span{padding:4px 10px;border-radius:999px;background:var(--zhBg);font-weight:800;font-size:.95rem}
 .wordlist span.k{background:var(--enBg)}
 .recrow{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);flex-wrap:wrap}
-.recrow .p{width:52px;--ps:2.2rem;--sw:36px;flex:none}
+.recrow .p{width:52px;--ps:2rem;--sw:36px;flex:none}
 .recrow .nm{flex:1;min-width:110px;font-weight:800;font-size:.95rem}
 .recbtn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:12px;border:2px solid var(--line);font-weight:800;font-size:.9rem;background:var(--surface)}
 .recbtn.has{background:var(--enBg);border-color:var(--en)}
@@ -180,6 +190,27 @@ select{font:inherit;padding:8px 12px;border-radius:12px;border:2px solid var(--l
 .hold.holding .fill{transform:scaleX(1);transition:transform 1.5s linear}
 .note{font-size:.9rem;color:var(--muted);text-align:center}
 .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9}
+/* Drawings */
+.art{display:block;stroke:#3A2456;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;overflow:visible}
+.art.ico{display:inline-block;width:1.25em;height:1.25em;vertical-align:-.25em}
+.art.dim{opacity:.25}
+.pic .art{width:calc(var(--ps,7rem)*1.3);height:calc(var(--ps,7rem)*1.3)}
+.han .art.sm{width:calc(var(--ps,7rem)*.55);height:calc(var(--ps,7rem)*.55)}
+.tile .ic .art{width:4.2rem;height:4.2rem}
+.tile.sm .ic .art{width:3.4rem;height:3.4rem}
+.ic .hz,.gi .hz{font-family:var(--hanzi);color:var(--zh)}
+.group h2 .gi .art{width:2.1rem;height:2.1rem}
+.lcard .art{width:3.2rem;height:3.2rem}
+.stk .art{width:78%;height:78%}
+.buddy .pal .art{width:4.4rem;height:4.4rem}
+.hear .art,.mic .art{width:58%;height:58%;color:#fff}
+.spk .art{width:1.7rem;height:1.7rem;color:var(--muted)}
+.iconbtn .art{width:32px;height:32px}
+.toast .h .art{width:5rem;height:5rem}
+.week i .art{width:24px;height:24px}
+.finish .big .art{width:8rem;height:8rem}
+.confetti i .art{width:30px;height:30px}
+.bigbtn .art.ico{color:currentColor}
 /* Streak box */
 .streak{background:var(--surface);border:3px solid #fff;border-radius:28px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 4px 0 rgba(176,79,224,.12)}
 .streak .nums{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -223,76 +254,76 @@ select{font:inherit;padding:8px 12px;border-radius:12px;border:2px solid var(--l
 /* Each word: [picture, English, Swedish, Chinese, pinyin]
    Picture: an emoji, "#hex" for a colour swatch, "n:3" for a number. */
 const DECKS=[
- {id:"fruit",icon:"🍎",name:{en:"Fruit",sv:"Frukt",zh:"水果"},words:[
-  ["🍎","apple","äpple","苹果","píngguǒ"],["🍌","banana","banan","香蕉","xiāngjiāo"],["🍊","orange","apelsin","橙子","chéngzi"],
-  ["🍇","grapes","vindruvor","葡萄","pútáo"],["🍓","strawberry","jordgubbe","草莓","cǎoméi"],["🍉","watermelon","vattenmelon","西瓜","xīguā"],
-  ["🍐","pear","päron","梨","lí"],["🍑","peach","persika","桃子","táozi"],["🍍","pineapple","ananas","菠萝","bōluó"],
-  ["🍋","lemon","citron","柠檬","níngméng"],["🥭","mango","mango","芒果","mángguǒ"],["🍒","cherry","körsbär","樱桃","yīngtáo"]]},
- {id:"animals",icon:"🐼",name:{en:"Animals",sv:"Djur",zh:"动物"},words:[
-  ["🐶","dog","hund","狗","gǒu"],["🐱","cat","katt","猫","māo"],["🐟","fish","fisk","鱼","yú"],["🐦","bird","fågel","鸟","niǎo"],
-  ["🐰","rabbit","kanin","兔子","tùzi"],["🐴","horse","häst","马","mǎ"],["🐮","cow","ko","牛","niú"],["🐷","pig","gris","猪","zhū"],
-  ["🐘","elephant","elefant","大象","dàxiàng"],["🐵","monkey","apa","猴子","hóuzi"],["🦁","lion","lejon","狮子","shīzi"],["🐼","panda","panda","熊猫","xióngmāo"],
-  ["🦆","duck","anka","鸭子","yāzi"],["🦋","butterfly","fjäril","蝴蝶","húdié"],["🐸","frog","groda","青蛙","qīngwā"],["🐯","tiger","tiger","老虎","lǎohǔ"]]},
- {id:"food",icon:"🍚",name:{en:"Food",sv:"Mat",zh:"食物"},words:[
-  ["🍞","bread","bröd","面包","miànbāo"],["🍚","rice","ris","米饭","mǐfàn"],["🍜","noodles","nudlar","面条","miàntiáo"],["🥚","egg","ägg","鸡蛋","jīdàn"],
-  ["🥛","milk","mjölk","牛奶","niúnǎi"],["💧","water","vatten","水","shuǐ"],["🎂","cake","tårta","蛋糕","dàngāo"],["🍦","ice cream","glass","冰淇淋","bīngqílín"],
-  ["🧀","cheese","ost","奶酪","nǎilào"],["🍲","soup","soppa","汤","tāng"],["🥕","carrot","morot","胡萝卜","húluóbo"],["🌽","corn","majs","玉米","yùmǐ"]]},
- {id:"colours",icon:"🎨",name:{en:"Colours",sv:"Färger",zh:"颜色"},words:[
+ {id:"fruit",icon:"apple",name:{en:"Fruit",sv:"Frukt",zh:"水果"},words:[
+  ["apple","apple","äpple","苹果","píngguǒ"],["banana","banana","banan","香蕉","xiāngjiāo"],["orange","orange","apelsin","橙子","chéngzi"],
+  ["grapes","grapes","vindruvor","葡萄","pútáo"],["strawberry","strawberry","jordgubbe","草莓","cǎoméi"],["watermelon","watermelon","vattenmelon","西瓜","xīguā"],
+  ["pear","pear","päron","梨","lí"],["peach","peach","persika","桃子","táozi"],["pineapple","pineapple","ananas","菠萝","bōluó"],
+  ["lemon","lemon","citron","柠檬","níngméng"],["mango","mango","mango","芒果","mángguǒ"],["cherry","cherry","körsbär","樱桃","yīngtáo"]]},
+ {id:"animals",icon:"panda",name:{en:"Animals",sv:"Djur",zh:"动物"},words:[
+  ["dog","dog","hund","狗","gǒu"],["cat","cat","katt","猫","māo"],["fish","fish","fisk","鱼","yú"],["bird","bird","fågel","鸟","niǎo"],
+  ["rabbit","rabbit","kanin","兔子","tùzi"],["horse","horse","häst","马","mǎ"],["cow","cow","ko","牛","niú"],["pig","pig","gris","猪","zhū"],
+  ["elephant","elephant","elefant","大象","dàxiàng"],["monkey","monkey","apa","猴子","hóuzi"],["lion","lion","lejon","狮子","shīzi"],["panda","panda","panda","熊猫","xióngmāo"],
+  ["duck","duck","anka","鸭子","yāzi"],["butterfly","butterfly","fjäril","蝴蝶","húdié"],["frog","frog","groda","青蛙","qīngwā"],["tiger","tiger","tiger","老虎","lǎohǔ"]]},
+ {id:"food",icon:"rice",name:{en:"Food",sv:"Mat",zh:"食物"},words:[
+  ["bread","bread","bröd","面包","miànbāo"],["rice","rice","ris","米饭","mǐfàn"],["noodles","noodles","nudlar","面条","miàntiáo"],["egg","egg","ägg","鸡蛋","jīdàn"],
+  ["milk","milk","mjölk","牛奶","niúnǎi"],["water","water","vatten","水","shuǐ"],["cake","cake","tårta","蛋糕","dàngāo"],["icecream","ice cream","glass","冰淇淋","bīngqílín"],
+  ["cheese","cheese","ost","奶酪","nǎilào"],["soup","soup","soppa","汤","tāng"],["carrot","carrot","morot","胡萝卜","húluóbo"],["corn","corn","majs","玉米","yùmǐ"]]},
+ {id:"colours",icon:"palette",name:{en:"Colours",sv:"Färger",zh:"颜色"},words:[
   ["#E53935","red","röd","红色","hóngsè"],["#1E88E5","blue","blå","蓝色","lánsè"],["#FDD835","yellow","gul","黄色","huángsè"],
   ["#43A047","green","grön","绿色","lǜsè"],["#FB8C00","orange","orange","橙色","chéngsè"],["#8E24AA","purple","lila","紫色","zǐsè"],
   ["#F48FB1","pink","rosa","粉色","fěnsè"],["#212121","black","svart","黑色","hēisè"],["#FFFFFF","white","vit","白色","báisè"],["#795548","brown","brun","棕色","zōngsè"]]},
- {id:"body",icon:"👂",name:{en:"My body",sv:"Kroppen",zh:"身体"},words:[
-  ["👁️","eye","öga","眼睛","yǎnjing"],["👂","ear","öra","耳朵","ěrduo"],["👃","nose","näsa","鼻子","bízi"],["👄","mouth","mun","嘴巴","zuǐba"],
-  ["✋","hand","hand","手","shǒu"],["🦶","foot","fot","脚","jiǎo"],["🦵","leg","ben","腿","tuǐ"],["🦷","tooth","tand","牙齿","yáchǐ"],
-  ["💇","hair","hår","头发","tóufa"],["👅","tongue","tunga","舌头","shétou"]]},
- {id:"people",icon:"👩",name:{en:"People",sv:"Människor",zh:"人"},words:[
-  ["👩","mummy","mamma","妈妈","māma"],["👨","daddy","pappa","爸爸","bàba"],["👶","baby","bebis","宝宝","bǎobao"],["👧","girl","flicka","女孩","nǚhái"],
-  ["👦","boy","pojke","男孩","nánhái"],["🧑‍🏫","teacher","lärare","老师","lǎoshī"],["🧑‍🤝‍🧑","friend","kompis","朋友","péngyou"],["🧑‍⚕️","doctor","läkare","医生","yīshēng"],
-  ["👵","grandma (mum's mum)","mormor","外婆","wàipó"],["👴","grandpa (mum's dad)","morfar","外公","wàigōng"],
-  ["👵","grandma (dad's mum)","farmor","奶奶","nǎinai"],["👴","grandpa (dad's dad)","farfar","爷爷","yéye"]]},
- {id:"sweden",icon:"🇸🇪",name:{en:"In Sweden",sv:"I Sverige",zh:"在瑞典"},words:[
-  ["☕","fika","fika","下午茶","xiàwǔchá"],["🧆","meatballs","köttbullar","肉丸","ròuwán"],["🌼","midsummer","midsommar","仲夏节","zhòngxià jié"],
-  ["🦞","crayfish","kräftor","小龙虾","xiǎolóngxiā"],["🫐","blueberries","blåbär","蓝莓","lánméi"],["🍄","mushroom","svamp","蘑菇","mógu"],
-  ["🌲","forest","skog","森林","sēnlín"],["⛵","sailing boat","segelbåt","帆船","fānchuán"],["🦌","reindeer","ren","驯鹿","xùnlù"],
-  ["🏡","summer house","sommarstuga","度假屋","dùjiàwū"],["🥾","boots","stövlar","靴子","xuēzi"],["🇸🇪","Sweden","Sverige","瑞典","Ruìdiǎn"]]},
- {id:"winter",icon:"⛄",name:{en:"Winter and Christmas",sv:"Vinter och jul",zh:"冬天和圣诞节"},words:[
-  ["⛄","snowman","snögubbe","雪人","xuěrén"],["🛷","sledge","pulka","雪橇","xuěqiāo"],["⛸️","ice skates","skridskor","溜冰鞋","liūbīngxié"],
-  ["🧤","mittens","vantar","手套","shǒutào"],["🧣","scarf","halsduk","围巾","wéijīn"],["🎄","Christmas tree","julgran","圣诞树","shèngdànshù"],
-  ["🎅","Father Christmas","tomten","圣诞老人","shèngdàn lǎorén"],["🕯️","candle","ljus","蜡烛","làzhú"],["🍪","gingerbread","pepparkaka","姜饼","jiāngbǐng"],
-  ["🎁","present","julklapp","礼物","lǐwù"]]},
- {id:"school",icon:"🎒",name:{en:"School",sv:"Skolan",zh:"学校"},words:[
-  ["📖","book","bok","书","shū"],["✏️","pencil","penna","铅笔","qiānbǐ"],["🎒","school bag","ryggsäck","书包","shūbāo"],["🪑","chair","stol","椅子","yǐzi"],
-  ["⚽","ball","boll","球","qiú"],["🖍️","crayon","krita","蜡笔","làbǐ"],["✂️","scissors","sax","剪刀","jiǎndāo"],["🏫","school","skola","学校","xuéxiào"],
-  ["🚌","bus","buss","巴士","bāshì"],["🧸","teddy bear","nalle","玩具熊","wánjùxióng"]]},
- {id:"sgfood",icon:"🥢",name:{en:"Singapore food",sv:"Mat i Singapore",zh:"新加坡美食"},words:[
-  ["🍗","chicken rice","kycklingris","鸡饭","jīfàn"],["🍢","satay","satay","沙爹","shādiē"],["🍛","curry","curry","咖喱","gālí"],["🥟","dumpling","dumpling","饺子","jiǎozi"],
-  ["🥮","mooncake","månkaka","月饼","yuèbing"],["🦐","prawn","räka","虾","xiā"],["🦀","crab","krabba","螃蟹","pángxiè"],["🥥","coconut","kokosnöt","椰子","yēzi"],
-  ["🍵","tea","te","茶","chá"],["🥢","chopsticks","ätpinnar","筷子","kuàizi"],["🥄","spoon","sked","勺子","sháozi"],["🥣","bowl","skål","碗","wǎn"]]},
- {id:"sg",icon:"🌴",name:{en:"Around Singapore",sv:"I Singapore",zh:"在新加坡"},words:[
-  ["🚇","MRT train","tunnelbana","地铁","dìtiě"],["🚕","taxi","taxi","德士","déshì"],["✈️","aeroplane","flygplan","飞机","fēijī"],["☂️","umbrella","paraply","雨伞","yǔsǎn"],
-  ["🏖️","beach","strand","海滩","hǎitān"],["🌴","palm tree","palm","椰树","yēshù"],["🦦","otter","utter","水獭","shuǐtǎ"],["🦎","lizard","ödla","蜥蜴","xīyì"],
-  ["🦟","mosquito","mygga","蚊子","wénzi"],["🐜","ant","myra","蚂蚁","mǎyǐ"],["👟","shoes","skor","鞋子","xiézi"],["🧧","red packet","rött kuvert","红包","hóngbāo"],
-  ["🏮","lantern","lykta","灯笼","dēnglong"],["🐉","dragon","drake","龙","lóng"]]},
- {id:"nature",icon:"🌈",name:{en:"Outside",sv:"Ute",zh:"大自然"},words:[
-  ["☀️","sun","sol","太阳","tàiyáng"],["🌙","moon","måne","月亮","yuèliang"],["⭐","star","stjärna","星星","xīngxing"],["🌳","tree","träd","树","shù"],
-  ["🌸","flower","blomma","花","huā"],["🌧️","rain","regn","雨","yǔ"],["⛰️","mountain","berg","山","shān"],["🔥","fire","eld","火","huǒ"],
-  ["🌈","rainbow","regnbåge","彩虹","cǎihóng"],["☁️","cloud","moln","云","yún"],["❄️","snow","snö","雪","xuě"]]},
- {id:"numbers",icon:"🔢",name:{en:"Numbers",sv:"Siffror",zh:"数字"},words:[
+ {id:"body",icon:"ear",name:{en:"My body",sv:"Kroppen",zh:"身体"},words:[
+  ["eye","eye","öga","眼睛","yǎnjing"],["ear","ear","öra","耳朵","ěrduo"],["nose","nose","näsa","鼻子","bízi"],["mouth","mouth","mun","嘴巴","zuǐba"],
+  ["hand","hand","hand","手","shǒu"],["foot","foot","fot","脚","jiǎo"],["leg","leg","ben","腿","tuǐ"],["tooth","tooth","tand","牙齿","yáchǐ"],
+  ["hair","hair","hår","头发","tóufa"],["tongue","tongue","tunga","舌头","shétou"]]},
+ {id:"people",icon:"mummy",name:{en:"People",sv:"Människor",zh:"人"},words:[
+  ["mummy","mummy","mamma","妈妈","māma"],["daddy","daddy","pappa","爸爸","bàba"],["baby","baby","bebis","宝宝","bǎobao"],["girl","girl","flicka","女孩","nǚhái"],
+  ["boy","boy","pojke","男孩","nánhái"],["teacher","teacher","lärare","老师","lǎoshī"],["friend","friend","kompis","朋友","péngyou"],["doctor","doctor","läkare","医生","yīshēng"],
+  ["grandma","grandma (mum's mum)","mormor","外婆","wàipó"],["grandpa","grandpa (mum's dad)","morfar","外公","wàigōng"],
+  ["grandma","grandma (dad's mum)","farmor","奶奶","nǎinai"],["grandpa","grandpa (dad's dad)","farfar","爷爷","yéye"]]},
+ {id:"sweden",icon:"swedenflag",name:{en:"In Sweden",sv:"I Sverige",zh:"在瑞典"},words:[
+  ["fika","fika","fika","下午茶","xiàwǔchá"],["meatballs","meatballs","köttbullar","肉丸","ròuwán"],["midsummer","midsummer","midsommar","仲夏节","zhòngxià jié"],
+  ["crayfish","crayfish","kräftor","小龙虾","xiǎolóngxiā"],["blueberries","blueberries","blåbär","蓝莓","lánméi"],["mushroom","mushroom","svamp","蘑菇","mógu"],
+  ["forest","forest","skog","森林","sēnlín"],["sailboat","sailing boat","segelbåt","帆船","fānchuán"],["reindeer","reindeer","ren","驯鹿","xùnlù"],
+  ["summerhouse","summer house","sommarstuga","度假屋","dùjiàwū"],["boots","boots","stövlar","靴子","xuēzi"],["swedenflag","Sweden","Sverige","瑞典","Ruìdiǎn"]]},
+ {id:"winter",icon:"snowman",name:{en:"Winter and Christmas",sv:"Vinter och jul",zh:"冬天和圣诞节"},words:[
+  ["snowman","snowman","snögubbe","雪人","xuěrén"],["sledge","sledge","pulka","雪橇","xuěqiāo"],["skates","ice skates","skridskor","溜冰鞋","liūbīngxié"],
+  ["mittens","mittens","vantar","手套","shǒutào"],["scarf","scarf","halsduk","围巾","wéijīn"],["xmastree","Christmas tree","julgran","圣诞树","shèngdànshù"],
+  ["tomte","Father Christmas","tomten","圣诞老人","shèngdàn lǎorén"],["candle","candle","ljus","蜡烛","làzhú"],["gingerbread","gingerbread","pepparkaka","姜饼","jiāngbǐng"],
+  ["present","present","julklapp","礼物","lǐwù"]]},
+ {id:"school",icon:"schoolbag",name:{en:"School",sv:"Skolan",zh:"学校"},words:[
+  ["book","book","bok","书","shū"],["pencil","pencil","penna","铅笔","qiānbǐ"],["schoolbag","school bag","ryggsäck","书包","shūbāo"],["chair","chair","stol","椅子","yǐzi"],
+  ["ball","ball","boll","球","qiú"],["crayon","crayon","krita","蜡笔","làbǐ"],["scissors","scissors","sax","剪刀","jiǎndāo"],["school","school","skola","学校","xuéxiào"],
+  ["bus","bus","buss","巴士","bāshì"],["teddy","teddy bear","nalle","玩具熊","wánjùxióng"]]},
+ {id:"sgfood",icon:"chopsticks",name:{en:"Singapore food",sv:"Mat i Singapore",zh:"新加坡美食"},words:[
+  ["chickenrice","chicken rice","kycklingris","鸡饭","jīfàn"],["satay","satay","satay","沙爹","shādiē"],["curry","curry","curry","咖喱","gālí"],["dumpling","dumpling","dumpling","饺子","jiǎozi"],
+  ["mooncake","mooncake","månkaka","月饼","yuèbing"],["prawn","prawn","räka","虾","xiā"],["crab","crab","krabba","螃蟹","pángxiè"],["coconut","coconut","kokosnöt","椰子","yēzi"],
+  ["tea","tea","te","茶","chá"],["chopsticks","chopsticks","ätpinnar","筷子","kuàizi"],["spoon","spoon","sked","勺子","sháozi"],["bowl","bowl","skål","碗","wǎn"]]},
+ {id:"sg",icon:"palm",name:{en:"Around Singapore",sv:"I Singapore",zh:"在新加坡"},words:[
+  ["mrt","MRT train","tunnelbana","地铁","dìtiě"],["taxi","taxi","taxi","德士","déshì"],["plane","aeroplane","flygplan","飞机","fēijī"],["umbrella","umbrella","paraply","雨伞","yǔsǎn"],
+  ["beach","beach","strand","海滩","hǎitān"],["palm","palm tree","palm","椰树","yēshù"],["otter","otter","utter","水獭","shuǐtǎ"],["lizard","lizard","ödla","蜥蜴","xīyì"],
+  ["mosquito","mosquito","mygga","蚊子","wénzi"],["ant","ant","myra","蚂蚁","mǎyǐ"],["shoes","shoes","skor","鞋子","xiézi"],["redpacket","red packet","rött kuvert","红包","hóngbāo"],
+  ["lantern","lantern","lykta","灯笼","dēnglong"],["dragon","dragon","drake","龙","lóng"]]},
+ {id:"nature",icon:"rainbow",name:{en:"Outside",sv:"Ute",zh:"大自然"},words:[
+  ["sun","sun","sol","太阳","tàiyáng"],["moon","moon","måne","月亮","yuèliang"],["star","star","stjärna","星星","xīngxing"],["tree","tree","träd","树","shù"],
+  ["flower","flower","blomma","花","huā"],["rain","rain","regn","雨","yǔ"],["mountain","mountain","berg","山","shān"],["fire","fire","eld","火","huǒ"],
+  ["rainbow","rainbow","regnbåge","彩虹","cǎihóng"],["cloud","cloud","moln","云","yún"],["snow","snow","snö","雪","xuě"]]},
+ {id:"numbers",icon:"numbers",name:{en:"Numbers",sv:"Siffror",zh:"数字"},words:[
   ["n:1","one","ett","一","yī"],["n:2","two","två","二","èr"],["n:3","three","tre","三","sān"],["n:4","four","fyra","四","sì"],["n:5","five","fem","五","wǔ"],
   ["n:6","six","sex","六","liù"],["n:7","seven","sju","七","qī"],["n:8","eight","åtta","八","bā"],["n:9","nine","nio","九","jiǔ"],["n:10","ten","tio","十","shí"]]},
  {id:"hanzi",icon:"字",chars:true,name:{en:"Picture characters",sv:"Bildtecken",zh:"象形字"},words:[
-  ["☀️","sun","sol","日","rì"],["🌙","moon","måne","月","yuè"],["⛰️","mountain","berg","山","shān"],["💧","water","vatten","水","shuǐ"],
-  ["🔥","fire","eld","火","huǒ"],["🌳","wood","trä","木","mù"],["🧍","person","människa","人","rén"],["👄","mouth","mun","口","kǒu"],
-  ["✋","hand","hand","手","shǒu"],["👁️","eye","öga","目","mù"],["🌧️","rain","regn","雨","yǔ"],["🌾","field","åker","田","tián"],
-  ["🐘","big","stor","大","dà"],["🐭","small","liten","小","xiǎo"]]}
+  ["sun","sun","sol","日","rì"],["moon","moon","måne","月","yuè"],["mountain","mountain","berg","山","shān"],["water","water","vatten","水","shuǐ"],
+  ["fire","fire","eld","火","huǒ"],["tree","wood","trä","木","mù"],["person","person","människa","人","rén"],["mouth","mouth","mun","口","kǒu"],
+  ["hand","hand","hand","手","shǒu"],["eye","eye","öga","目","mù"],["rain","rain","regn","雨","yǔ"],["field","field","åker","田","tián"],
+  ["elephant","big","stor","大","dà"],["mouse","small","liten","小","xiǎo"]]}
 ];
 const GROUPS=[
- {icon:"🍓",name:{en:"Yummy food",sv:"Mat",zh:"好吃的"},decks:["fruit","food","sgfood"]},
- {icon:"🦋",name:{en:"Animals and nature",sv:"Djur och natur",zh:"动物和大自然"},decks:["animals","nature"]},
- {icon:"💖",name:{en:"Me and my family",sv:"Jag och min familj",zh:"我和家人"},decks:["body","people"]},
- {icon:"🎒",name:{en:"School and Singapore",sv:"Skolan och Singapore",zh:"学校和新加坡"},decks:["school","sg"]},
- {icon:"🇸🇪",name:{en:"Sweden",sv:"Sverige",zh:"瑞典"},decks:["sweden","winter"]},
- {icon:"🌈",name:{en:"Colours and numbers",sv:"Färger och siffror",zh:"颜色和数字"},decks:["colours","numbers"]},
+ {icon:"strawberry",name:{en:"Yummy food",sv:"Mat",zh:"好吃的"},decks:["fruit","food","sgfood"]},
+ {icon:"butterfly",name:{en:"Animals and nature",sv:"Djur och natur",zh:"动物和大自然"},decks:["animals","nature"]},
+ {icon:"heart",name:{en:"Me and my family",sv:"Jag och min familj",zh:"我和家人"},decks:["body","people"]},
+ {icon:"schoolbag",name:{en:"School and Singapore",sv:"Skolan och Singapore",zh:"学校和新加坡"},decks:["school","sg"]},
+ {icon:"swedenflag",name:{en:"Sweden",sv:"Sverige",zh:"瑞典"},decks:["sweden","winter"]},
+ {icon:"rainbow",name:{en:"Colours and numbers",sv:"Färger och siffror",zh:"颜色和数字"},decks:["colours","numbers"]},
  {icon:"字",name:{en:"Chinese characters",sv:"Kinesiska tecken",zh:"汉字"},decks:["hanzi"]}];
 const WORDS=[];
 DECKS.forEach(d=>{d.list=d.words.map((a,i)=>{const w={id:d.id+":"+i,deck:d,pic:a[0],en:a[1],sv:a[2],zh:a[3],py:a[4]};WORDS.push(w);return w})});
@@ -306,21 +337,21 @@ const LANG={
 
 /* English phonics. "say" is a rough spelling for the sound; grown-ups can record the real sound. */
 const SOUNDS={
- s:["sss","sun","☀️"],a:["a","apple","🍎"],t:["tuh","tiger","🐯"],i:["ih","insect","🐞"],p:["puh","pig","🐷"],n:["nnn","nose","👃"],
- c:["kuh","cat","🐱"],k:["kuh","kite","🪁"],e:["eh","egg","🥚"],h:["huh","hat","🎩"],r:["rrr","rabbit","🐰"],m:["mmm","moon","🌙"],d:["duh","dog","🐶"],
- g:["guh","goat","🐐"],o:["o","octopus","🐙"],u:["uh","umbrella","☂️"],l:["lll","lion","🦁"],f:["fff","fish","🐟"],b:["buh","ball","⚽"],
- j:["juh","juice","🧃"],z:["zzz","zebra","🦓"],w:["wuh","web","🕸️"],v:["vvv","van","🚐"],y:["yuh","yo-yo","🪀"],x:["ks","box","📦"],qu:["kwuh","queen","👸"],
- sh:["shh","ship","🚢"],ch:["chuh","chick","🐥"],th:["th","thumb","👍"],ng:["ng","ring","💍"],ck:["kuh","duck","🦆"],ee:["ee","bee","🐝"],oo:["oo","moon","🌙"],ll:["lll","shell","🐚"]
+ s:["sss","sun","sun"],a:["a","apple","apple"],t:["tuh","tiger","tiger"],i:["ih","insect","ladybird"],p:["puh","pig","pig"],n:["nnn","nose","nose"],
+ c:["kuh","cat","cat"],k:["kuh","kite","kite"],e:["eh","egg","egg"],h:["huh","hat","hat"],r:["rrr","rabbit","rabbit"],m:["mmm","moon","moon"],d:["duh","dog","dog"],
+ g:["guh","goat","goat"],o:["o","octopus","octopus"],u:["uh","umbrella","umbrella"],l:["lll","lion","lion"],f:["fff","fish","fish"],b:["buh","ball","ball"],
+ j:["juh","juice","juice"],z:["zzz","zebra","zebra"],w:["wuh","web","web"],v:["vvv","van","van"],y:["yuh","yo-yo","yoyo"],x:["ks","box","box"],qu:["kwuh","queen","queen"],
+ sh:["shh","ship","ship"],ch:["chuh","chick","chick"],th:["th","thumb","thumb"],ng:["ng","ring","ring"],ck:["kuh","duck","duck"],ee:["ee","bee","bee"],oo:["oo","moon","moon"],ll:["lll","shell","shell"]
 };
 const SOUND_GROUPS=[["s","a","t","i","p","n"],["c","k","e","h","r","m","d"],["g","o","u","l","f","b"],["j","z","w","v","y","x","qu"],["sh","ch","th","ng","ck","ee","oo"]];
 const BLEND_LEVELS=[
- {name:"3 sounds",icon:"🐱",words:[["c-a-t","🐱"],["d-o-g","🐶"],["s-u-n","☀️"],["p-i-g","🐷"],["h-a-t","🎩"],["b-e-d","🛏️"],["b-u-s","🚌"],["m-a-p","🗺️"],["p-e-n","🖊️"],["f-o-x","🦊"],["b-a-t","🦇"],["h-e-n","🐔"],["b-u-g","🐛"],["a-n-t","🐜"],["w-e-b","🕸️"],["l-e-g","🦵"],["v-a-n","🚐"],["b-o-x","📦"],["n-e-t","🥅"],["r-a-t","🐀"],["n-u-t","🥜"],["p-a-n","🍳"],["t-e-n","🔟"],["s-i-x","6️⃣"]]},
- {name:"sh ch ck ng",icon:"🚢",words:[["sh-i-p","🚢"],["f-i-sh","🐟"],["sh-e-ll","🐚"],["ch-i-ck","🐥"],["b-a-th","🛁"],["d-u-ck","🦆"],["s-o-ck","🧦"],["r-o-ck","🪨"],["r-i-ng","💍"],["k-i-ng","🤴"]]},
- {name:"ee oo qu",icon:"🐝",words:[["b-ee","🐝"],["t-r-ee","🌳"],["f-ee-t","🦶"],["m-oo-n","🌙"],["b-oo-k","📖"],["qu-ee-n","👸"]]},
- {name:"4 sounds",icon:"🐸",words:[["f-r-o-g","🐸"],["c-r-a-b","🦀"],["d-r-u-m","🥁"],["f-l-a-g","🚩"],["c-l-o-ck","🕰️"],["s-n-a-ck","🍪"],["t-e-n-t","⛺"],["h-a-n-d","✋"]]}
+ {name:"3 sounds",icon:"cat",words:[["c-a-t","cat"],["d-o-g","dog"],["s-u-n","sun"],["p-i-g","pig"],["h-a-t","hat"],["b-e-d","bed"],["b-u-s","bus"],["m-a-p","map"],["p-e-n","pen"],["f-o-x","fox"],["b-a-t","bat"],["h-e-n","hen"],["b-u-g","bug"],["a-n-t","ant"],["w-e-b","web"],["l-e-g","leg"],["v-a-n","van"],["b-o-x","box"],["n-e-t","net"],["r-a-t","rat"],["n-u-t","nut"],["p-a-n","pan"],["t-e-n","ten"],["s-i-x","6️⃣"]]},
+ {name:"sh ch ck ng",icon:"ship",words:[["sh-i-p","ship"],["f-i-sh","fish"],["sh-e-ll","shell"],["ch-i-ck","chick"],["b-a-th","bath"],["d-u-ck","duck"],["s-o-ck","sock"],["r-o-ck","rock"],["r-i-ng","ring"],["k-i-ng","king"]]},
+ {name:"ee oo qu",icon:"bee",words:[["b-ee","bee"],["t-r-ee","tree"],["f-ee-t","feet"],["m-oo-n","moon"],["b-oo-k","book"],["qu-ee-n","queen"]]},
+ {name:"4 sounds",icon:"frog",words:[["f-r-o-g","frog"],["c-r-a-b","crab"],["d-r-u-m","drum"],["f-l-a-g","flag"],["c-l-o-ck","clock"],["s-n-a-ck","snack"],["t-e-n-t","tent"],["h-a-n-d","hand"]]}
 ];
 const SIGHT=[["I","a","the","is","my","to","go","see"],["we","you","he","she","me","be","no","yes"],["and","can","like","look","it","in","on","up"],["said","was","they","are","come","here","what","all"]];
-const STICKERS="🦄🌈✨🧚👑💎🎀🌸🦋🍭🧁🍩⭐🌙🏰🪄💖🌷🐬🦩🐱🐰🦢🍓🎠🎈🎁🌻🍦🧸🌺🐚🐠🦜🐝🐞🌟💫🐳🦊".match(/\p{Extended_Pictographic}️?/gu);
+const STICKERS=["unicorn","rainbow","star","heart","butterfly","flower","panda","rabbit","cat","dog","lion","tiger","monkey","elephant","frog","duck","bee","ladybird","octopus","fish","otter","reindeer","dragon","snowman","cake","icecream","strawberry","cherry","watermelon","mooncake","lantern","present","queen","teddy","kite","yoyo","sailboat","summerhouse","sun","moon"];
 const STARS_PER_STICKER=5;
 
 /* ================= Storage ================= */
@@ -333,6 +364,8 @@ let phon=store.get("phon",{});
 /* Reward hearts: every `perHeart` words answered right in any game earns a heart, up to `heartCap` a day. */
 let daily=store.get("daily",{});if(!daily||typeof daily!=="object")daily={};
 let hearts=Object.assign({total:0,pending:0},store.get("hearts",{}));
+let colourFills=store.get("colourFills",{});if(!colourFills||typeof colourFills!=="object")colourFills={};
+let colourDone=store.get("colourDone",{});if(!colourDone||typeof colourDone!=="object")colourDone={};
 const dayKey=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const dayAgo=n=>{const d=new Date();d.setHours(12);d.setDate(d.getDate()-n);return d};
 const today=()=>daily[dayKey()]||{words:0,hearts:0};
@@ -343,13 +376,13 @@ function gotWord(){
   if(t.hearts<settings.heartCap&&t.words>=(t.hearts+1)*settings.perHeart){t.hearts++;hearts.total++;hearts.pending++;saveAll();setTimeout(heartToast,700)}
   else saveAll()}
 function heartToast(){
-  fanfare();const c=document.getElementById("confetti");for(let i=0;i<24;i++){const e=document.createElement("i");e.textContent=rnd(["💖","💗","💕","✨","🦄"]);e.style.left=Math.random()*100+"vw";e.style.animationDelay=Math.random()*.5+"s";c.appendChild(e);setTimeout(()=>e.remove(),2400)}
+  fanfare();const c=document.getElementById("confetti");for(let i=0;i<24;i++){const e=document.createElement("i");e.innerHTML=art(rnd(["heart","heart","sparkle","star"]));e.style.left=Math.random()*100+"vw";e.style.animationDelay=Math.random()*.5+"s";c.appendChild(e);setTimeout(()=>e.remove(),2400)}
   const n=streakDays();
   const el=document.createElement("button");el.className="toast";
-  el.innerHTML=`<span class="h">💖</span><b>You earned a heart, Ella!</b><small>For your Reward Jar · Ett hjärta! · 一颗爱心！</small>${n>1?`<small>🌈 ${n} days in a row!</small>`:""}`;
+  el.innerHTML=`<span class="h">${art("heart")}</span><b>You earned a heart, Ella!</b><small>For your Reward Jar · Ett hjärta! · 一颗爱心！</small>${n>1?`<small>${ico("rainbow")} ${n} days in a row!</small>`:""}`;
   el.onclick=()=>el.remove();document.body.appendChild(el);setTimeout(()=>el.remove(),4200);
   setTimeout(()=>play([{lang:"en",text:"You earned a heart!"}]),400)}
-function saveAll(){store.set("settings",settings);store.set("progress",progress);store.set("stars",stars);store.set("phon",phon);store.set("daily",daily);store.set("hearts",hearts)}
+function saveAll(){store.set("settings",settings);store.set("progress",progress);store.set("stars",stars);store.set("phon",phon);store.set("daily",daily);store.set("hearts",hearts);store.set("colourFills",colourFills);store.set("colourDone",colourDone)}
 function mark(lang,id,ok){const p=progress[lang][id]||(progress[lang][id]={ok:0,miss:0});ok?p.ok++:p.miss++;saveAll()}
 const known=(lang,id)=>(progress[lang][id]&&progress[lang][id].ok>=2);
 function addStar(n=1){const before=Math.floor(stars/STARS_PER_STICKER);stars+=n;saveAll();renderTop();
@@ -413,18 +446,20 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
 function picHTML(w,ps){
   const st=ps?` style="--ps:${ps}"`:"";
-  if(w.deck&&w.deck.chars)return `<div class="pic han"${st}><b lang="zh">${w.zh}</b><span>${w.pic}</span></div>`;
+  if(w.deck&&w.deck.chars)return `<div class="pic han"${st}><b lang="zh">${w.zh}</b>${art(w.pic,"sm")}</div>`;
   const p=w.pic||w;
   if(p[0]==="#")return `<div class="pic"${st}><div class="swatch" style="background:${p}"></div></div>`;
   if(p.startsWith("n:")){const n=+p.slice(2);return `<div class="pic num"${st}><b>${n}</b><div class="dots">${"<i></i>".repeat(n)}</div></div>`}
-  return `<div class="pic"${st}><span class="emo">${p}</span></div>`}
+  return `<div class="pic"${st}>${art(p)}</div>`}
+const iconHTML=k=>ART[k]?art(k):`<span class="hz">${k}</span>`;
+const ico=k=>art(k,"ico");
 const chip=l=>`<span class="chip ${l}">${LANG[l].chip}</span>`;
 function wordRow(w,l){
   const py=l==="zh"&&settings.pinyin?`<small>${esc(w.py)}</small>`:"";
-  return `<button class="wrow ${l}" data-l="${l}" lang="${l}">${chip(l)}<span class="w">${esc(w[l])}${py}</span><span class="spk">🔊</span></button>`}
+  return `<button class="wrow ${l}" data-l="${l}" lang="${l}">${chip(l)}<span class="w">${esc(w[l])}${py}</span><span class="spk">${art("speaker")}</span></button>`}
 function deckName(d){return `<b>${esc(d.name.en)}</b><small><span style="color:var(--sv)">${esc(d.name.sv)}</span> · <span style="color:var(--zh)">${esc(d.name.zh)}</span></small>`}
-function confetti(){const c=$("#confetti");const e=["⭐","🌟","✨","🎉","💛"];for(let i=0;i<24;i++){const s=document.createElement("i");s.textContent=rnd(e);s.style.left=Math.random()*100+"vw";s.style.animationDelay=Math.random()*.5+"s";c.appendChild(s);setTimeout(()=>s.remove(),2400)}}
-function buddy(msg){return `<div class="buddy"><button class="pal" id="pal" aria-label="Unicorn friend">🦄</button><div class="bubble" id="bubble">${msg}</div></div>`}
+function confetti(){const c=$("#confetti");const e=["star","sparkle","heart"];for(let i=0;i<24;i++){const s=document.createElement("i");s.innerHTML=art(rnd(e));s.style.left=Math.random()*100+"vw";s.style.animationDelay=Math.random()*.5+"s";c.appendChild(s);setTimeout(()=>s.remove(),2400)}}
+function buddy(msg){return `<div class="buddy"><button class="pal" id="pal" aria-label="Unicorn friend">${art("unicorn")}</button><div class="bubble" id="bubble">${msg}</div></div>`}
 function hop(msg){const p=$("#pal");if(p){p.classList.remove("hop");void p.offsetWidth;p.classList.add("hop")}if(msg&&$("#bubble"))$("#bubble").innerHTML=msg}
 function praise(lang){const t=rnd(LANG[lang].praise);hop(esc(t));return {lang,text:t}}
 function pickLang(){const g=settings.gameLang;if(g!=="mix")return g;const r=Math.random();return r<.5?"zh":r<.75?"sv":"en"}
@@ -434,9 +469,9 @@ let view={name:"home"};
 function go(name,p={}){stopAll();view=Object.assign({name},p);render();window.scrollTo(0,0)}
 function renderTop(){
   const home=view.name==="home";
-  $("#top").innerHTML=`${home?"":`<button class="iconbtn" id="back" aria-label="Back">${view.back?"⬅️":"🏠"}</button>`}
-    <h1>Ella's Word Den <span class="sp">✨</span></h1>
-    <button class="starpill" id="starbtn" aria-label="Stars and stickers">⭐ <span>${stars}</span></button>`;
+  $("#top").innerHTML=`${home?"":`<button class="iconbtn" id="back" aria-label="Back">${view.back?art("back"):art("home")}</button>`}
+    <h1>Ella's Word Den <span class="sp">${ico("sparkle")}</span></h1>
+    <button class="starpill" id="starbtn" aria-label="Stars and stickers">${ico("star")} <span>${stars}</span></button>`;
   const b=$("#back");if(b)b.onclick=()=>view.back?view.back():go("home");
   $("#starbtn").onclick=()=>go("stickers");
 }
@@ -448,16 +483,19 @@ const VIEWS={};
 VIEWS.home=app=>{
   app.innerHTML=`<div class="wrap" style="gap:18px">
     ${buddy("Hej Ella! Hi Ella! 你好 Ella！")}
+    ${langPills()}
     ${streakBox()}
     <div class="tiles">
-      <button class="tile" data-go="words"><span class="ic">📚</span><b>Words</b><small>Ord · 词语</small></button>
-      <button class="tile" data-go="find"><span class="ic">👂</span><b>Listen &amp; find</b><small>Lyssna · 听一听</small></button>
-      <button class="tile" data-go="sayit"><span class="ic">🗣️</span><b>Say it</b><small>Säg det · 说一说</small></button>
-      <button class="tile" data-go="phonics"><span class="ic">🔤</span><b>Phonics</b><small>a b c</small></button>
-      <button class="tile" data-go="stickers"><span class="ic">🌟</span><b>Stickers</b><small>Klistermärken · 贴纸</small></button>
-      <button class="tile hold" id="grown"><span class="fill"></span><span class="ic">⚙️</span><b>Grown-ups</b><small>Press and hold</small></button>
+      <button class="tile" data-go="words"><span class="ic">${art("book")}</span><b>Words</b><small>Ord · 词语</small></button>
+      <button class="tile" data-go="find"><span class="ic">${art("ear")}</span><b>Listen &amp; find</b><small>Lyssna · 听一听</small></button>
+      <button class="tile" data-go="sayit"><span class="ic">${art("speech")}</span><b>Say it</b><small>Säg det · 说一说</small></button>
+      <button class="tile" data-go="phonics"><span class="ic">${art("abc")}</span><b>Phonics</b><small>a b c</small></button>
+      <button class="tile" data-go="colour"><span class="ic">${art("palette")}</span><b>Colouring</b><small>Måla · 涂色</small></button>
+      <button class="tile" data-go="stickers"><span class="ic">${art("star")}</span><b>Stickers</b><small>Klistermärken · 贴纸</small></button>
+      <button class="tile hold" id="grown"><span class="fill"></span><span class="ic">${art("gear")}</span><b>Grown-ups</b><small>Press and hold</small></button>
     </div></div>`;
   $$("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  bindLangPills();
   if($("#daily"))$("#daily").onclick=()=>startFind("all",settings.perHeart,true);
   $("#pal").onclick=()=>{hop();play([{lang:"sv",text:"Hej Ella!"},{lang:"en",text:"Hi Ella!"},{lang:"zh",text:"你好 Ella！"}])};
   holdToOpen($("#grown"),()=>go("parents"));
@@ -465,16 +503,16 @@ VIEWS.home=app=>{
 function streakBox(){
   const t=today(),per=settings.perHeart,cap=settings.heartCap,n=streakDays();
   const done=t.hearts>=cap;const into=done?per:t.words-t.hearts*per;
-  const msg=done?"Today's hearts are done! 🎉 Bra jobbat!":`${per-into} more words for a 💖`;
+  const msg=done?"Today's hearts are done! Bra jobbat!":`${per-into} more words for a ${ico("heart")}`;
   const days=[6,5,4,3,2,1,0].map(i=>{const d=dayAgo(i),x=daily[dayKey(d)];
-    return `<div class="${i===0?"today":""}"><i>${x&&x.hearts?"💖":""}</i>${"SMTWTFS"[d.getDay()]}</div>`}).join("");
+    return `<div class="${i===0?"today":""}"><i>${x&&x.hearts?art("heart"):""}</i>${"SMTWTFS"[d.getDay()]}</div>`}).join("");
   return `<section class="streak" aria-label="Streak">
-    <div class="nums"><div class="sb a"><b>🌈 ${n}</b><small>${n===1?"day":"days"} in a row</small></div>
-      <div class="sb b"><b>💖 ${t.hearts}</b><small>${t.hearts===1?"heart":"hearts"} today</small></div></div>
+    <div class="nums"><div class="sb a"><b>${ico("rainbow")} ${n}</b><small>${n===1?"day":"days"} in a row</small></div>
+      <div class="sb b"><b>${ico("heart")} ${t.hearts}</b><small>${t.hearts===1?"heart":"hearts"} today</small></div></div>
     <div class="todaybar"><span style="width:${into/per*100}%"></span></div>
     <div class="todaytxt">${msg}</div>
     <div class="week">${days}</div>
-    ${done?"":`<button class="bigbtn daily" id="daily">⭐ Daily ${per} words</button>`}
+    ${done?"":`<button class="bigbtn daily" id="daily">${ico("star")} Daily ${per} words</button>`}
   </section>`}
 function holdToOpen(el,fn){let t=null;
   const start=e=>{e.preventDefault();el.classList.add("holding");t=setTimeout(()=>{el.classList.remove("holding");fn()},1500)};
@@ -484,38 +522,43 @@ function holdToOpen(el,fn){let t=null;
 
 /* ---------- Deck picker (shared) ---------- */
 function deckPicker(app,title,onPick,opts={}){
-  const decks=DECKS.filter(d=>!(opts.noChars&&d.chars));
+  const decks=DECKS.filter(d=>!(opts.noChars&&d.chars)&&!(opts.skip&&opts.skip.includes(d.id)));
   app.innerHTML=`<div class="wrap">${buddy(title)}
     ${opts.langs?langPills():""}
-    ${opts.all?`<div class="tiles"><button class="tile sm" data-d="all"><span class="ic">🎲</span><b>Mix of everything</b><small>Blandat · 混合</small></button></div>`:""}
+    ${opts.all?`<div class="tiles"><button class="tile sm" data-d="all"><span class="ic">${art("dice")}</span><b>Mix of everything</b><small>Blandat · 混合</small></button></div>`:""}
     ${GROUPS.map((g,gi)=>{const ds=g.decks.map(id=>decks.find(d=>d.id===id)).filter(Boolean);if(!ds.length)return "";
-      const tile=d=>`<button class="tile sm" data-d="${d.id}"><span class="ic"${d.chars?` style="font-family:var(--hanzi);color:var(--zh)"`:""}>${d.icon}</span>${deckName(d)}</button>`;
-      return `<section class="group"><h2><span${g.icon==="字"?` style="font-family:var(--hanzi);color:var(--zh)"`:""}>${g.icon}</span> ${esc(g.name.en)} <small><span style="color:var(--sv)">${esc(g.name.sv)}</span> · <span style="color:var(--zh)">${esc(g.name.zh)}</span></small></h2>
-        <div class="tiles">${ds.map(tile).join("")}${opts.all&&ds.length>1?`<button class="tile sm" data-d="g:${gi}"><span class="ic">🎲</span><b>All of these</b><small>Alla · 全部</small></button>`:""}</div></section>`}).join("")}</div>`;
+      const tile=d=>`<button class="tile sm" data-d="${d.id}"><span class="ic">${iconHTML(d.icon)}</span>${deckName(d)}</button>`;
+      return `<section class="group"><h2><span class="gi">${iconHTML(g.icon)}</span> ${esc(g.name.en)} <small><span style="color:var(--sv)">${esc(g.name.sv)}</span> · <span style="color:var(--zh)">${esc(g.name.zh)}</span></small></h2>
+        <div class="tiles">${ds.map(tile).join("")}${opts.all&&ds.length>1?`<button class="tile sm" data-d="g:${gi}"><span class="ic">${art("dice")}</span><b>All of these</b><small>Alla · 全部</small></button>`:""}</div></section>`}).join("")}</div>`;
   bindLangPills();
   $$("[data-d]").forEach(b=>b.onclick=()=>onPick(b.dataset.d))}
+/* One language switch used everywhere: "mix" or a single language. */
 function langPills(){
-  const o=[["mix","🎲 Mix"],["zh","中文"],["sv","Svenska"],["en","English"]];
-  return `<div><div class="label">Which language?</div><div class="pills">${o.map(([k,t])=>`<button class="pill ${k}" data-gl="${k}" aria-pressed="${settings.gameLang===k}">${t}</button>`).join("")}</div></div>`}
-function bindLangPills(){$$("[data-gl]").forEach(b=>b.onclick=()=>{settings.gameLang=b.dataset.gl;saveAll();$$("[data-gl]").forEach(x=>x.setAttribute("aria-pressed",x===b))})}
+  const o=[["mix",`${ico("dice")} Mix`],["zh","中文"],["sv","Svenska"],["en","English"]];
+  return `<div class="langbar"><div class="label">Language · Språk · 语言</div><div class="pills">${o.map(([k,t])=>`<button class="pill big ${k}" data-gl="${k}" aria-pressed="${settings.gameLang===k}">${t}</button>`).join("")}</div></div>`}
+function bindLangPills(onChange){$$("[data-gl]").forEach(b=>b.onclick=()=>{settings.gameLang=b.dataset.gl;saveAll();$$("[data-gl]").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  const g=settings.gameLang;if(g!=="mix")play([{lang:g,text:{zh:"中文",sv:"Svenska",en:"English"}[g]}]);if(onChange)onChange()})}
+/* Languages shown on a card: all three in Mix, otherwise just the chosen one. */
+const cardLangs=()=>settings.gameLang==="mix"?settings.order:[settings.gameLang];
 const poolFor=id=>id==="all"?WORDS.filter(w=>!w.deck.chars):id.startsWith("g:")?GROUPS[+id.slice(2)].decks.flatMap(x=>DECKS.find(d=>d.id===x).list):DECKS.find(d=>d.id===id).list;
 
 /* ---------- Words (picture cards) ---------- */
 VIEWS.words=app=>{
   if(!view.deck)return deckPicker(app,"Pick a box of words!",id=>go("words",{deck:id,i:0,back:()=>go("words")}));
   const d=DECKS.find(x=>x.id===view.deck),list=d.list,i=Math.max(0,Math.min(view.i||0,list.length-1)),w=list[i];
-  app.innerHTML=`<div class="card" id="card">
-    <button class="pic bigpic" id="bigpic" aria-label="Hear all">${picHTML(w,"8rem")}</button>
-    ${settings.order.map(l=>wordRow(w,l)).join("")}
+  app.innerHTML=`${langPills()}<div style="height:14px"></div><div class="card" id="card">
+    <button class="pic bigpic" id="bigpic" aria-label="Hear it">${picHTML(w,"8rem")}</button>
+    ${cardLangs().map(l=>wordRow(w,l)).join("")}
     <div class="navrow">
-      <button class="bigbtn ghost" id="prev" ${i===0?"disabled":""} aria-label="Previous">◀</button>
+      <button class="bigbtn ghost" id="prev" ${i===0?"disabled":""} aria-label="Previous">${ico("prev")}</button>
       <div class="dotsnav">${list.map((_,k)=>`<i class="${k===i?"on":""}"></i>`).join("")}</div>
-      <button class="bigbtn ghost" id="next" ${i===list.length-1?"disabled":""} aria-label="Next">▶</button>
+      <button class="bigbtn ghost" id="next" ${i===list.length-1?"disabled":""} aria-label="Next">${ico("next")}</button>
     </div></div>
-    <p class="note">Tap the picture to hear all three. Swipe or use the arrows.</p>`;
+    <p class="note">Tap the picture to hear it. Swipe or use the arrows.</p>`;
+  bindLangPills(()=>render());
   const rows=$$(".wrow");
   const light=l=>rows.forEach(r=>r.classList.toggle("on",r.dataset.l===l));
-  async function playAll(){stopAll();const my=seqId;for(const l of settings.order){if(my!==seqId)break;light(l);await say(l,w[l],wkey(w,l));await wait(300)}if(my===seqId)light(null)}
+  async function playAll(){stopAll();const my=seqId;for(const l of cardLangs()){if(my!==seqId)break;light(l);await say(l,w[l],wkey(w,l));await wait(300)}if(my===seqId)light(null)}
   rows.forEach(r=>r.onclick=async()=>{light(r.dataset.l);if(await play([sayWord(w,r.dataset.l)]))light(null)});
   $("#bigpic").onclick=playAll;
   const move=k=>{const j=i+k;if(j>=0&&j<list.length)go("words",{deck:d.id,i:j,back:view.back})};
@@ -543,7 +586,7 @@ VIEWS.find=app=>{
   app.innerHTML=`<div class="stage">
     <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
     ${buddy(r.lang==="zh"?"听一听！Where is it?":r.lang==="sv"?"Lyssna! Var är den?":"Listen! Where is it?")}
-    <div class="prompt"><button class="hear ${r.lang}" id="hear" aria-label="Hear again">🔊</button>${chip(r.lang)}</div>
+    <div class="prompt"><button class="hear ${r.lang}" id="hear" aria-label="Hear again">${art("speaker")}</button>${chip(r.lang)}</div>
     <div class="opts ${r.opts.length===3?"c3":""}">${r.opts.map((w,k)=>`<button class="opt" data-k="${k}">${picHTML(w)}</button>`).join("")}</div>
     <div class="reveal" id="reveal"></div></div>`;
   const hear=()=>play([sayWord(r.target,r.lang)]);
@@ -558,7 +601,7 @@ VIEWS.find=app=>{
       if(sticker)g.newSticker=sticker;
       const pr=praise(r.lang);
       $("#reveal").innerHTML=[r.lang,...settings.order.filter(l=>l!==r.lang)].map(l=>wordRow(w,l)).join("")+
-        `<button class="bigbtn go" id="nextR">Next ▶</button>`;
+        `<button class="bigbtn go" id="nextR">Next ${ico("next")}</button>`;
       $$("#reveal .wrow").forEach(x=>x.onclick=()=>play([sayWord(w,x.dataset.l)]));
       $("#nextR").onclick=()=>{g.r++;go("find",view)};
       play([sayWord(w,r.lang),pr]);
@@ -583,10 +626,10 @@ function startFind(deckId,count=ROUNDS,isDaily=false){
   go("find",{deck:deckId,game:{r:0,stars:0,rounds,max:count,daily:isDaily},back:isDaily?null:()=>go("find")})}
 function endScreen(app,g,again){
   fanfare();confetti();
-  app.innerHTML=`<div class="finish"><div class="big">🎉</div><h2>You did it, Ella! 🦄 Du klarade det! 你真棒！</h2>
-    <div class="starsrow">${"⭐".repeat(g.stars)}${"☆".repeat(Math.max(0,g.max-g.stars))}</div>
-    ${g.newSticker?`<p><b>New sticker!</b></p><div class="stk new" style="width:110px;font-size:3.6rem">${g.newSticker}</div>`:""}
-    <div class="pills" style="justify-content:center"><button class="bigbtn go" id="again">Play again 🔁</button><button class="bigbtn ghost" id="home">🏠</button></div></div>`;
+  app.innerHTML=`<div class="finish"><div class="big">${art("unicorn")}</div><h2>You did it, Ella! Du klarade det! 你真棒！</h2>
+    <div class="starsrow">${ico("star").repeat(g.stars)}${art("star","ico dim").repeat(Math.max(0,g.max-g.stars))}</div>
+    ${g.newSticker?`<p><b>New sticker!</b></p><div class="stk new" style="width:110px;font-size:3.6rem">${art(g.newSticker)}</div>`:""}
+    <div class="pills" style="justify-content:center"><button class="bigbtn go" id="again">Play again</button><button class="bigbtn ghost" id="home" aria-label="Home">${ico("home")}</button></div></div>`;
   $("#again").onclick=again;$("#home").onclick=()=>go("home");
   play([{lang:"en",text:"You did it, Ella!"},{lang:"sv",text:"Du klarade det!"},{lang:"zh",text:"你真棒！"}])}
 
@@ -601,11 +644,11 @@ VIEWS.sayit=app=>{
       <button class="pic bigpic" id="bigpic">${picHTML(w,"7rem")}</button>
       ${wordRow(w,l)}
     </div>
-    <button class="mic" id="mic" aria-label="Your turn">🎤</button>
+    <button class="mic" id="mic" aria-label="Your turn">${art("mic")}</button>
     <div class="count" id="count">Your turn! Din tur! 到你了！</div>
     <div class="pills" style="justify-content:center">
-      <button class="bigbtn go" id="said">⭐ I said it!</button>
-      <button class="bigbtn ghost" id="skip">Next ▶</button></div></div>`;
+      <button class="bigbtn go" id="said">${ico("star")} I said it!</button>
+      <button class="bigbtn ghost" id="skip">Next ${ico("next")}</button></div></div>`;
   const model=()=>play([sayWord(w,l)]);
   $("#bigpic").onclick=model;$(".wrow").onclick=model;
   const mic=$("#mic"),count=$("#count");let busy=false;
@@ -614,11 +657,11 @@ VIEWS.sayit=app=>{
     let rec=null;
     if(canRecord){try{rec=await startRec()}catch(e){rec=null}}
     mic.classList.add("rec");
-    for(let s=3;s>0;s--){count.textContent=(rec?"🔴 ":"")+"Say it! "+"● ".repeat(s);await wait(900)}
+    for(let s=3;s>0;s--){count.textContent=(rec?"Recording! ":"")+"Say it! "+"● ".repeat(s);await wait(900)}
     mic.classList.remove("rec");
-    if(rec){count.textContent="👂 Listen to you!";const blob=await rec.stop();
+    if(rec){count.textContent="Listen to you!";const blob=await rec.stop();
       try{const url=URL.createObjectURL(blob);const a=new Audio(url);playing=a;await new Promise(r=>{a.onended=r;a.onerror=r;a.play().catch(r);setTimeout(r,5000)});URL.revokeObjectURL(url)}catch(e){}
-      count.textContent="And me: 🦄";await play([sayWord(w,l)])}
+      count.textContent="And me!";await play([sayWord(w,l)])}
     count.textContent="Your turn! Din tur! 到你了！";busy=false};
   $("#said").onclick=()=>{chime();gotWord();mark(l,w.id,true);g.stars++;const s=addStar();if(s)g.newSticker=s;g.r++;go("sayit",view)};
   $("#skip").onclick=()=>{g.r++;go("sayit",view)};
@@ -629,10 +672,10 @@ VIEWS.sayit=app=>{
 VIEWS.phonics=app=>{
   app.innerHTML=`<div class="wrap">${buddy("Let's play with sounds!")}
     <div class="tiles">
-      <button class="tile" data-p="letters"><span class="ic">🔤</span><b>Letter sounds</b><small>s a t p i n</small></button>
-      <button class="tile" data-p="blend"><span class="ic">🧩</span><b>Blend it</b><small>c · a · t → cat</small></button>
-      <button class="tile" data-p="read"><span class="ic">📖</span><b>Read it</b><small>Picture → word</small></button>
-      <button class="tile" data-p="sight"><span class="ic">👀</span><b>Tricky words</b><small>the · is · said</small></button>
+      <button class="tile" data-p="letters"><span class="ic">${art("abc")}</span><b>Letter sounds</b><small>s a t p i n</small></button>
+      <button class="tile" data-p="blend"><span class="ic">${art("blocks")}</span><b>Blend it</b><small>c · a · t → cat</small></button>
+      <button class="tile" data-p="read"><span class="ic">${art("book")}</span><b>Read it</b><small>Picture → word</small></button>
+      <button class="tile" data-p="sight"><span class="ic">${art("eyes")}</span><b>Tricky words</b><small>the · is · said</small></button>
     </div></div>`;
   $$("[data-p]").forEach(b=>b.onclick=()=>go(b.dataset.p,{back:()=>go("phonics")}))};
 
@@ -640,7 +683,7 @@ VIEWS.letters=app=>{
   const gi=view.g||0;
   app.innerHTML=`<div class="wrap">${buddy("Tap a letter to hear its sound!")}
     <div class="pills">${SOUND_GROUPS.map((g,k)=>`<button class="pill" data-g="${k}" aria-pressed="${k===gi}">${g.slice(0,3).join(" ")}…</button>`).join("")}</div>
-    <div class="lgrid">${SOUND_GROUPS[gi].map(s=>`<button class="lcard" data-s="${s}"><b>${s}</b><span>${SOUNDS[s][2]}</span><small>${SOUNDS[s][1]}</small></button>`).join("")}</div>
+    <div class="lgrid">${SOUND_GROUPS[gi].map(s=>`<button class="lcard" data-s="${s}"><b>${s}</b>${art(SOUNDS[s][2])}<small>${SOUNDS[s][1]}</small></button>`).join("")}</div>
     <p class="note">Tip for grown-ups: the device voice is not great at single sounds. Record your own in Grown-ups.</p></div>`;
   $$("[data-g]").forEach(b=>b.onclick=()=>go("letters",{g:+b.dataset.g,back:view.back}));
   $$("[data-s]").forEach(b=>b.onclick=async()=>{$$(".lcard").forEach(x=>x.classList.toggle("on",x===b));const s=b.dataset.s;
@@ -650,7 +693,7 @@ function phWords(level){return BLEND_LEVELS[level].words.map(([t,pic])=>({tiles:
 VIEWS.blend=app=>{
   if(view.level==null){
     app.innerHTML=`<div class="wrap">${buddy("Tap each sound, then blend!")}
-      <div class="tiles">${BLEND_LEVELS.map((L,k)=>`<button class="tile sm" data-lv="${k}"><span class="ic">${L.icon}</span><b>${L.name}</b><small>${phon["blend"+k]?"⭐ ".repeat(Math.min(3,phon["blend"+k])):"&nbsp;"}</small></button>`).join("")}</div></div>`;
+      <div class="tiles">${BLEND_LEVELS.map((L,k)=>`<button class="tile sm" data-lv="${k}"><span class="ic">${art(L.icon)}</span><b>${L.name}</b><small>${phon["blend"+k]?ico("star").repeat(Math.min(3,phon["blend"+k])):"&nbsp;"}</small></button>`).join("")}</div></div>`;
     return $$("[data-lv]").forEach(b=>b.onclick=()=>startPh("blend",+b.dataset.lv))}
   const g=view.game;if(g.r>=g.max){phon["blend"+view.level]=(phon["blend"+view.level]||0)+1;saveAll();return endScreen(app,g,()=>startPh("blend",view.level))}
   const it=g.items[g.r];
@@ -658,7 +701,7 @@ VIEWS.blend=app=>{
     <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
     ${buddy("Tap each sound!")}
     <div class="tilesrow" id="trow">${it.tiles.map((t,k)=>`<button class="ltile" data-t="${k}">${t}</button>`).join("")}</div>
-    <button class="bigbtn" id="blendBtn">🪄 Blend!</button>
+    <button class="bigbtn" id="blendBtn">${ico("sparkle")} Blend!</button>
     <div class="opts c3" id="opts" hidden>${it.opts.map((o,k)=>`<button class="opt" data-k="${k}">${picHTML(o.pic,"4rem")}</button>`).join("")}</div></div>`;
   const tiles=$$(".ltile");
   tiles.forEach(t=>t.onclick=async()=>{tiles.forEach(x=>x.classList.remove("on"));t.classList.add("on","done");await play([saySound(it.tiles[+t.dataset.t])]);t.classList.remove("on")});
@@ -682,7 +725,7 @@ function startPh(kind,level){
 VIEWS.read=app=>{
   if(view.level==null){
     app.innerHTML=`<div class="wrap">${buddy("Look at the picture. Read the words. Tap the right one!")}
-      <div class="tiles">${BLEND_LEVELS.map((L,k)=>`<button class="tile sm" data-lv="${k}"><span class="ic">${L.icon}</span><b>${L.name}</b><small>${phon["read"+k]?"⭐ ".repeat(Math.min(3,phon["read"+k])):"&nbsp;"}</small></button>`).join("")}</div></div>`;
+      <div class="tiles">${BLEND_LEVELS.map((L,k)=>`<button class="tile sm" data-lv="${k}"><span class="ic">${art(L.icon)}</span><b>${L.name}</b><small>${phon["read"+k]?ico("star").repeat(Math.min(3,phon["read"+k])):"&nbsp;"}</small></button>`).join("")}</div></div>`;
     return $$("[data-lv]").forEach(b=>b.onclick=()=>startPh("read",+b.dataset.lv))}
   const g=view.game;if(g.r>=g.max){phon["read"+view.level]=(phon["read"+view.level]||0)+1;saveAll();return endScreen(app,g,()=>startPh("read",view.level))}
   const it=g.items[g.r];
@@ -701,7 +744,7 @@ VIEWS.read=app=>{
 VIEWS.sight=app=>{
   if(view.level==null){
     app.innerHTML=`<div class="wrap">${buddy("Tricky words! You can't sound these out, you just know them.")}
-      <div class="tiles">${SIGHT.map((L,k)=>`<button class="tile sm" data-lv="${k}"><span class="ic">${["🐣","🐥","🐔","🦅"][k]}</span><b>${L.slice(0,4).join(" ")}</b><small>${phon["sight"+k]?"⭐ ".repeat(Math.min(3,phon["sight"+k])):"Level "+(k+1)}</small></button>`).join("")}</div></div>`;
+      <div class="tiles">${SIGHT.map((L,k)=>`<button class="tile sm" data-lv="${k}"><span class="ic">${art(["egg","chick","hen","bird"][k])}</span><b>${L.slice(0,4).join(" ")}</b><small>${phon["sight"+k]?ico("star").repeat(Math.min(3,phon["sight"+k])):"Level "+(k+1)}</small></button>`).join("")}</div></div>`;
     return $$("[data-lv]").forEach(b=>b.onclick=()=>{const lv=+b.dataset.lv;const L=SIGHT[lv];const items=shuffle(L).map(wd=>({word:wd,opts:shuffle([wd,...shuffle(L.filter(x=>x!==wd)).slice(0,3)])}));
       go("sight",{level:lv,game:{r:0,stars:0,max:items.length,items},back:()=>go("sight",{back:()=>go("phonics")})})})}
   const g=view.game;if(g.r>=g.max){phon["sight"+view.level]=(phon["sight"+view.level]||0)+1;saveAll();return endScreen(app,g,()=>{const L=SIGHT[view.level];const items=shuffle(L).map(wd=>({word:wd,opts:shuffle([wd,...shuffle(L.filter(x=>x!==wd)).slice(0,3)])}));go("sight",{level:view.level,game:{r:0,stars:0,max:items.length,items},back:view.back})})}
@@ -709,7 +752,7 @@ VIEWS.sight=app=>{
   app.innerHTML=`<div class="stage">
     <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
     ${buddy("Find the word!")}
-    <button class="hear en" id="hear">🔊</button>
+    <button class="hear en" id="hear" aria-label="Hear again">${art("speaker")}</button>
     <div class="opts">${it.opts.map((o,k)=>`<button class="opt word" data-k="${k}">${o}</button>`).join("")}</div></div>`;
   $("#hear").onclick=hear;let misses=0,fin=false;
   $$(".opt").forEach(b=>b.onclick=()=>{
@@ -719,11 +762,53 @@ VIEWS.sight=app=>{
     else{misses++;b.classList.add("wrong");boop();setTimeout(hear,400)}});
   setTimeout(hear,300)};
 
+/* ---------- Colouring ---------- */
+const PALETTE=()=>DECKS.find(d=>d.id==="colours").list;
+let brush=0;
+VIEWS.colour=app=>{
+  if(!view.deck)return deckPicker(app,"What shall we colour?",id=>go("colour",{deck:id,back:()=>go("colour")}),{skip:["colours","numbers","hanzi"],langs:true});
+  const d=DECKS.find(x=>x.id===view.deck);
+  if(!view.wid){
+    const l=settings.gameLang==="mix"?settings.order[0]:settings.gameLang;
+    app.innerHTML=`<div class="wrap">${buddy("Pick a picture!")}<div class="tiles">${d.list.map(w=>`<button class="tile sm" data-w="${w.id}"><span class="ic">${art(w.pic)}</span><b lang="${l}">${esc(w[l])}</b>${colourDone[w.pic]?`<small>${ico("star")}</small>`:""}</button>`).join("")}</div></div>`;
+    return $$("[data-w]").forEach(b=>b.onclick=()=>go("colour",{deck:d.id,wid:b.dataset.w,back:()=>go("colour",{deck:d.id,back:()=>go("colour")})}))}
+  const w=byId[view.wid],pal=PALETTE();
+  app.innerHTML=`<div class="stage">
+    ${buddy("Pick a colour, then tap the picture!")}
+    <div class="canvas" id="canvas">${art(w.pic,"colourme")}</div>
+    <div class="palette">${pal.map((c,k)=>`<button class="sw" data-c="${k}" style="background:${c.pic}" aria-pressed="${k===brush}" aria-label="${esc(c.en)}"></button>`).join("")}</div>
+    <div class="reveal">${cardLangs().map(l=>wordRow(w,l)).join("")}</div>
+    <div class="pills" style="justify-content:center">
+      <button class="bigbtn ghost" id="magic">${ico("sparkle")} Magic</button>
+      <button class="bigbtn ghost" id="clear">Clear</button>
+      <button class="bigbtn go" id="doneC">${ico("star")} Done!</button></div></div>`;
+  const svg=$("#canvas svg");
+  /* Every outlined shape with a colour becomes a space to colour in. */
+  const parts=[...svg.querySelectorAll("[fill]")].filter(el=>{const f=(el.getAttribute("fill")||"").toUpperCase();
+    return el.tagName!=="text"&&el.getAttribute("stroke")!=="none"&&f!=="NONE"&&f!=="#3A2456"&&f!=="CURRENTCOLOR"});
+  parts.forEach(el=>{el.dataset.orig=el.getAttribute("fill");el.classList.add("part")});
+  const saved=colourFills[w.pic]||[];
+  const paint=()=>parts.forEach((el,i)=>el.setAttribute("fill",saved[i]||"#FFFFFF"));paint();
+  const save=()=>{colourFills[w.pic]=parts.map(el=>el.getAttribute("fill"));saveAll()};
+  parts.forEach((el,i)=>el.addEventListener("click",e=>{e.stopPropagation();el.setAttribute("fill",pal[brush].pic);saved[i]=pal[brush].pic;save();tones([[660,0]],"sine")}));
+  $$(".sw").forEach(b=>b.onclick=()=>{brush=+b.dataset.c;$$(".sw").forEach(x=>x.setAttribute("aria-pressed",x===b));
+    const c=pal[brush],l=pickLang();hop(`${chip(l)} ${esc(c[l])}`);play([sayWord(c,l)])});
+  $$(".reveal .wrow").forEach(x=>x.onclick=()=>play([sayWord(w,x.dataset.l)]));
+  $("#magic").onclick=()=>{parts.forEach((el,i)=>{el.setAttribute("fill",el.dataset.orig);saved[i]=el.dataset.orig});save();chime()};
+  $("#clear").onclick=()=>{parts.forEach((el,i)=>{el.setAttribute("fill","#FFFFFF");saved[i]="#FFFFFF"});save()};
+  $("#doneC").onclick=()=>{
+    chime();confetti();const l=pickLang();const pr=praise(l);
+    /* One star and one word towards today's heart per picture per day. */
+    if(colourDone[w.pic]!==dayKey()){colourDone[w.pic]=dayKey();gotWord();const s=addStar();saveAll();if(s)hop(`New sticker! ${art(s,"ico")}`)}
+    play([...cardLangs().map(x=>sayWord(w,x)),pr])};
+  setTimeout(()=>play(cardLangs().map(l=>sayWord(w,l))),300);
+};
+
 /* ---------- Stickers ---------- */
 VIEWS.stickers=app=>{
   const have=Math.min(STICKERS.length,Math.floor(stars/STARS_PER_STICKER));const left=STARS_PER_STICKER-stars%STARS_PER_STICKER;
-  app.innerHTML=`<div class="wrap">${buddy(have<STICKERS.length?`${left} more ⭐ for a new sticker!`:"You have every sticker! 🎉")}
-    <div class="stickers">${STICKERS.map((s,k)=>k<have?`<div class="stk">${s}</div>`:`<div class="stk locked">${k===have?"⭐".repeat(STARS_PER_STICKER-left)||"?":"?"}</div>`).join("")}</div></div>`};
+  app.innerHTML=`<div class="wrap">${buddy(have<STICKERS.length?`${left} more ${ico("star")} for a new sticker!`:"You have every sticker!")}
+    <div class="stickers">${STICKERS.map((s,k)=>k<have?`<div class="stk">${art(s)}</div>`:`<div class="stk locked">${k===have?ico("star").repeat(STARS_PER_STICKER-left)||"?":"?"}</div>`).join("")}</div></div>`};
 
 /* ---------- Grown-ups ---------- */
 VIEWS.parents=app=>{
@@ -731,22 +816,22 @@ VIEWS.parents=app=>{
   const stat=l=>{const n=WORDS.filter(w=>known(l,w.id)).length;return `<div class="stat">${chip(l)}<div class="bar"><span style="width:${n/WORDS.length*100}%;background:var(--${l})"></span></div><span>${n} / ${WORDS.length}</span></div>`};
   const zhSeen=WORDS.filter(w=>progress.zh[w.id]);
   const order=[["sv","en","zh"],["zh","sv","en"],["en","sv","zh"],["zh","en","sv"]];
-  const last7=[6,5,4,3,2,1,0].map(i=>{const d=dayAgo(i),x=daily[dayKey(d)]||{words:0,hearts:0};return `<div class="${i===0?"today":""}"><i>${x.hearts?"💖".repeat(Math.min(x.hearts,3)):""}</i>${x.words}w</div>`}).join("");
+  const last7=[6,5,4,3,2,1,0].map(i=>{const d=dayAgo(i),x=daily[dayKey(d)]||{words:0,hearts:0};return `<div class="${i===0?"today":""}"><i>${x.hearts?art("heart"):""}</i>${x.words}w</div>`}).join("");
   app.innerHTML=`<div class="wrap" style="gap:14px">
-  <div class="panel"><h2>💖 Reward Jar hearts</h2>
+  <div class="panel"><h2>${ico("heart")} Reward Jar hearts</h2>
     <p>Ella earns a heart for every ${settings.perHeart} words she gets right, up to ${settings.heartCap} a day. Add them to her Reward Jar in the Savings Tracker, then tap the button below.</p>
     <div class="streak" style="box-shadow:none;border-color:var(--line)"><div class="nums">
-      <div class="sb b"><b>💖 ${hearts.pending}</b><small>to add to the Reward Jar</small></div>
-      <div class="sb a"><b>🌈 ${streakDays()}</b><small>day streak</small></div></div>
+      <div class="sb b"><b>${ico("heart")} ${hearts.pending}</b><small>to add to the Reward Jar</small></div>
+      <div class="sb a"><b>${ico("rainbow")} ${streakDays()}</b><small>day streak</small></div></div>
       <div class="week">${last7}</div></div>
-    <p>Earned in total: ${hearts.total} 💖</p>
-    ${hearts.pending?`<button class="bigbtn go" id="handed">✅ I added ${hearts.pending} ${hearts.pending===1?"heart":"hearts"} to the jar</button>`:""}</div>
+    <p>Earned in total: ${hearts.total} ${ico("heart")}</p>
+    ${hearts.pending?`<button class="bigbtn go" id="handed">I added ${hearts.pending} ${hearts.pending===1?"heart":"hearts"} to the jar</button>`:""}</div>
 
   <div class="panel"><h2>Progress</h2><p>A word counts as known after she gets it right twice.</p>
     ${["zh","sv","en"].map(stat).join("")}
     <div class="label" style="margin:6px 0 0">Chinese words practised (green = known)</div>
-    <div class="wordlist">${zhSeen.length?zhSeen.map(w=>`<span class="${known("zh",w.id)?"k":""}">${w.pic[0]==="#"||w.pic.startsWith("n:")?"":w.pic} ${esc(w.zh)}</span>`).join(""):"<p>None yet. Try Listen &amp; find.</p>"}</div>
-    <p>Total stars: ⭐ ${stars}</p></div>
+    <div class="wordlist">${zhSeen.length?zhSeen.map(w=>`<span class="${known("zh",w.id)?"k":""}">${ART[w.pic]?ico(w.pic):""} ${esc(w.zh)}</span>`).join(""):"<p>None yet. Try Listen &amp; find.</p>"}</div>
+    <p>Total stars: ${ico("star")} ${stars}</p></div>
 
   <div class="panel"><h2>Settings</h2>
     <div><div class="label">Language in games</div><div class="pills">${[["mix","Mix (half Chinese)"],["zh","中文"],["sv","Svenska"],["en","English"]].map(([k,t])=>`<button class="pill ${k}" data-set="gameLang" data-v="${k}" aria-pressed="${settings.gameLang===k}">${t}</button>`).join("")}</div></div>
@@ -758,7 +843,7 @@ VIEWS.parents=app=>{
   </div>
 
   <div class="panel"><h2>Record your voice</h2>
-    <p>Your voice is better than the device voice, especially for Swedish and Chinese. Tap 🎙 to start, tap again to stop. Recordings stay on this device.</p>
+    <p>Your voice is better than the device voice, especially for Swedish and Chinese. Tap the microphone to start, tap again to stop. Recordings stay on this device.</p>
     ${canRecord?"":"<p><b>This browser can't record sound.</b></p>"}
     <select id="recDeck">${GROUPS.map(g=>`<optgroup label="${esc(g.name.en)}">${g.decks.map(id=>decks.find(d=>d.id===id)).map(d=>`<option value="${d.id}" ${d.id===rd?"selected":""}>${esc(d.name.en)}</option>`).join("")}</optgroup>`).join("")}<option value="_sounds" ${rd==="_sounds"?"selected":""}>Phonics: letter sounds</option><option value="_pw" ${rd==="_pw"?"selected":""}>Phonics: words</option></select>
     <div id="recList">${recRows(rd)}</div></div>
@@ -776,10 +861,10 @@ VIEWS.parents=app=>{
 function recItems(rd){
   if(rd==="_sounds")return Object.keys(SOUNDS).map(s=>({pic:SOUNDS[s][2],name:`${s}  (as in ${SOUNDS[s][1]})`,keys:[["en","p:"+s,SOUNDS[s][0]]]}));
   if(rd==="_pw"){const ws=new Set();BLEND_LEVELS.forEach(L=>L.words.forEach(([t])=>ws.add(t.replace(/-/g,""))));SIGHT.flat().forEach(w=>ws.add(w));Object.values(SOUNDS).forEach(s=>ws.add(s[1]));
-    return [...ws].map(w=>({pic:"🔤",name:w,keys:[["en","pw:"+w,w]]}))}
+    return [...ws].map(w=>({pic:"abc",name:w,keys:[["en","pw:"+w,w]]}))}
   return DECKS.find(d=>d.id===rd).list.map(w=>({w,pic:w.pic,name:`${w.sv} · ${w.en} · ${w.zh}`,keys:["sv","en","zh"].map(l=>[l,wkey(w,l),w[l]])}))}
-function recRows(rd){return recItems(rd).map((it,i)=>`<div class="recrow"><div class="p">${it.w?picHTML(it.w):`<div class="pic"><span class="emo">${it.pic}</span></div>`}</div><div class="nm">${esc(it.name)}</div>
-  ${it.keys.map(([l,k,t])=>`<span style="display:inline-flex;gap:4px">${chip(l)}<button class="recbtn ${recs.has(k)?"has":""}" data-rk="${esc(k)}" data-l="${l}" data-t="${esc(t)}">🎙</button>${recs.has(k)?`<button class="recbtn" data-del="${esc(k)}" aria-label="Delete">✖</button>`:""}</span>`).join("")}</div>`).join("")}
+function recRows(rd){return recItems(rd).map((it,i)=>`<div class="recrow"><div class="p">${it.w?picHTML(it.w):`<div class="pic">${art(it.pic)}</div>`}</div><div class="nm">${esc(it.name)}</div>
+  ${it.keys.map(([l,k,t])=>`<span style="display:inline-flex;gap:4px">${chip(l)}<button class="recbtn ${recs.has(k)?"has":""}" data-rk="${esc(k)}" data-l="${l}" data-t="${esc(t)}">${ico("mic")}</button>${recs.has(k)?`<button class="recbtn" data-del="${esc(k)}" aria-label="Delete">×</button>`:""}</span>`).join("")}</div>`).join("")}
 let live=null;
 function bindRec(){
   $$("[data-rk]").forEach(b=>b.onclick=async()=>{
@@ -787,7 +872,7 @@ function bindRec(){
     if(live&&live.key===k){b.disabled=true;const blob=await live.rec.stop();live=null;if(blob.size>0)saveRec(k,blob);refreshRec();play([{lang:b.dataset.l,text:b.dataset.t,key:k}]);return}
     if(live)return;
     if(!canRecord){alert("Recording isn't supported in this browser.");return}
-    stopAll();try{live={key:k,rec:await startRec()};b.classList.add("live");b.textContent="⏹"}catch(e){live=null;alert("Couldn't use the microphone. Check the browser's microphone permission.")}});
+    stopAll();try{live={key:k,rec:await startRec()};b.classList.add("live");b.textContent="Stop"}catch(e){live=null;alert("Couldn't use the microphone. Check the browser's microphone permission.")}});
   $$("[data-del]").forEach(b=>b.onclick=()=>{delRec(b.dataset.del);refreshRec()});}
 function refreshRec(){const rd=$("#recDeck").value;$("#recList").innerHTML=recRows(rd);bindRec()}
 
