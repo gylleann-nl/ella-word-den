@@ -16,6 +16,7 @@ A unicorn-themed picture word app for Ella (5) to learn **Svenska**, **English**
 - **Listen & find:** hear a word, tap the right picture. Play one deck, a whole category, or everything. "Mix" mode is half Chinese, with Swedish and English mixed in so nothing gets forgotten. After two wrong taps the word is said in Swedish as a hint, then in Chinese again.
 - **Say it:** hear the word, record yourself saying it, then hear yourself and the model.
 - **Phonics (English):** letter sounds, blending (c · a · t → cat), reading words under a picture, and tricky words (the, is, said...).
+- **Daily streak and Reward Jar hearts:** every 10 words she gets right (in any game) earns a 💖 for her Reward Jar, up to 1 a day. The home screen shows her streak (days in a row), today's progress and the last 7 days. Tap **Daily 10 words** for a quick round. In Grown-ups you see how many hearts to add to the Reward Jar in the Savings Tracker, and tap a button once you've added them. Words per heart and hearts per day can be changed there.
 - **Stickers:** every 5 stars unlocks a new sticker, unicorns first.
 - **Grown-ups** (press and hold): progress per language, settings, and **record your own voice** for any word or letter sound. Recordings stay on the device and are used instead of the device voice.
 

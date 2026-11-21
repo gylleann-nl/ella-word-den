@@ -180,6 +180,26 @@ select{font:inherit;padding:8px 12px;border-radius:12px;border:2px solid var(--l
 .hold.holding .fill{transform:scaleX(1);transition:transform 1.5s linear}
 .note{font-size:.9rem;color:var(--muted);text-align:center}
 .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9}
+/* Streak box */
+.streak{background:var(--surface);border:3px solid #fff;border-radius:28px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 4px 0 rgba(176,79,224,.12)}
+.streak .nums{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sb{border-radius:20px;padding:10px 12px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.sb.a{background:var(--p2)} .sb.b{background:var(--p1)}
+.sb b{font-family:var(--display);font-size:2rem;font-weight:700;line-height:1.1}
+.sb small{font-weight:800;color:var(--muted);font-size:.85rem}
+.todaybar{height:22px;border-radius:999px;background:var(--p2);overflow:hidden;position:relative}
+.todaybar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#FF7EB6,#B99CFF);transition:width .4s}
+.todaytxt{font-family:var(--display);font-weight:600;font-size:1.1rem;text-align:center}
+.week{display:flex;justify-content:space-between;gap:4px}
+.week div{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-weight:800;font-size:.8rem;color:var(--muted)}
+.week i{font-style:normal;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#F6EEFF;font-size:1.1rem}
+.week .today i{box-shadow:0 0 0 3px var(--accent)}
+.bigbtn.daily{background:linear-gradient(90deg,#E0489A,#B04FE0);font-size:1.4rem;padding:16px 22px}
+.toast{position:fixed;left:0;right:0;margin:0 auto;top:18%;z-index:10;background:#fff;border:4px solid #FF7EB6;border-radius:30px;padding:20px 26px;text-align:center;
+  box-shadow:0 12px 40px rgba(176,79,224,.35);display:flex;flex-direction:column;align-items:center;gap:6px;width:min(90vw,380px);animation:pop .5s}
+.toast .h{font-size:4.6rem;line-height:1;animation:hop .8s 2}
+.toast b{font-family:var(--display);font-size:1.5rem;color:#E0489A}
+.toast small{font-weight:800;color:var(--muted)}
 .confetti i{position:absolute;top:-30px;font-style:normal;font-size:1.8rem;animation:fall 1.6s ease-in forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
 @media (max-width:480px){
@@ -293,11 +313,30 @@ const STARS_PER_STICKER=5;
 /* ================= Storage ================= */
 const store={get(k,d){try{const v=localStorage.getItem("ow."+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
   set(k,v){try{localStorage.setItem("ow."+k,JSON.stringify(v))}catch(e){}}};
-let settings=Object.assign({order:["sv","en","zh"],pinyin:true,choices:4,gameLang:"mix"},store.get("settings",{}));
+let settings=Object.assign({order:["sv","en","zh"],pinyin:true,choices:4,gameLang:"mix",perHeart:10,heartCap:1},store.get("settings",{}));
 let progress=store.get("progress",{});["sv","en","zh"].forEach(l=>{if(!progress[l]||typeof progress[l]!=="object")progress[l]={}});
 let stars=+store.get("stars",0)||0;
 let phon=store.get("phon",{});
-function saveAll(){store.set("settings",settings);store.set("progress",progress);store.set("stars",stars);store.set("phon",phon)}
+/* Reward hearts: every `perHeart` words answered right in any game earns a heart, up to `heartCap` a day. */
+let daily=store.get("daily",{});if(!daily||typeof daily!=="object")daily={};
+let hearts=Object.assign({total:0,pending:0},store.get("hearts",{}));
+const dayKey=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const dayAgo=n=>{const d=new Date();d.setHours(12);d.setDate(d.getDate()-n);return d};
+const today=()=>daily[dayKey()]||{words:0,hearts:0};
+function streakDays(){let n=0,i=(daily[dayKey()]&&daily[dayKey()].hearts)?0:1;
+  while(daily[dayKey(dayAgo(i))]&&daily[dayKey(dayAgo(i))].hearts>0){n++;i++}return n}
+function gotWord(){
+  const k=dayKey();const t=daily[k]||(daily[k]={words:0,hearts:0});t.words++;
+  if(t.hearts<settings.heartCap&&t.words>=(t.hearts+1)*settings.perHeart){t.hearts++;hearts.total++;hearts.pending++;saveAll();setTimeout(heartToast,700)}
+  else saveAll()}
+function heartToast(){
+  fanfare();const c=document.getElementById("confetti");for(let i=0;i<24;i++){const e=document.createElement("i");e.textContent=rnd(["💖","💗","💕","✨","🦄"]);e.style.left=Math.random()*100+"vw";e.style.animationDelay=Math.random()*.5+"s";c.appendChild(e);setTimeout(()=>e.remove(),2400)}
+  const n=streakDays();
+  const el=document.createElement("button");el.className="toast";
+  el.innerHTML=`<span class="h">💖</span><b>You earned a heart, Ella!</b><small>For your Reward Jar · Ett hjärta! · 一颗爱心！</small>${n>1?`<small>🌈 ${n} days in a row!</small>`:""}`;
+  el.onclick=()=>el.remove();document.body.appendChild(el);setTimeout(()=>el.remove(),4200);
+  setTimeout(()=>play([{lang:"en",text:"You earned a heart!"}]),400)}
+function saveAll(){store.set("settings",settings);store.set("progress",progress);store.set("stars",stars);store.set("phon",phon);store.set("daily",daily);store.set("hearts",hearts)}
 function mark(lang,id,ok){const p=progress[lang][id]||(progress[lang][id]={ok:0,miss:0});ok?p.ok++:p.miss++;saveAll()}
 const known=(lang,id)=>(progress[lang][id]&&progress[lang][id].ok>=2);
 function addStar(n=1){const before=Math.floor(stars/STARS_PER_STICKER);stars+=n;saveAll();renderTop();
@@ -396,6 +435,7 @@ const VIEWS={};
 VIEWS.home=app=>{
   app.innerHTML=`<div class="wrap" style="gap:18px">
     ${buddy("Hej Ella! Hi Ella! 你好 Ella！")}
+    ${streakBox()}
     <div class="tiles">
       <button class="tile" data-go="words"><span class="ic">📚</span><b>Words</b><small>Ord · 词语</small></button>
       <button class="tile" data-go="find"><span class="ic">👂</span><b>Listen &amp; find</b><small>Lyssna · 听一听</small></button>
@@ -405,9 +445,24 @@ VIEWS.home=app=>{
       <button class="tile hold" id="grown"><span class="fill"></span><span class="ic">⚙️</span><b>Grown-ups</b><small>Press and hold</small></button>
     </div></div>`;
   $$("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  if($("#daily"))$("#daily").onclick=()=>startFind("all",settings.perHeart,true);
   $("#pal").onclick=()=>{hop();play([{lang:"sv",text:"Hej Ella!"},{lang:"en",text:"Hi Ella!"},{lang:"zh",text:"你好 Ella！"}])};
   holdToOpen($("#grown"),()=>go("parents"));
 };
+function streakBox(){
+  const t=today(),per=settings.perHeart,cap=settings.heartCap,n=streakDays();
+  const done=t.hearts>=cap;const into=done?per:t.words-t.hearts*per;
+  const msg=done?"Today's hearts are done! 🎉 Bra jobbat!":`${per-into} more words for a 💖`;
+  const days=[6,5,4,3,2,1,0].map(i=>{const d=dayAgo(i),x=daily[dayKey(d)];
+    return `<div class="${i===0?"today":""}"><i>${x&&x.hearts?"💖":""}</i>${"SMTWTFS"[d.getDay()]}</div>`}).join("");
+  return `<section class="streak" aria-label="Streak">
+    <div class="nums"><div class="sb a"><b>🌈 ${n}</b><small>${n===1?"day":"days"} in a row</small></div>
+      <div class="sb b"><b>💖 ${t.hearts}</b><small>${t.hearts===1?"heart":"hearts"} today</small></div></div>
+    <div class="todaybar"><span style="width:${into/per*100}%"></span></div>
+    <div class="todaytxt">${msg}</div>
+    <div class="week">${days}</div>
+    ${done?"":`<button class="bigbtn daily" id="daily">⭐ Daily ${per} words</button>`}
+  </section>`}
 function holdToOpen(el,fn){let t=null;
   const start=e=>{e.preventDefault();el.classList.add("holding");t=setTimeout(()=>{el.classList.remove("holding");fn()},1500)};
   const end=()=>{el.classList.remove("holding");clearTimeout(t)};
@@ -470,10 +525,10 @@ function makeOptions(target,pool,lang,n){
 VIEWS.find=app=>{
   if(!view.deck)return deckPicker(app,"Listen, then tap the picture!",id=>startFind(id),{all:true,langs:true});
   const g=view.game;
-  if(g.r>=ROUNDS)return endScreen(app,g,()=>startFind(view.deck));
+  if(g.r>=g.max)return endScreen(app,g,g.daily?()=>go("home"):()=>startFind(view.deck));
   const r=g.rounds[g.r];
   app.innerHTML=`<div class="stage">
-    <div class="progressbar"><span style="width:${g.r/ROUNDS*100}%"></span></div>
+    <div class="progressbar"><span style="width:${g.r/g.max*100}%"></span></div>
     ${buddy(r.lang==="zh"?"听一听！Where is it?":r.lang==="sv"?"Lyssna! Var är den?":"Listen! Where is it?")}
     <div class="prompt"><button class="hear ${r.lang}" id="hear" aria-label="Hear again">🔊</button>${chip(r.lang)}</div>
     <div class="opts ${r.opts.length===3?"c3":""}">${r.opts.map((w,k)=>`<button class="opt" data-k="${k}">${picHTML(w)}</button>`).join("")}</div>
@@ -485,7 +540,7 @@ VIEWS.find=app=>{
     if(finished||b.classList.contains("wrong"))return;
     const w=r.opts[+b.dataset.k];
     if(w===r.target){
-      finished=true;b.classList.add("right");chime();mark(r.lang,w.id,misses===0);
+      finished=true;b.classList.add("right");chime();gotWord();mark(r.lang,w.id,misses===0);
       let sticker=null;if(misses===0){g.stars++;sticker=addStar()}
       if(sticker)g.newSticker=sticker;
       const pr=praise(r.lang);
@@ -507,12 +562,12 @@ VIEWS.find=app=>{
     }});
   setTimeout(hear,350);
 };
-function startFind(deckId){
+function startFind(deckId,count=ROUNDS,isDaily=false){
   const pool=poolFor(deckId);const n=Math.min(settings.choices,pool.length);
-  const langs=Array.from({length:ROUNDS},pickLang);
+  const langs=Array.from({length:count},pickLang);
   const rounds=[];const used=new Set();
   langs.forEach(l=>{let t=pickTargets(pool.filter(w=>!used.has(w.id)),l,1)[0]||rnd(pool);used.add(t.id);rounds.push({lang:l,target:t,opts:makeOptions(t,pool,l,n)})});
-  go("find",{deck:deckId,game:{r:0,stars:0,rounds,max:ROUNDS},back:()=>go("find")})}
+  go("find",{deck:deckId,game:{r:0,stars:0,rounds,max:count,daily:isDaily},back:isDaily?null:()=>go("find")})}
 function endScreen(app,g,again){
   fanfare();confetti();
   app.innerHTML=`<div class="finish"><div class="big">🎉</div><h2>You did it, Ella! 🦄 Du klarade det! 你真棒！</h2>
@@ -552,7 +607,7 @@ VIEWS.sayit=app=>{
       try{const url=URL.createObjectURL(blob);const a=new Audio(url);playing=a;await new Promise(r=>{a.onended=r;a.onerror=r;a.play().catch(r);setTimeout(r,5000)});URL.revokeObjectURL(url)}catch(e){}
       count.textContent="And me: 🦄";await play([sayWord(w,l)])}
     count.textContent="Your turn! Din tur! 到你了！";busy=false};
-  $("#said").onclick=()=>{chime();mark(l,w.id,true);g.stars++;const s=addStar();if(s)g.newSticker=s;g.r++;go("sayit",view)};
+  $("#said").onclick=()=>{chime();gotWord();mark(l,w.id,true);g.stars++;const s=addStar();if(s)g.newSticker=s;g.r++;go("sayit",view)};
   $("#skip").onclick=()=>{g.r++;go("sayit",view)};
   setTimeout(model,300);
 };
@@ -604,7 +659,7 @@ VIEWS.blend=app=>{
   let misses=0,fin=false;
   $$("#opts .opt").forEach(b=>b.onclick=()=>{
     if(fin||b.classList.contains("wrong"))return;const o=it.opts[+b.dataset.k];
-    if(o.word===it.word){fin=true;b.classList.add("right");chime();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
+    if(o.word===it.word){fin=true;b.classList.add("right");chime();gotWord();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
       play([sayWordEn(),praise("en")]);setTimeout(()=>{g.r++;go("blend",view)},1900)}
     else{misses++;b.classList.add("wrong");boop();if(misses>=1){const ix=it.opts.findIndex(x=>x.word===it.word);$$("#opts .opt")[ix].classList.add("hint")}}})};
 function startPh(kind,level){
@@ -625,7 +680,7 @@ VIEWS.read=app=>{
   let misses=0,fin=false;
   $$(".opt").forEach(b=>b.onclick=()=>{
     if(fin||b.classList.contains("wrong"))return;const o=it.opts[+b.dataset.k];
-    if(o.word===it.word){fin=true;b.classList.add("right");chime();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
+    if(o.word===it.word){fin=true;b.classList.add("right");chime();gotWord();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
       play([{lang:"en",text:it.word,key:"pw:"+it.word},praise("en")]);setTimeout(()=>{g.r++;go("read",view)},1800)}
     else{misses++;b.classList.add("wrong");boop();if(misses>=2){const ix=it.opts.findIndex(x=>x.word===it.word);$$(".opt")[ix].classList.add("hint");
       play(it.tiles.map(t=>saySound(t)).concat([{lang:"en",text:it.word,key:"pw:"+it.word}]))}}})};
@@ -646,7 +701,7 @@ VIEWS.sight=app=>{
   $("#hear").onclick=hear;let misses=0,fin=false;
   $$(".opt").forEach(b=>b.onclick=()=>{
     if(fin||b.classList.contains("wrong"))return;
-    if(it.opts[+b.dataset.k]===it.word){fin=true;b.classList.add("right");chime();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
+    if(it.opts[+b.dataset.k]===it.word){fin=true;b.classList.add("right");chime();gotWord();if(!misses){g.stars++;const s=addStar();if(s)g.newSticker=s}
       play([praise("en")]);setTimeout(()=>{g.r++;go("sight",view)},1500)}
     else{misses++;b.classList.add("wrong");boop();setTimeout(hear,400)}});
   setTimeout(hear,300)};
@@ -663,7 +718,17 @@ VIEWS.parents=app=>{
   const stat=l=>{const n=WORDS.filter(w=>known(l,w.id)).length;return `<div class="stat">${chip(l)}<div class="bar"><span style="width:${n/WORDS.length*100}%;background:var(--${l})"></span></div><span>${n} / ${WORDS.length}</span></div>`};
   const zhSeen=WORDS.filter(w=>progress.zh[w.id]);
   const order=[["sv","en","zh"],["zh","sv","en"],["en","sv","zh"],["zh","en","sv"]];
+  const last7=[6,5,4,3,2,1,0].map(i=>{const d=dayAgo(i),x=daily[dayKey(d)]||{words:0,hearts:0};return `<div class="${i===0?"today":""}"><i>${x.hearts?"💖".repeat(Math.min(x.hearts,3)):""}</i>${x.words}w</div>`}).join("");
   app.innerHTML=`<div class="wrap" style="gap:14px">
+  <div class="panel"><h2>💖 Reward Jar hearts</h2>
+    <p>Ella earns a heart for every ${settings.perHeart} words she gets right, up to ${settings.heartCap} a day. Add them to her Reward Jar in the Savings Tracker, then tap the button below.</p>
+    <div class="streak" style="box-shadow:none;border-color:var(--line)"><div class="nums">
+      <div class="sb b"><b>💖 ${hearts.pending}</b><small>to add to the Reward Jar</small></div>
+      <div class="sb a"><b>🌈 ${streakDays()}</b><small>day streak</small></div></div>
+      <div class="week">${last7}</div></div>
+    <p>Earned in total: ${hearts.total} 💖</p>
+    ${hearts.pending?`<button class="bigbtn go" id="handed">✅ I added ${hearts.pending} ${hearts.pending===1?"heart":"hearts"} to the jar</button>`:""}</div>
+
   <div class="panel"><h2>Progress</h2><p>A word counts as known after she gets it right twice.</p>
     ${["zh","sv","en"].map(stat).join("")}
     <div class="label" style="margin:6px 0 0">Chinese words practised (green = known)</div>
@@ -672,6 +737,8 @@ VIEWS.parents=app=>{
 
   <div class="panel"><h2>Settings</h2>
     <div><div class="label">Language in games</div><div class="pills">${[["mix","Mix (half Chinese)"],["zh","中文"],["sv","Svenska"],["en","English"]].map(([k,t])=>`<button class="pill ${k}" data-set="gameLang" data-v="${k}" aria-pressed="${settings.gameLang===k}">${t}</button>`).join("")}</div></div>
+    <div><div class="label">Words for one heart</div><div class="pills">${[5,10,15,20].map(n=>`<button class="pill" data-set="perHeart" data-v="${n}" aria-pressed="${settings.perHeart===n}">${n}</button>`).join("")}</div></div>
+    <div><div class="label">Most hearts per day</div><div class="pills">${[1,2,3].map(n=>`<button class="pill" data-set="heartCap" data-v="${n}" aria-pressed="${settings.heartCap===n}">${n}</button>`).join("")}</div></div>
     <div><div class="label">Pictures to choose from</div><div class="pills">${[3,4].map(n=>`<button class="pill" data-set="choices" data-v="${n}" aria-pressed="${settings.choices===n}">${n}</button>`).join("")}</div></div>
     <div><div class="label">Word order on cards</div><div class="pills">${order.map(o=>`<button class="pill" data-set="order" data-v="${o.join(",")}" aria-pressed="${settings.order.join(",")===o.join(",")}">${o.map(l=>LANG[l].chip).join(" ")}</button>`).join("")}</div></div>
     <div><div class="label">Pinyin under Chinese words</div><div class="pills">${[[true,"Show"],[false,"Hide"]].map(([v,t])=>`<button class="pill" data-set="pinyin" data-v="${v}" aria-pressed="${settings.pinyin===v}">${t}</button>`).join("")}</div></div>
@@ -683,11 +750,12 @@ VIEWS.parents=app=>{
     <select id="recDeck">${GROUPS.map(g=>`<optgroup label="${esc(g.name.en)}">${g.decks.map(id=>decks.find(d=>d.id===id)).map(d=>`<option value="${d.id}" ${d.id===rd?"selected":""}>${esc(d.name.en)}</option>`).join("")}</optgroup>`).join("")}<option value="_sounds" ${rd==="_sounds"?"selected":""}>Phonics: letter sounds</option><option value="_pw" ${rd==="_pw"?"selected":""}>Phonics: words</option></select>
     <div id="recList">${recRows(rd)}</div></div>
 
-  <div class="panel"><h2>Start over</h2><p>Clears stars, stickers and progress on this device. Recordings are kept.</p>
+  <div class="panel"><h2>Start over</h2><p>Clears stars, stickers and word progress on this device. Hearts, the streak and recordings are kept.</p>
     <button class="bigbtn ghost hold" id="reset"><span class="fill"></span>Press and hold to reset</button></div>
   </div>`;
   $$("[data-set]").forEach(b=>b.onclick=()=>{const k=b.dataset.set,v=b.dataset.v;
-    settings[k]=k==="choices"?+v:k==="pinyin"?v==="true":k==="order"?v.split(","):v;saveAll();go("parents",{recDeck:rd})});
+    settings[k]=["choices","perHeart","heartCap"].includes(k)?+v:k==="pinyin"?v==="true":k==="order"?v.split(","):v;saveAll();go("parents",{recDeck:rd})});
+  if($("#handed"))$("#handed").onclick=()=>{if(confirm(`Mark ${hearts.pending} heart(s) as added to the Reward Jar?`)){hearts.pending=0;saveAll();go("parents",{recDeck:rd})}};
   $("#recDeck").onchange=e=>go("parents",{recDeck:e.target.value});
   bindRec();
   holdToOpen($("#reset"),()=>{progress={sv:{},en:{},zh:{}};stars=0;phon={};saveAll();go("parents",{recDeck:rd})});
