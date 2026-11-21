@@ -4,11 +4,12 @@ A unicorn-themed picture word app for Ella (5) to learn **Svenska**, **English**
 
 ## What's inside
 
-- **Words:** 12 picture decks, about 140 words, grouped into categories:
+- **Words:** 14 picture decks, about 165 words, grouped into categories:
   - 🍓 Yummy food: fruit, food, Singapore food (chicken rice, satay, mooncake...)
   - 🦋 Animals and nature: animals, outside
   - 💖 Me and my family: my body, people
   - 🎒 School and Singapore: school, around Singapore (MRT, otter, red packet...)
+  - 🇸🇪 Sweden: in Sweden (fika, midsommar, sommarstuga...), winter and Christmas (pulka, tomten, pepparkaka...)
   - 🌈 Colours and numbers
   - 字 Chinese characters: picture characters like 日 月 山 水
 
