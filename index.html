@@ -3,14 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ord Words 字</title>
-<meta name="theme-color" content="#FFF8EC">
+<title>Ella's Word Den</title>
+<meta name="theme-color" content="#FFF0FA">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;800&display=swap">
 <style>
 :root{
-  --bg:#FFF8EC; --surface:#FFFFFF; --ink:#2B2350; --muted:#6F6894; --line:#EDE6D6;
-  --sv:#1E6FD9; --en:#1F9D5A; --zh:#E03A3A; --gold:#FFB800; --accent:#7B5CFF;
+  --bg:#FFF0FA; --surface:#FFFFFF; --ink:#3A2456; --muted:#7D6596; --line:#F1D7EE;
+  --sv:#1E6FD9; --en:#1F9D5A; --zh:#E03A3A; --gold:#FFB800; --accent:#B04FE0;
+  --rainbow:linear-gradient(90deg,#FF7EB6,#FFB86B,#FFE066,#7DE3B0,#7CC8FF,#B99CFF,#F59BFF);
+  --p1:#FFE3F1; --p2:#EEE4FF; --p3:#E2F7EE; --p4:#E3F1FF; --p5:#FFEBDD; --p6:#FFF6CC;
   --svBg:#E6F0FF; --enBg:#E3F6EB; --zhBg:#FFE8E6;
   --display:"Fredoka","Trebuchet MS","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
   --body:"Nunito","Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
@@ -20,6 +22,8 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0;background:var(--bg)}
+html{min-height:100%;background:linear-gradient(180deg,#FFF0FA 0%,#F4ECFF 55%,#EAF6FF 100%) fixed}
+body{background:transparent}
 body{color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.4;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
   padding:max(10px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(30px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;-webkit-user-select:none;user-select:none}
@@ -28,9 +32,11 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
 .wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
 
 /* Top bar */
-.top{display:flex;align-items:center;gap:10px;min-height:56px}
+.top{display:flex;align-items:center;gap:10px;min-height:56px;position:relative;padding-bottom:12px}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;border-radius:999px;background:var(--rainbow)}
 .top h1{font-size:1.6rem;flex:1;display:flex;gap:.35em;flex-wrap:wrap;align-items:baseline}
-.top h1 .s{color:var(--sv)} .top h1 .e{color:var(--en)} .top h1 .z{color:var(--zh)}
+.top h1{background:linear-gradient(90deg,#E0489A,#B04FE0,#5B7CFA);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+.top h1 .sp{color:initial;-webkit-text-fill-color:initial;font-size:.8em}
 .iconbtn{width:52px;height:52px;border-radius:18px;background:var(--surface);border:2px solid var(--line);font-size:1.6rem;display:grid;place-items:center;flex:none}
 .starpill{display:flex;align-items:center;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:8px 14px;font-family:var(--display);font-weight:700;font-size:1.25rem}
 
@@ -46,6 +52,12 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
 .tile{background:var(--surface);border:3px solid var(--line);border-radius:26px;padding:18px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;transition:transform .12s}
 .tile:active{transform:scale(.96)}
+.tiles>.tile:nth-child(6n+1){background:var(--p1)}.tiles>.tile:nth-child(6n+2){background:var(--p2)}.tiles>.tile:nth-child(6n+3){background:var(--p3)}
+.tiles>.tile:nth-child(6n+4){background:var(--p4)}.tiles>.tile:nth-child(6n+5){background:var(--p5)}.tiles>.tile:nth-child(6n+6){background:var(--p6)}
+.tile{border-color:#fff;box-shadow:0 4px 0 rgba(176,79,224,.12)}
+.group{display:flex;flex-direction:column;gap:10px}
+.group h2{font-size:1.35rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.group h2 small{font-family:var(--body);font-size:.85rem;font-weight:800;color:var(--muted)}
 .tile .ic{font-size:3rem;line-height:1.1}
 .tile b{font-family:var(--display);font-size:1.25rem;font-weight:600}
 .tile small{color:var(--muted);font-size:.85rem;font-weight:800}
@@ -143,7 +155,7 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
 /* Stickers */
 .stickers{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px}
 .stk{aspect-ratio:1;border-radius:22px;background:var(--surface);border:3px solid var(--line);display:grid;place-items:center;font-size:2.8rem}
-.stk.locked{font-size:1.6rem;color:var(--muted);background:#F5EFE2;border-style:dashed;font-family:var(--display)}
+.stk.locked{font-size:1.6rem;color:var(--muted);background:#F6EEFF;border-style:dashed;font-family:var(--display)}
 .stk.new{animation:pop .6s 3;border-color:var(--gold)}
 
 /* Grown-ups */
@@ -220,6 +232,15 @@ const DECKS=[
   ["📖","book","bok","书","shū"],["✏️","pencil","penna","铅笔","qiānbǐ"],["🎒","school bag","ryggsäck","书包","shūbāo"],["🪑","chair","stol","椅子","yǐzi"],
   ["⚽","ball","boll","球","qiú"],["🖍️","crayon","krita","蜡笔","làbǐ"],["✂️","scissors","sax","剪刀","jiǎndāo"],["🏫","school","skola","学校","xuéxiào"],
   ["🚌","bus","buss","巴士","bāshì"],["🧸","teddy bear","nalle","玩具熊","wánjùxióng"]]},
+ {id:"sgfood",icon:"🥢",name:{en:"Singapore food",sv:"Mat i Singapore",zh:"新加坡美食"},words:[
+  ["🍗","chicken rice","kycklingris","鸡饭","jīfàn"],["🍢","satay","satay","沙爹","shādiē"],["🍛","curry","curry","咖喱","gālí"],["🥟","dumpling","dumpling","饺子","jiǎozi"],
+  ["🥮","mooncake","månkaka","月饼","yuèbing"],["🦐","prawn","räka","虾","xiā"],["🦀","crab","krabba","螃蟹","pángxiè"],["🥥","coconut","kokosnöt","椰子","yēzi"],
+  ["🍵","tea","te","茶","chá"],["🥢","chopsticks","ätpinnar","筷子","kuàizi"],["🥄","spoon","sked","勺子","sháozi"],["🥣","bowl","skål","碗","wǎn"]]},
+ {id:"sg",icon:"🌴",name:{en:"Around Singapore",sv:"I Singapore",zh:"在新加坡"},words:[
+  ["🚇","MRT train","tunnelbana","地铁","dìtiě"],["🚕","taxi","taxi","德士","déshì"],["✈️","aeroplane","flygplan","飞机","fēijī"],["☂️","umbrella","paraply","雨伞","yǔsǎn"],
+  ["🏖️","beach","strand","海滩","hǎitān"],["🌴","palm tree","palm","椰树","yēshù"],["🦦","otter","utter","水獭","shuǐtǎ"],["🦎","lizard","ödla","蜥蜴","xīyì"],
+  ["🦟","mosquito","mygga","蚊子","wénzi"],["🐜","ant","myra","蚂蚁","mǎyǐ"],["👟","shoes","skor","鞋子","xiézi"],["🧧","red packet","rött kuvert","红包","hóngbāo"],
+  ["🏮","lantern","lykta","灯笼","dēnglong"],["🐉","dragon","drake","龙","lóng"]]},
  {id:"nature",icon:"🌈",name:{en:"Outside",sv:"Ute",zh:"大自然"},words:[
   ["☀️","sun","sol","太阳","tàiyáng"],["🌙","moon","måne","月亮","yuèliang"],["⭐","star","stjärna","星星","xīngxing"],["🌳","tree","träd","树","shù"],
   ["🌸","flower","blomma","花","huā"],["🌧️","rain","regn","雨","yǔ"],["⛰️","mountain","berg","山","shān"],["🔥","fire","eld","火","huǒ"],
@@ -233,6 +254,13 @@ const DECKS=[
   ["✋","hand","hand","手","shǒu"],["👁️","eye","öga","目","mù"],["🌧️","rain","regn","雨","yǔ"],["🌾","field","åker","田","tián"],
   ["🐘","big","stor","大","dà"],["🐭","small","liten","小","xiǎo"]]}
 ];
+const GROUPS=[
+ {icon:"🍓",name:{en:"Yummy food",sv:"Mat",zh:"好吃的"},decks:["fruit","food","sgfood"]},
+ {icon:"🦋",name:{en:"Animals and nature",sv:"Djur och natur",zh:"动物和大自然"},decks:["animals","nature"]},
+ {icon:"💖",name:{en:"Me and my family",sv:"Jag och min familj",zh:"我和家人"},decks:["body","people"]},
+ {icon:"🎒",name:{en:"School and Singapore",sv:"Skolan och Singapore",zh:"学校和新加坡"},decks:["school","sg"]},
+ {icon:"🌈",name:{en:"Colours and numbers",sv:"Färger och siffror",zh:"颜色和数字"},decks:["colours","numbers"]},
+ {icon:"字",name:{en:"Chinese characters",sv:"Kinesiska tecken",zh:"汉字"},decks:["hanzi"]}];
 const WORDS=[];
 DECKS.forEach(d=>{d.list=d.words.map((a,i)=>{const w={id:d.id+":"+i,deck:d,pic:a[0],en:a[1],sv:a[2],zh:a[3],py:a[4]};WORDS.push(w);return w})});
 const byId=Object.fromEntries(WORDS.map(w=>[w.id,w]));
@@ -259,7 +287,7 @@ const BLEND_LEVELS=[
  {name:"4 sounds",icon:"🐸",words:[["f-r-o-g","🐸"],["c-r-a-b","🦀"],["d-r-u-m","🥁"],["f-l-a-g","🚩"],["c-l-o-ck","🕰️"],["s-n-a-ck","🍪"],["t-e-n-t","⛺"],["h-a-n-d","✋"]]}
 ];
 const SIGHT=[["I","a","the","is","my","to","go","see"],["we","you","he","she","me","be","no","yes"],["and","can","like","look","it","in","on","up"],["said","was","they","are","come","here","what","all"]];
-const STICKERS="🦄🐳🦖🐙🦊🐨🦉🐢🦩🐬🦕🐝🐞🦔🐧🦒🐿️🦜🐠🦀🌻🍄🌵🍩🧁🍭🚀🚂🎈🎁🪁🏰👑💎🎸🥁🎠🛸🌋🏝️".match(/\p{Extended_Pictographic}️?/gu);
+const STICKERS="🦄🌈✨🧚👑💎🎀🌸🦋🍭🧁🍩⭐🌙🏰🪄💖🌷🐬🦩🐱🐰🦢🍓🎠🎈🎁🌻🍦🧸🌺🐚🐠🦜🐝🐞🌟💫🐳🦊".match(/\p{Extended_Pictographic}️?/gu);
 const STARS_PER_STICKER=5;
 
 /* ================= Storage ================= */
@@ -344,7 +372,7 @@ function wordRow(w,l){
   return `<button class="wrow ${l}" data-l="${l}" lang="${l}">${chip(l)}<span class="w">${esc(w[l])}${py}</span><span class="spk">🔊</span></button>`}
 function deckName(d){return `<b>${esc(d.name.en)}</b><small><span style="color:var(--sv)">${esc(d.name.sv)}</span> · <span style="color:var(--zh)">${esc(d.name.zh)}</span></small>`}
 function confetti(){const c=$("#confetti");const e=["⭐","🌟","✨","🎉","💛"];for(let i=0;i<24;i++){const s=document.createElement("i");s.textContent=rnd(e);s.style.left=Math.random()*100+"vw";s.style.animationDelay=Math.random()*.5+"s";c.appendChild(s);setTimeout(()=>s.remove(),2400)}}
-function buddy(msg){return `<div class="buddy"><button class="pal" id="pal" aria-label="Panda friend">🐼</button><div class="bubble" id="bubble">${msg}</div></div>`}
+function buddy(msg){return `<div class="buddy"><button class="pal" id="pal" aria-label="Unicorn friend">🦄</button><div class="bubble" id="bubble">${msg}</div></div>`}
 function hop(msg){const p=$("#pal");if(p){p.classList.remove("hop");void p.offsetWidth;p.classList.add("hop")}if(msg&&$("#bubble"))$("#bubble").innerHTML=msg}
 function praise(lang){const t=rnd(LANG[lang].praise);hop(esc(t));return {lang,text:t}}
 function pickLang(){const g=settings.gameLang;if(g!=="mix")return g;const r=Math.random();return r<.5?"zh":r<.75?"sv":"en"}
@@ -355,7 +383,7 @@ function go(name,p={}){stopAll();view=Object.assign({name},p);render();window.sc
 function renderTop(){
   const home=view.name==="home";
   $("#top").innerHTML=`${home?"":`<button class="iconbtn" id="back" aria-label="Back">${view.back?"⬅️":"🏠"}</button>`}
-    <h1><span class="s">Ord</span><span class="e">Words</span><span class="z">字</span></h1>
+    <h1>Ella's Word Den <span class="sp">✨</span></h1>
     <button class="starpill" id="starbtn" aria-label="Stars and stickers">⭐ <span>${stars}</span></button>`;
   const b=$("#back");if(b)b.onclick=()=>view.back?view.back():go("home");
   $("#starbtn").onclick=()=>go("stickers");
@@ -367,7 +395,7 @@ const VIEWS={};
 /* ---------- Home ---------- */
 VIEWS.home=app=>{
   app.innerHTML=`<div class="wrap" style="gap:18px">
-    ${buddy("Hej! Hi! 你好！")}
+    ${buddy("Hej Ella! Hi Ella! 你好 Ella！")}
     <div class="tiles">
       <button class="tile" data-go="words"><span class="ic">📚</span><b>Words</b><small>Ord · 词语</small></button>
       <button class="tile" data-go="find"><span class="ic">👂</span><b>Listen &amp; find</b><small>Lyssna · 听一听</small></button>
@@ -377,7 +405,7 @@ VIEWS.home=app=>{
       <button class="tile hold" id="grown"><span class="fill"></span><span class="ic">⚙️</span><b>Grown-ups</b><small>Press and hold</small></button>
     </div></div>`;
   $$("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
-  $("#pal").onclick=()=>{hop();play([{lang:"sv",text:"Hej!"},{lang:"en",text:"Hi!"},{lang:"zh",text:"你好！"}])};
+  $("#pal").onclick=()=>{hop();play([{lang:"sv",text:"Hej Ella!"},{lang:"en",text:"Hi Ella!"},{lang:"zh",text:"你好 Ella！"}])};
   holdToOpen($("#grown"),()=>go("parents"));
 };
 function holdToOpen(el,fn){let t=null;
@@ -391,15 +419,18 @@ function deckPicker(app,title,onPick,opts={}){
   const decks=DECKS.filter(d=>!(opts.noChars&&d.chars));
   app.innerHTML=`<div class="wrap">${buddy(title)}
     ${opts.langs?langPills():""}
-    <div class="tiles">${opts.all?`<button class="tile sm" data-d="all"><span class="ic">🎲</span><b>Mix of all</b><small>Blandat · 混合</small></button>`:""}
-    ${decks.map(d=>`<button class="tile sm" data-d="${d.id}"><span class="ic"${d.chars?` style="font-family:var(--hanzi);color:var(--zh)"`:""}>${d.icon}</span>${deckName(d)}</button>`).join("")}</div></div>`;
+    ${opts.all?`<div class="tiles"><button class="tile sm" data-d="all"><span class="ic">🎲</span><b>Mix of everything</b><small>Blandat · 混合</small></button></div>`:""}
+    ${GROUPS.map((g,gi)=>{const ds=g.decks.map(id=>decks.find(d=>d.id===id)).filter(Boolean);if(!ds.length)return "";
+      const tile=d=>`<button class="tile sm" data-d="${d.id}"><span class="ic"${d.chars?` style="font-family:var(--hanzi);color:var(--zh)"`:""}>${d.icon}</span>${deckName(d)}</button>`;
+      return `<section class="group"><h2><span${g.icon==="字"?` style="font-family:var(--hanzi);color:var(--zh)"`:""}>${g.icon}</span> ${esc(g.name.en)} <small><span style="color:var(--sv)">${esc(g.name.sv)}</span> · <span style="color:var(--zh)">${esc(g.name.zh)}</span></small></h2>
+        <div class="tiles">${ds.map(tile).join("")}${opts.all&&ds.length>1?`<button class="tile sm" data-d="g:${gi}"><span class="ic">🎲</span><b>All of these</b><small>Alla · 全部</small></button>`:""}</div></section>`}).join("")}</div>`;
   bindLangPills();
   $$("[data-d]").forEach(b=>b.onclick=()=>onPick(b.dataset.d))}
 function langPills(){
   const o=[["mix","🎲 Mix"],["zh","中文"],["sv","Svenska"],["en","English"]];
   return `<div><div class="label">Which language?</div><div class="pills">${o.map(([k,t])=>`<button class="pill ${k}" data-gl="${k}" aria-pressed="${settings.gameLang===k}">${t}</button>`).join("")}</div></div>`}
 function bindLangPills(){$$("[data-gl]").forEach(b=>b.onclick=()=>{settings.gameLang=b.dataset.gl;saveAll();$$("[data-gl]").forEach(x=>x.setAttribute("aria-pressed",x===b))})}
-const poolFor=id=>id==="all"?WORDS.filter(w=>!w.deck.chars):DECKS.find(d=>d.id===id).list;
+const poolFor=id=>id==="all"?WORDS.filter(w=>!w.deck.chars):id.startsWith("g:")?GROUPS[+id.slice(2)].decks.flatMap(x=>DECKS.find(d=>d.id===x).list):DECKS.find(d=>d.id===id).list;
 
 /* ---------- Words (picture cards) ---------- */
 VIEWS.words=app=>{
@@ -484,12 +515,12 @@ function startFind(deckId){
   go("find",{deck:deckId,game:{r:0,stars:0,rounds,max:ROUNDS},back:()=>go("find")})}
 function endScreen(app,g,again){
   fanfare();confetti();
-  app.innerHTML=`<div class="finish"><div class="big">🎉</div><h2>You did it! Du klarade det! 你真棒！</h2>
+  app.innerHTML=`<div class="finish"><div class="big">🎉</div><h2>You did it, Ella! 🦄 Du klarade det! 你真棒！</h2>
     <div class="starsrow">${"⭐".repeat(g.stars)}${"☆".repeat(Math.max(0,g.max-g.stars))}</div>
     ${g.newSticker?`<p><b>New sticker!</b></p><div class="stk new" style="width:110px;font-size:3.6rem">${g.newSticker}</div>`:""}
     <div class="pills" style="justify-content:center"><button class="bigbtn go" id="again">Play again 🔁</button><button class="bigbtn ghost" id="home">🏠</button></div></div>`;
   $("#again").onclick=again;$("#home").onclick=()=>go("home");
-  play([{lang:"en",text:"You did it!"},{lang:"sv",text:"Du klarade det!"},{lang:"zh",text:"你真棒！"}])}
+  play([{lang:"en",text:"You did it, Ella!"},{lang:"sv",text:"Du klarade det!"},{lang:"zh",text:"你真棒！"}])}
 
 /* ---------- Say it ---------- */
 VIEWS.sayit=app=>{
@@ -519,7 +550,7 @@ VIEWS.sayit=app=>{
     mic.classList.remove("rec");
     if(rec){count.textContent="👂 Listen to you!";const blob=await rec.stop();
       try{const url=URL.createObjectURL(blob);const a=new Audio(url);playing=a;await new Promise(r=>{a.onended=r;a.onerror=r;a.play().catch(r);setTimeout(r,5000)});URL.revokeObjectURL(url)}catch(e){}
-      count.textContent="And me: 🐼";await play([sayWord(w,l)])}
+      count.textContent="And me: 🦄";await play([sayWord(w,l)])}
     count.textContent="Your turn! Din tur! 到你了！";busy=false};
   $("#said").onclick=()=>{chime();mark(l,w.id,true);g.stars++;const s=addStar();if(s)g.newSticker=s;g.r++;go("sayit",view)};
   $("#skip").onclick=()=>{g.r++;go("sayit",view)};
@@ -649,7 +680,7 @@ VIEWS.parents=app=>{
   <div class="panel"><h2>Record your voice</h2>
     <p>Your voice is better than the device voice, especially for Swedish and Chinese. Tap 🎙 to start, tap again to stop. Recordings stay on this device.</p>
     ${canRecord?"":"<p><b>This browser can't record sound.</b></p>"}
-    <select id="recDeck">${decks.map(d=>`<option value="${d.id}" ${d.id===rd?"selected":""}>${esc(d.name.en)}</option>`).join("")}<option value="_sounds" ${rd==="_sounds"?"selected":""}>Phonics: letter sounds</option><option value="_pw" ${rd==="_pw"?"selected":""}>Phonics: words</option></select>
+    <select id="recDeck">${GROUPS.map(g=>`<optgroup label="${esc(g.name.en)}">${g.decks.map(id=>decks.find(d=>d.id===id)).map(d=>`<option value="${d.id}" ${d.id===rd?"selected":""}>${esc(d.name.en)}</option>`).join("")}</optgroup>`).join("")}<option value="_sounds" ${rd==="_sounds"?"selected":""}>Phonics: letter sounds</option><option value="_pw" ${rd==="_pw"?"selected":""}>Phonics: words</option></select>
     <div id="recList">${recRows(rd)}</div></div>
 
   <div class="panel"><h2>Start over</h2><p>Clears stars, stickers and progress on this device. Recordings are kept.</p>
