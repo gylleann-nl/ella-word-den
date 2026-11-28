@@ -23,9 +23,8 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0;background:var(--bg)}
-html{min-height:100%;background:#FFF0FA linear-gradient(180deg,#FFF0FA 0%,#F4ECFF 55%,#EAF6FF 100%) no-repeat;background-size:100% 100%}
-body{min-height:100vh}
-body{background:transparent}
+html{background:#EAF6FF}
+body{min-height:100vh;background:#FFF0FA linear-gradient(180deg,#FFF0FA 0%,#F4ECFF 55%,#EAF6FF 100%) no-repeat;background-size:100% 100%}
 body{color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.4;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
   padding:max(10px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(30px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;-webkit-user-select:none;user-select:none}
@@ -235,6 +234,8 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
 .mcard.up .back{display:none} .mcard.up .front{display:flex;animation:flipin .25s ease}
 @keyframes flipin{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .mcard.matched .front{border-color:var(--en);background:var(--enBg)}
+.notice{position:fixed;left:0;right:0;margin:0 auto;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:11;width:min(90vw,420px);background:#3A2456;color:#fff;border-radius:18px;padding:12px 16px;font-weight:800;text-align:center;box-shadow:0 8px 24px rgba(58,36,86,.3)}
+.armed{background:#C81E1E!important;color:#fff!important;border-color:#C81E1E!important}
 .stickers{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px}
 .stk{aspect-ratio:1;border-radius:22px;background:var(--surface);border:3px solid var(--line);display:grid;place-items:center;font-size:2.8rem}
 .stk.locked{font-size:1.6rem;color:var(--muted);background:#F6EEFF;border-style:dashed;font-family:var(--display)}
@@ -468,7 +469,11 @@ function buildMine(){
   const d={id:"mine",icon:"girl",name:{en:"Ella's things",sv:"Ellas saker",zh:"Ella 的东西"},words:[]};
   d.list=MINE.map(m=>{MINEIMG[m.k]=m.img;const w={id:"mine:"+m.k,deck:d,pic:"photo:"+m.k,en:m.en,sv:m.sv,zh:m.zh,py:m.py||""};WORDS.push(w);byId[w.id]=w;return w});
   DECKS.unshift(d)}
-function saveMine(){try{localStorage.setItem("ow.mine",JSON.stringify(MINE));return true}catch(e){alert("There is no more room on this device for photos. Delete one first.");return false}}
+function notice(msg){const old=document.querySelector(".notice");if(old)old.remove();const el=document.createElement("div");el.className="notice";el.setAttribute("role","status");el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),4000)}
+/* A button that needs a second tap to confirm. */
+function twoTap(btn,label,fn){if(btn.dataset.armed){fn();return}btn.dataset.armed="1";const old=btn.innerHTML;btn.textContent=label;btn.classList.add("armed");
+  setTimeout(()=>{if(btn.isConnected){delete btn.dataset.armed;btn.innerHTML=old;btn.classList.remove("armed")}},4000)}
+function saveMine(){try{localStorage.setItem("ow.mine",JSON.stringify(MINE));return true}catch(e){notice("There is no more room on this device for photos. Delete one first.");return false}}
 buildMine();
 
 const LANG={
@@ -1436,14 +1441,14 @@ VIEWS.parents=app=>{
   </div>`;
   $$("[data-set]").forEach(b=>b.onclick=()=>{const k=b.dataset.set,v=b.dataset.v;
     settings[k]=["choices","perHeart","heartCap"].includes(k)?+v:k==="pinyin"?v==="true":k==="order"?v.split(","):v;saveAll();go("parents",{recDeck:rd})});
-  if($("#handed"))$("#handed").onclick=()=>{if(confirm(`Mark ${hearts.pending} heart(s) as added to the Reward Jar?`)){hearts.pending=0;saveAll();go("parents",{recDeck:rd})}};
+  if($("#handed"))$("#handed").onclick=e=>twoTap(e.currentTarget,"Tap again to confirm",()=>{hearts.pending=0;saveAll();go("parents",{recDeck:rd})});
   let mImg=null;
-  $("#mPhoto").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{mImg=await squarePhoto(f);$("#mPrev").src=mImg;$("#mPrev").hidden=false}catch(_){alert("Couldn't read that photo.")}};
+  $("#mPhoto").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{mImg=await squarePhoto(f);$("#mPrev").src=mImg;$("#mPrev").hidden=false}catch(_){notice("Couldn't read that photo. Try another one.")}};
   $("#mAdd").onclick=()=>{const v=id=>$(id).value.trim();
-    if(!mImg||!v("#mSv")||!v("#mEn")||!v("#mZh")){alert("Please add a photo and the word in Swedish, English and Chinese.");return}
+    if(!mImg||!v("#mSv")||!v("#mEn")||!v("#mZh")){notice("Add a photo and the word in Swedish, English and Chinese.");return}
     MINE.push({k:Date.now().toString(36),img:mImg,sv:v("#mSv"),en:v("#mEn"),zh:v("#mZh"),py:v("#mPy")});
     if(!saveMine()){MINE.pop();return}buildMine();go("parents",{recDeck:"mine"})};
-  $$("[data-mdel]").forEach(b=>b.onclick=()=>{if(!confirm("Delete this word?"))return;MINE=MINE.filter(m=>m.k!==b.dataset.mdel);saveMine();buildMine();go("parents",{recDeck:rd==="mine"&&!MINE.length?"fruit":rd})});
+  $$("[data-mdel]").forEach(b=>b.onclick=()=>twoTap(b,"Tap again to delete",()=>{MINE=MINE.filter(m=>m.k!==b.dataset.mdel);saveMine();buildMine();go("parents",{recDeck:rd==="mine"&&!MINE.length?"fruit":rd})}));
   $("#recDeck").onchange=e=>go("parents",{recDeck:e.target.value});
   bindRec();
   holdToOpen($("#reset"),()=>{progress={sv:{},en:{},zh:{}};stars=0;phon={};saveAll();go("parents",{recDeck:rd})});
@@ -1465,8 +1470,8 @@ function bindRec(){
     const k=b.dataset.rk;
     if(live&&live.key===k){b.disabled=true;const blob=await live.rec.stop();live=null;if(blob.size>0)saveRec(k,blob);refreshRec();play([{lang:b.dataset.l,text:b.dataset.t,key:k}]);return}
     if(live)return;
-    if(!canRecord){alert("Recording isn't supported in this browser.");return}
-    stopAll();try{live={key:k,rec:await startRec()};b.classList.add("live");b.textContent="Stop"}catch(e){live=null;alert("Couldn't use the microphone. Check the browser's microphone permission.")}});
+    if(!canRecord){notice("This browser can't record sound.");return}
+    stopAll();try{live={key:k,rec:await startRec()};b.classList.add("live");b.textContent="Stop"}catch(e){live=null;notice("Couldn't use the microphone. Allow it in the browser's settings, or record on the GitHub site.")}});
   $$("[data-del]").forEach(b=>b.onclick=()=>{delRec(b.dataset.del);refreshRec()});}
 function refreshRec(){const rd=$("#recDeck").value;$("#recList").innerHTML=recRows(rd);bindRec()}
 
